@@ -2,6 +2,19 @@
 
 namespace App\Http\Controllers\api\auth;
 
+/**
+ * @OA\Info(
+ *     title="Nama API Kamu",
+ *     version="1.0.0",
+ *     description="Deskripsi singkat API kamu"
+ * )
+ *
+ * @OA\Server(
+ *     url=L5_SWAGGER_CONST_HOST,
+ *     description="API Server"
+ * )
+ */
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,6 +29,36 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
+
+     /**
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Login user",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email", "password"},
+ *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="password123"),
+ *             @OA\Property(property="remember", type="boolean", example=true)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Login Successful"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Invalid Credentials"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation Failed"
+ *     )
+ * )
+ */
+
     public function login(Request $request)
     {
         $validated = Validator::make(
