@@ -1,6 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/artisan', function () {
+    Artisan::call('l5-swagger:generate');
+});
 
 Route::get('/', function () {
     return view('welcome');
