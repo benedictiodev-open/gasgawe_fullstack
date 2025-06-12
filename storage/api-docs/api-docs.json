@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Nama API Kamu",
-        "description": "Deskripsi singkat API kamu",
+        "title": "Gas Gawe",
+        "description": "Documentation api for mobile apps",
         "version": "1.0.0"
     },
     "servers": [
@@ -12,52 +12,16 @@
         }
     ],
     "paths": {
-        "/api/login": {
-            "post": {
+        "/api/recruitment/jobs": {
+            "get": {
                 "tags": [
-                    "Authentication"
+                    "Jobs"
                 ],
-                "summary": "Login user",
-                "operationId": "14887c9d021a76d5001ff4dc545ab688",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "user@example.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "password123"
-                                    },
-                                    "remember": {
-                                        "type": "boolean",
-                                        "example": true
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
+                "summary": "Ambil daftar job",
+                "operationId": "3ebbfc6fed314b27f14e2437bc472692",
                 "responses": {
                     "200": {
-                        "description": "Login Successful"
-                    },
-                    "401": {
-                        "description": "Invalid Credentials"
-                    },
-                    "422": {
-                        "description": "Validation Failed"
+                        "description": "Berhasil mengambil data user"
                     }
                 }
             }
@@ -65,8 +29,8 @@
     },
     "tags": [
         {
-            "name": "Authentication",
-            "description": "Authentication"
+            "name": "Jobs",
+            "description": "Jobs"
         }
     ]
 }
