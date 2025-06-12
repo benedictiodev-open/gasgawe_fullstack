@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://localhost:8001",
             "description": "API Server"
         }
     ],
@@ -18,7 +18,7 @@
                     "Jobs"
                 ],
                 "summary": "Ambil daftar job",
-                "operationId": "3ebbfc6fed314b27f14e2437bc472692",
+                "operationId": "ca8f94feab06b556046a42a8b7539d42",
                 "responses": {
                     "200": {
                         "description": "Berhasil mengambil data user"

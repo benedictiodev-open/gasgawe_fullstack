@@ -16,6 +16,7 @@ namespace App\Http\Controllers\api\Jobs;
  */
 
 use App\Http\Controllers\Controller;
+use App\Services\Job\JobService;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,21 @@ class JobsController extends Controller
      * )
      */
 
+    private $jobService;
+
+    public function __construct(JobService $jobService)
+    {
+        $this->jobService = $jobService;
+    }
+
     public function list_job() {
         try {
-            
+            $list_job = $this->jobService->get_list_job();
+
+            return response()->json([
+                'message' => 'success',
+                'data' => $list_job
+            ]);
         } catch (Exception $error) {
             return response()->json([
                 'message' => $error->getMessage(),
