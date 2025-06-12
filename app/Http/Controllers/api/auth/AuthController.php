@@ -16,6 +16,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
+
     public function login(Request $request)
     {
         $validated = Validator::make(

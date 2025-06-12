@@ -1,0 +1,36 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gas Gawe",
+        "description": "Documentation api for mobile apps",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8001",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/recruitment/jobs": {
+            "get": {
+                "tags": [
+                    "Jobs"
+                ],
+                "summary": "Ambil daftar job",
+                "operationId": "ca8f94feab06b556046a42a8b7539d42",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data user"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Jobs",
+            "description": "Jobs"
+        }
+    ]
+}
