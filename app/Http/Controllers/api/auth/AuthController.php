@@ -25,6 +25,7 @@ class AuthController extends Controller
                 "email" => "required|email",
                 "password" => "required|string|min:8",
                 "remember" => "boolean|nullable",
+                "device_token" => "sometimes|string",
             ]
         );
 
@@ -38,6 +39,10 @@ class AuthController extends Controller
             if (Auth::attempt($validated->validated(), $validated->getValue("remeber"))) {
                 $user = User::query()->firstWhere("email", $validated->getValue("email"));
                 $token = $user->createToken('auth_token_gasgawe')->plainTextToken;
+
+                $user->update([
+                    "device_token" => $validated->getValue("device_token") ?? null
+                ]);
 
                 return response()->json([
                     "status" => "success",
@@ -70,6 +75,8 @@ class AuthController extends Controller
                 "email" => "required|email|unique:users,email",
                 "password" => "required|confirmed|string|min:8",
                 "name" => "required|string|max:255",
+                "type" => "required|in:admin,recruiter,candidate",
+                "device_token" => "sometimes|string",
             ]
         );
 
@@ -84,6 +91,8 @@ class AuthController extends Controller
                 "email" => $validated->getValue("email"),
                 "password" => bcrypt($validated->getValue("password")),
                 "name" => $validated->getValue("name"),
+                "type" => $validated->getValue("type"),
+                "device_token" => $validated->getValue("device_token") ?? null,
             ]);
             if ($user) {
                 $token = $user->createToken('auth_token_gasgawe')->plainTextToken;
