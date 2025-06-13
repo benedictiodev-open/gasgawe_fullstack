@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/documentation', '\L5Swagger\Http\Controllers\SwaggerController@api')->name('l5swagger.api');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login-with-google', [AuthController::class, 'login_with_google']);
 Route::post('/register', [AuthController::class, 'register']);

@@ -12,6 +12,9 @@ Route::get('/artisan-master', function () {
 Route::get('/artisan', function () {
     Artisan::call('l5-swagger:generate');
 });
+Route::get('/artisan-optimize', function () {
+    Artisan::call('l5-swagger:generate');
+});
 
 Route::get('/', function () {
     return view('welcome');
