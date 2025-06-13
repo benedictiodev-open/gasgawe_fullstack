@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('type', ['admin', 'recruiter', 'candidate'])
-                ->default('candidate')
+            $table->enum('type', ['admin', 'recruiter', 'applicant'])
+                ->default('applicant')
                 ->nullable()
                 ->after('email_verified_at');
             $table->string('device_token')->nullable()->after('type');
