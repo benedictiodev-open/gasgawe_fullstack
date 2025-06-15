@@ -132,7 +132,7 @@ class AuthController extends Controller
                 "email" => "required|email|unique:users,email",
                 "password" => "required|confirmed|string|min:8",
                 "name" => "required|string|max:255",
-                "type" => "required|in:admin,recruiter,candidate",
+                "type" => "required|in:admin,recruiter,applicant",
                 "device_token" => "sometimes|string",
             ]
         );
@@ -176,19 +176,12 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function user(Request $request)
+    public function user()
     {
-        if ($request?->user()) {
-            return response()->json([
-                "status" => "success",
-                "data" => $request->user()
-            ], 200);
-        } else {
-            return response()->json([
-                "status" => "error",
-                "message" => "User not authenticated"
-            ], 401);
-        }
+        return response()->json([
+            "status" => "success",
+            "data" => Auth::guard('sanctum')->user()
+        ], 200);
     }
 
     /**
@@ -196,19 +189,12 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
+    public function logout()
     {
-        if ($request->user()) {
-            $request->user()->currentAccessToken()->delete();
-            return response()->json([
-                "status" => "success",
-                "message" => "Logout Successful"
-            ], 200);
-        } else {
-            return response()->json([
-                "status" => "error",
-                "message" => "User not authenticated"
-            ], 401);
-        }
+        Auth::guard('sanctum')->user()->currentAccessToken()->delete();
+        return response()->json([
+            "status" => "success",
+            "message" => "Logout Successful"
+        ], 200);
     }
 }
