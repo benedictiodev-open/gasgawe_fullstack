@@ -1,23 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+Route::redirect("/", "/dashboard");
 
-Route::get('/artisan-master', function () {
-    Artisan::call('vendor:publish', [
-        '--provider' => 'L5Swagger\L5SwaggerServiceProvider'
-    ]);
-});
-Route::get('/artisan', function () {
-    Artisan::call('l5-swagger:generate');
-});
-Route::get('/artisan-optimize', function () {
-    Artisan::call('l5-swagger:generate');
-});
-
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('pages.dashboard.index');
+    })->name('dashboard');
+    Route::get('/applicants', function () {
+        return view('pages.applicants.index');
+    })->name('applicants');
+    Route::get('/recruiters', function () {
+        return view('pages.recruiters.index');
+    })->name('recruiters');
+    Route::get('/jobs', function () {
+        return view('pages.jobs.index');
+    })->name('jobs');
 });
 
 Route::get('/get_token_google', function () {
