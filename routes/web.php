@@ -1,23 +1,40 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+Route::redirect("/", "/dashboard");
 
-Route::get('/artisan-master', function () {
-    Artisan::call('vendor:publish', [
-        '--provider' => 'L5Swagger\L5SwaggerServiceProvider'
-    ]);
-});
-Route::get('/artisan', function () {
-    Artisan::call('l5-swagger:generate');
-});
-Route::get('/artisan-optimize', function () {
-    Artisan::call('l5-swagger:generate');
-});
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('pages.dashboard.index');
+    })->name('dashboard');
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::prefix('applicants')->group(function () {
+        Route::get('/', function () {
+            return view('pages.applicants.index');
+        })->name('applicants');
+        // Route::get('/detail', function () {
+        //     return view('pages.applicants.detail');
+        // })->name('applicants.detail');
+    });
+
+    Route::prefix('recruiters')->group(function () {
+        Route::get('/', function () {
+            return view('pages.recruiters.index');
+        })->name('recruiters');
+        // Route::get('/detail', function () {
+        //     return view('pages.recruiters.detail');
+        // })->name('recruiters.detail');
+    });
+
+    Route::prefix('jobs')->group(function () {
+        Route::get('/', function () {
+            return view('pages.jobs.index');
+        })->name('jobs');
+        // Route::get('/detail', function () {
+        //     return view('pages.jobs.detail');
+        // })->name('jobs.detail');
+    });
 });
 
 Route::get('/get_token_google', function () {
