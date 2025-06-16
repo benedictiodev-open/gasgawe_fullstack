@@ -7,14 +7,14 @@
 @section('main')
   <div class="grid grid-cols-12 items-center gap-5">
     {{-- SEARCH & FILTER --}}
-    <div class="col-span-12 flex flex-row items-center gap-2 static">
+    <div class="col-span-12 flex flex-row items-center gap-2">
       <div class="flex-1">
         <label class="input input-bordered flex items-center gap-2">
           <input type="text" class="grow" placeholder="Search" />
           <i class="fa-solid fa-magnifying-glass"></i>
         </label>
       </div>
-      <div class="flex-none static">
+      <div class="flex-none">
         <div class="dropdown dropdown-end">
           <div tabindex="1" role="button" class="btn"><i class="fa-solid fa-filter"></i> Filter <i
               class="fa-solid fa-caret-down"></i> </div>
@@ -74,6 +74,7 @@
               <th>Location</th>
               <th>Level</th>
               <th>Badges</th>
+              {{-- <th>Actions</th> --}}
             </tr>
           </thead>
           <tbody>
@@ -103,6 +104,11 @@
                     <div class="badge badge-info rounded-md p-3 text-white font-normal">Expert</div>
                   </div>
                 </th>
+                {{-- <td>
+                  <a href="{{ route('applicants.detail') }}" rel="noopener noreferrer">
+                    <i class="fa-solid fa-circle-info text-lg text-gray-400"></i>
+                  </a>
+                </td> --}}
               </tr>
             @endforeach
         </table>

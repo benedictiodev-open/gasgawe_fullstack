@@ -7,14 +7,14 @@
 @section('main')
   <div class="grid grid-cols-12 items-center gap-5">
     {{-- SEARCH & FILTER --}}
-    <div class="col-span-12 flex flex-row items-center gap-2 static">
+    <div class="col-span-12 flex flex-row items-center gap-2">
       <div class="flex-1">
         <label class="input input-bordered flex items-center gap-2">
           <input type="text" class="grow" placeholder="Search" />
           <i class="fa-solid fa-magnifying-glass"></i>
         </label>
       </div>
-      <div class="flex-none static">
+      <div class="flex-none">
         <div class="dropdown dropdown-end">
           <div tabindex="1" role="button" class="btn"><i class="fa-solid fa-filter"></i> Filter <i
               class="fa-solid fa-caret-down"></i> </div>
@@ -81,7 +81,7 @@
             @foreach (range(1, 4) as $item)
               <tr class="rounded-xl bg-base-100 mb-2">
                 <th class="first:rounded-l-xl">
-                  Full-Stack Developer {{ $item }}
+                  Full-Stack Developer
                 </th>
                 <td>Tech Solution Inc.</td>
                 <td>HR Manager</td>
