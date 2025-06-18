@@ -56,18 +56,20 @@
         </div>
       </div>
       <ul tabindex="0" class="menu menu-md dropdown-content bg-base-100 rounded-lg z-[1] mt-4 shadow p-0">
-        <div class="flex flex-row items-center justify-between gap-1 p-3 bg-base-200 rounded-t-lg">
-          <div class="btn btn-ghost btn-circle avatar">
-            <div class="w-8 rounded-full">
-              <img alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        <a href="{{ route('accounts') }}" rel="noopener noreferrer">
+          <div class="flex flex-row items-center justify-between gap-3 p-3 bg-base-200 rounded-t-lg">
+            <div class="avatar">
+              <div class="w-8 rounded-full">
+                <img alt="Tailwind CSS Navbar component"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              </div>
+            </div>
+            <div class="flex flex-col gap-1 justify-center">
+              <span class="text-sm">Stevani Permana</span>
+              <span class="text-xs">stevanipermana@gmail.com</span>
             </div>
           </div>
-          <div class="flex flex-col gap-1 justify-center">
-            <span class="text-sm">Stevani Permana</span>
-            <span class="text-xs">stevanipermana@gmail.com</span>
-          </div>
-        </div>
+        </a>
         <li class="mx-0.5">
           <a class="flex flex-row items-center gap-2">
             <i class="w-fit h-fit fa-solid fa-arrow-right-arrow-left"></i>
