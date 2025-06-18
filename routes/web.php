@@ -13,27 +13,33 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/', function () {
             return view('pages.applicants.index');
         })->name('applicants');
-        // Route::get('/detail', function () {
-        //     return view('pages.applicants.detail');
-        // })->name('applicants.detail');
+        Route::get('/detail', function () {
+            return view('pages.applicants.detail');
+        })->name('applicants.detail');
     });
 
     Route::prefix('recruiters')->group(function () {
         Route::get('/', function () {
             return view('pages.recruiters.index');
         })->name('recruiters');
-        // Route::get('/detail', function () {
-        //     return view('pages.recruiters.detail');
-        // })->name('recruiters.detail');
+        Route::get('/detail', function () {
+            return view('pages.recruiters.detail');
+        })->name('recruiters.detail');
     });
 
     Route::prefix('jobs')->group(function () {
         Route::get('/', function () {
             return view('pages.jobs.index');
         })->name('jobs');
-        // Route::get('/detail', function () {
-        //     return view('pages.jobs.detail');
-        // })->name('jobs.detail');
+        Route::get('/detail', function () {
+            return view('pages.jobs.detail');
+        })->name('jobs.detail');
+    });
+
+    Route::prefix('accounts')->group(function () {
+        Route::get('/', function () {
+            return view('pages.accounts.index');
+        })->name('accounts');
     });
 });
 

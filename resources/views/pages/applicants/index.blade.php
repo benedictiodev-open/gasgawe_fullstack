@@ -74,7 +74,7 @@
               <th>Location</th>
               <th>Level</th>
               <th>Badges</th>
-              {{-- <th>Actions</th> --}}
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -104,11 +104,11 @@
                     <div class="badge badge-info rounded-md p-3 text-white font-normal">Expert</div>
                   </div>
                 </th>
-                {{-- <td>
+                <td>
                   <a href="{{ route('applicants.detail') }}" rel="noopener noreferrer">
                     <i class="fa-solid fa-circle-info text-lg text-gray-400"></i>
                   </a>
-                </td> --}}
+                </td>
               </tr>
             @endforeach
         </table>

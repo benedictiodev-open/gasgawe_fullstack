@@ -95,7 +95,9 @@
                 </th>
                 <th class="last:rounded-r-xl">
                   <div class="flex flex-row items-center gap-2">
-                    <i class="fa-solid fa-pen text-lg text-info"></i>
+                    <a href="{{ route('jobs.detail') }}" rel="noopener noreferrer">
+                      <i class="fa-solid fa-pen text-lg text-info"></i>
+                    </a>
                     <i class="fa-solid fa-ban text-lg text-error"></i>
                     <i class="fa-solid fa-ellipsis text-lg text-gray-400"></i>
                   </div>
