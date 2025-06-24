@@ -66,55 +66,72 @@ class AuthController extends Controller
     }
 
     public function login_with_google(Request $request) {
-        $validated = Validator::make(
-            $request->all(),
-            [
-                "type" => "required|string",
-                "device_token" => "sometimes|string",
-                "provider_token" => "required",
-            ]
-        );
-
-        if ($validated->fails()) {
-            return response()->json([
-                "status" => "error",
-                "message" => "Validation Failed",
-                "errors" => $validated->errors()
-            ], 422);
-        } else {
-            $idToken = $validated->getValue("provider_token");
-            $auth = (new Factory)
-                ->withServiceAccount(storage_path('firebase_credentials.json'))
-                ->createAuth();
-    
-            $verifiedIdToken = $auth->verifyIdToken($idToken);
-    
-            $uid = $verifiedIdToken->claims()->get('sub');
-            $firebaseUser = $auth->getUser($uid);
-
-            // Find or create user based on Firebase email
-            $user = User::firstOrCreate(
-                ['email' => $firebaseUser->email],
+        try {
+            $validated = Validator::make(
+                $request->all(),
                 [
-                    'email' => $firebaseUser->email,
-                    'name' => $firebaseUser->displayName ?? $firebaseUser->email,
-                    'password' => bcrypt($firebaseUser->uid),
-                    'type' => $validated->getValue("type"),
+                    "type" => "required|string",
+                    "device_token" => "sometimes|string",
+                    "idtoken" => "required",
                 ]
             );
 
-            $user->update(['device_token' => $request->device_token]);
-            $token = $user->createToken('auth_token_gasgawe')->plainTextToken;
+            if ($validated->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Validation Failed",
+                    "errors" => $validated->errors(),
+                    "data" => null
+                ], 422);
+            } else {
+                $idToken = $validated->getValue("idtoken");
+                $auth = (new Factory)
+                    ->withServiceAccount(storage_path('firebase_credentials.json'))
+                    ->createAuth();
     
-            Auth::login($user);
+                try {
+                    $verifiedIdToken = $auth->verifyIdToken($idToken);
+                } catch (\Kreait\Firebase\Exception\Auth\FailedToVerifyToken $e) {
+                    return response()->json([
+                        "data" => null,
+                        "status" => "error",
+                        "message" => "Token expired or invalid."
+                    ], 400);
+                }
+    
+                $uid = $verifiedIdToken->claims()->get('sub');
+                $firebaseUser = $auth->getUser($uid);
+
+                // Find or create user based on Firebase email
+                $user = User::firstOrCreate(
+                    ['email' => $firebaseUser->email],
+                    [
+                        'email' => $firebaseUser->email,
+                        'name' => $firebaseUser->displayName ?? $firebaseUser->email,
+                        'password' => bcrypt($firebaseUser->uid),
+                        'type' => $validated->getValue("type"),
+                    ]
+                );
+
+                $user->update(['device_token' => $request->device_token]);
+                $token = $user->createToken('auth_token_gasgawe')->plainTextToken;
+    
+                Auth::login($user);
+                return response()->json([
+                    "status" => "success",
+                    "message" => "Login Successful",
+                    "data" => [
+                        "user" => $user,
+                        "token" => $token
+                    ]
+                ], 200);
+            }
+        } catch (\Throwable $e) {
             return response()->json([
-                "status" => "success",
-                "message" => "Login Successful",
-                "data" => [
-                    "user" => $user,
-                    "token" => $token
-                ]
-            ], 200);
+                "status" => "error",
+                "message" => "Failed to verify Google token.",
+                "data" => null
+            ], 500);
         }
     }
 
@@ -131,9 +148,7 @@ class AuthController extends Controller
             [
                 "email" => "required|email|unique:users,email",
                 "password" => "required|confirmed|string|min:8",
-                "name" => "required|string|max:255",
                 "type" => "required|in:admin,recruiter,applicant",
-                "device_token" => "sometimes|string",
             ]
         );
 
@@ -147,9 +162,7 @@ class AuthController extends Controller
             $user = User::create([
                 "email" => $validated->getValue("email"),
                 "password" => bcrypt($validated->getValue("password")),
-                "name" => $validated->getValue("name"),
                 "type" => $validated->getValue("type"),
-                "device_token" => $validated->getValue("device_token") ?? null,
             ]);
             if ($user) {
                 $token = $user->createToken('auth_token_gasgawe')->plainTextToken;
