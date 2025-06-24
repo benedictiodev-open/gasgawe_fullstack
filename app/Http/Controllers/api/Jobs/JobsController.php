@@ -18,12 +18,13 @@ class JobsController extends Controller
         $this->jobService = $jobService;
     }
 
-    public function list_job_reqruiter() {
+    public function list_job_reqruiter(Request $request) {
         try {
             $user = Auth::guard('sanctum')->user();
             $type = $user->type;
             $user_id = $user->id;
-            $list_job = $this->jobService->get_list_job($user_id, $type);
+            $filters = $request->input('filters', []);
+            $list_job = $this->jobService->get_list_job($user_id, $type, $filters);
 
             return response()->json([
                 'message' => 'success',
@@ -36,12 +37,13 @@ class JobsController extends Controller
         }
     }
 
-    public function list_job_applicant() {
+    public function list_job_applicant(Request $request) {
         try {
             $user = Auth::guard('sanctum')->user();
             $type = $user->type;
             $user_id = $user->id;
-            $list_job = $this->jobService->get_list_job($user_id, $type);
+            $filters = $request->input('filters', []);
+            $list_job = $this->jobService->get_list_job($user_id, $type, $filters);
 
             return response()->json([
                 'message' => 'success',
@@ -140,6 +142,21 @@ class JobsController extends Controller
                     'data' => $job
                 ]);
             }
+        } catch (Exception $error) {
+            return response()->json([
+                'message' => $error->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function on_tranding() {
+        try {
+            $list = $this->jobService->on_tranding();
+
+            return response()->json([
+                'message' => 'success',
+                'data' => $list
+            ]);
         } catch (Exception $error) {
             return response()->json([
                 'message' => $error->getMessage(),
