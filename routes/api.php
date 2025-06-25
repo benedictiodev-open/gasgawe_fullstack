@@ -34,9 +34,8 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/on_tranding', [JobsController::class, 'on_tranding']);
         });
     });
-});
 
-
-Route::prefix('masterdata')->group(function () {
-    Route::get('/skill', [SkillController::class, 'skill']);
+    Route::prefix('masterdata')->group(function () {
+        Route::get('/skill', [SkillController::class, 'skill']);
+    });
 });
