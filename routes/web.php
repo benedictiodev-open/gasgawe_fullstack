@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\Location\LocationController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect("/", "/dashboard");
@@ -46,3 +47,9 @@ Route::prefix('dashboard')->group(function () {
 Route::get('/get_token_google', function () {
     return view('get_token_google');
 });
+
+
+Route::get('/provinces', [LocationController::class, 'allProvinces']);
+Route::get('/cities/{id}', [LocationController::class, 'getCitiesByProvinceId']);
+Route::get('/districts/{id}', [LocationController::class, 'getDistrictsByCityId']);
+Route::get('/villages/{id}', [LocationController::class, 'getVillagesbyDistrictId']);
