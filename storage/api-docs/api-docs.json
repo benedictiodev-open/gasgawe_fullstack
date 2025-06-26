@@ -11,23 +11,23 @@
     },
     "servers": [
         {
-            "url": "http://localhost/api",
+            "url": "http://localhost:8000/api",
             "description": "Local Development"
         },
         {
-            "url": "https://gasgawe.com",
+            "url": "https://gasgawe.com/api",
             "description": "Production Server"
         }
     ],
     "paths": {
-        "/api/login": {
+        "/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Login",
                 "description": "Portal login menggunakan email dan password",
-                "operationId": "14887c9d021a76d5001ff4dc545ab688",
+                "operationId": "4f4ec550c922d7b08c70b81fc6d7b04f",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -146,14 +146,14 @@
                 }
             }
         },
-        "/api/login-with-google": {
+        "/login-with-google": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Login with Google",
                 "description": "Login portal menggunakan Google ID token",
-                "operationId": "e96c8d9ea16856c9e4a66231d4d79e98",
+                "operationId": "1744d3aed0e23f7bd6a45a7b8e4e1bc0",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -293,14 +293,14 @@
                 }
             }
         },
-        "/api/register": {
+        "/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Register",
                 "description": "Register a new user",
-                "operationId": "6f89cb474e36115d1361bc95ef9411a3",
+                "operationId": "9fc3eac2942b82ae753bb93c07417764",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -415,6 +415,52 @@
                         }
                     }
                 }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout the authenticated user",
+                "operationId": "e967979186cb43832b38b20c0cd92d3a",
+                "responses": {
+                    "200": {
+                        "description": "Logout Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logout Successful"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },

@@ -13,12 +13,20 @@ namespace App\Swagger;
  *             url="https://opensource.org/licenses/MIT"
  *         )
  *     ),
+*      @OA\Components(
+ *          @OA\SecurityScheme(
+ *              securityScheme="bearerAuth",
+ *              type="http",
+ *              scheme="bearer",
+ *              bearerFormat="JWT"
+ *          )
+ *     ),
  *     @OA\Server(
- *         url="http://localhost/api",
+ *         url="http://localhost:8000/api",
  *         description="Local Development"
  *     ),
  *     @OA\Server(
- *         url="https://gasgawe.com",
+ *         url="https://gasgawe.com/api",
  *         description="Production Server"
  *     )
  * )
