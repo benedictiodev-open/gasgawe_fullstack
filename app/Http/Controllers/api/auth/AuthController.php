@@ -21,7 +21,7 @@ class AuthController extends Controller
 
      /**
      * @OA\Post(
-     *     path="/api/login",
+     *     path="/login",
      *     tags={"Auth"},
      *     summary="Login",
      *     description="Portal login menggunakan email dan password",
@@ -115,7 +115,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/login-with-google",
+     *     path="/login-with-google",
      *     tags={"Auth"},
      *     summary="Login with Google",
      *     description="Login portal menggunakan Google ID token",
@@ -242,7 +242,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/register",
+     *     path="/register",
      *     tags={"Auth"},
      *     summary="Register",
      *     description="Register a new user",
@@ -344,9 +344,21 @@ class AuthController extends Controller
     }
 
     /**
-     * Logout User.
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/logout",
+     *     tags={"Auth"},
+     *     summary="Logout",
+     *     description="Logout the authenticated user",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Logout Successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Logout Successful")
+     *         )
+     *     )
+     * )
      */
     public function logout()
     {
