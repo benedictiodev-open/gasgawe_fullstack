@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\Jobs\JobsController;
 use App\Http\Controllers\api\Masterdata\SkillController;
+use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Middleware\AuthApiApplicant;
 use App\Http\Middleware\AuthApiChecker;
 use App\Http\Middleware\AuthApiRecruiter;
@@ -37,5 +38,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('masterdata')->group(function () {
         Route::get('/skill', [SkillController::class, 'skill']);
+        Route::get('/province', [LocationController::class, 'allProvinces']);
+        Route::get('/cities/{id}', [LocationController::class, 'getCitiesByProvinceId']);
     });
 });

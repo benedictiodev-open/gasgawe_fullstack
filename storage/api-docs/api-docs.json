@@ -20,6 +20,203 @@
         }
     ],
     "paths": {
+        "/masterdata/province": {
+            "get": {
+                "tags": [
+                    "Masterdata"
+                ],
+                "summary": "Get all provinces",
+                "description": "Retrieve a list of all provinces in Indonesia.",
+                "operationId": "40f50aab86f712ec6f6295e335cfbf2f",
+                "responses": {
+                    "200": {
+                        "description": "Provinces retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "11"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "ACEH"
+                                                    },
+                                                    "meta": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/masterdata/cities/{id}": {
+            "get": {
+                "tags": [
+                    "Masterdata"
+                ],
+                "summary": "Get cities by province ID",
+                "description": "Retrieve a list of cities for a specific province.",
+                "operationId": "f46a0c37b9a573c8ac2dbe6c6f75545b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Province ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "11"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cities retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "1101"
+                                                    },
+                                                    "province_id": {
+                                                        "type": "string",
+                                                        "example": "11"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "KABUPATEN SIMEULUE"
+                                                    },
+                                                    "meta": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/masterdata/skill": {
+            "get": {
+                "tags": [
+                    "Masterdata"
+                ],
+                "summary": "Get all skills",
+                "description": "Retrieve a list of all skills with their group names.",
+                "operationId": "3928ef4f65624eff44342d685c0f91f6",
+                "responses": {
+                    "200": {
+                        "description": "Skills retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Skill retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "PHP"
+                                                    },
+                                                    "skill_group_name": {
+                                                        "type": "string",
+                                                        "example": "Programming Language"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -449,7 +646,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -465,6 +662,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Masterdata",
+            "description": "Masterdata"
+        },
         {
             "name": "Auth",
             "description": "Auth"

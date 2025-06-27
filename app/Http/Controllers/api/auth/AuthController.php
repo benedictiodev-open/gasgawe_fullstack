@@ -87,7 +87,14 @@ class AuthController extends Controller
                 "errors" => $validated->errors()
             ], 422);
         } else {
-            if (Auth::attempt($validated->validated(), $validated->getValue("remeber"))) {
+            $credentials = [
+                'email' => $validated->getValue('email'),
+                'password' => $validated->getValue('password'),
+                'type' => $validated->getValue('type'),
+            ];
+            $remember = $validated->getValue('remember', false);
+
+            if (Auth::attempt($credentials, $remember)) {
                 $user = User::query()->where("email", $validated->getValue("email"))->where('type', $validated->getValue("type"))->first();
 
                 $token = $user->createToken('auth_token_gasgawe')->plainTextToken;
@@ -349,7 +356,7 @@ class AuthController extends Controller
      *     tags={"Auth"},
      *     summary="Logout",
      *     description="Logout the authenticated user",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Logout Successful",
