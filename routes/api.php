@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\Jobs\JobsController;
-use App\Http\Controllers\Api\Masterdata\SkillController;
+use App\Http\Controllers\api\Masterdata\SkillController;
 use App\Http\Middleware\AuthApiApplicant;
 use App\Http\Middleware\AuthApiChecker;
 use App\Http\Middleware\AuthApiRecruiter;

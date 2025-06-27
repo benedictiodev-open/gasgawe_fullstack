@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Masterdata;
+namespace App\Http\Controllers\api\Masterdata;
 
 use App\Http\Controllers\Controller;
 use App\Services\Masterdata\SkillService;
