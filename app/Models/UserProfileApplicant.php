@@ -24,7 +24,9 @@ class UserProfileApplicant extends Model
         'bio',
         'profile_picture',
         'resume_file',
-        'is_active'
+        'file_cv',
+        'file_cover_letter',
+        'file_profile_image',
     ];
 
     protected $casts = [
@@ -56,6 +58,38 @@ class UserProfileApplicant extends Model
         return $this->belongsTo(City::class, 'city_id');
     }
 
+    /**
+     * Get the career history for this profile.
+     */
+    public function careerHistory()
+    {
+        return $this->hasMany(UserExperienceApplicant::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Get the education history for this profile.
+     */
+    public function educationHistory()
+    {
+        return $this->hasMany(UserEducationApplicant::class, 'user_id', 'user_id');
+    }
+
+
+    /**
+     * Get the experience level for this profile.
+     */
+    public function experience()
+    {
+        return $this->belongsTo(Experience::class, 'experience_id');
+    }
+
+    /**
+     * Get the education level for this profile.
+     */
+    public function education()
+    {
+        return $this->belongsTo(Education::class, 'education_id');
+    }
 
     /**
      * Get full name attribute

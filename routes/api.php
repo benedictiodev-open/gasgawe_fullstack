@@ -43,6 +43,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::prefix('/profile')->group(function () {
             Route::get('/', [ProfileController::class, 'get_profile']);
             Route::put('/update', [ProfileController::class, 'update_profile']);
+            Route::put('/update-advanced', [ProfileController::class, 'update_advance_profile']);
         });
     });
 
