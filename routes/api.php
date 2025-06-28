@@ -3,6 +3,10 @@
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\Jobs\JobsController;
 use App\Http\Controllers\api\Masterdata\SkillController;
+use App\Http\Controllers\api\Masterdata\EmploymentTypeController;
+use App\Http\Controllers\api\Masterdata\ExperienceController;
+use App\Http\Controllers\api\Masterdata\ExpectedSalaryController;
+use App\Http\Controllers\api\Masterdata\EducationController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Middleware\AuthApiApplicant;
 use App\Http\Middleware\AuthApiChecker;
@@ -40,5 +44,13 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::get('/skill', [SkillController::class, 'skill']);
         Route::get('/province', [LocationController::class, 'allProvinces']);
         Route::get('/cities/{id}', [LocationController::class, 'getCitiesByProvinceId']);
+        Route::get('/employment-types', [EmploymentTypeController::class, 'index']);
+        Route::post('/employment-types', [EmploymentTypeController::class, 'store']);
+        Route::get('/experiences', [ExperienceController::class, 'index']);
+        Route::post('/experiences', [ExperienceController::class, 'store']);
+        Route::get('/expected-salaries', [ExpectedSalaryController::class, 'index']);
+        Route::post('/expected-salaries', [ExpectedSalaryController::class, 'store']);
+        Route::get('/educations', [EducationController::class, 'index']);
+        Route::post('/educations', [EducationController::class, 'store']);
     });
 });
