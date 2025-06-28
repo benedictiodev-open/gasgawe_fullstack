@@ -23,7 +23,6 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->text('file_cv')->nullable();
             $table->text('file_cover_letter')->nullable();
-            $table->text('file_profile_video')->nullable();
             $table->text('file_profile_image')->nullable();
             $table->timestamps();
         });

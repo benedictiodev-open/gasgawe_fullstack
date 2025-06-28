@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('province_id')->constrained('indonesia_provinces')->nullable();
             $table->foreignId('city_id')->constrained('indonesia_cities')->nullable();
             $table->text('bio')->nullable();
-            $table->text('file_profile_video')->nullable();
             $table->text('file_profile_image')->nullable();
             $table->timestamps();
         });
