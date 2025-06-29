@@ -9,6 +9,9 @@ use App\Models\JobUsersApply;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Skill;
+use App\Models\Province;
+use App\Models\City;
 
 class JobController extends Controller
 {
@@ -106,6 +109,83 @@ class JobController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve trending recruiters: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
+        }
+    }
+    
+    /**
+     * @OA\Get(
+     *     path="/applicant/jobs/filter-option",
+     *     tags={"Applicant Jobs"},
+     *     summary="Filter jobs",
+     *     description="Filter jobs by search",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=false,
+     *         description="Search for jobs by location (province or city), or skill"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Jobs filtered successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Jobs filtered successfully"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="job_roles", type="array",
+     *                     @OA\Items(type="string", example="Software Engineer")
+     *                 ),
+     *                 @OA\Property(property="job_location_provinces", type="array",
+     *                     @OA\Items(type="string", example="Jakarta")
+     *                 ),
+     *                 @OA\Property(property="job_location_cities", type="array",
+     *                     @OA\Items(type="string", example="Jakarta")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Internal server error")
+     *         )
+     *     )
+     * )
+     */
+    public function filter_jobs(Request $request)
+    {
+        try {
+            $search = $request->search;
+
+            $skills = Skill::where('name', 'like', '%' . $search . '%')->get();
+            $provinces = Province::where('name', 'like', '%' . $search . '%')->get();
+            $cities = City::where('name', 'like', '%' . $search . '%')->get();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Jobs filtered successfully',
+                'data' => [
+                    'job_roles' => $skills,
+                    'job_location_provinces' => $provinces,
+                    'job_location_cities' => $cities,
+                ]
+            ], 200);
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to filter jobs: ' . $error->getMessage(),
                 'data' => null
             ], 500);
         }

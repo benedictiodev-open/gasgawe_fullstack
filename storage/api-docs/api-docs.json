@@ -148,6 +148,117 @@
                 ]
             }
         },
+        "/applicant/jobs/filter-option": {
+            "get": {
+                "tags": [
+                    "Applicant Jobs"
+                ],
+                "summary": "Filter jobs",
+                "description": "Filter jobs by search",
+                "operationId": "edf26b53b109a0873f880b882db86082",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search for jobs by location (province or city), or skill",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jobs filtered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Jobs filtered successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "job_roles": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Software Engineer"
+                                                    }
+                                                },
+                                                "job_location_provinces": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Jakarta"
+                                                    }
+                                                },
+                                                "job_location_cities": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Jakarta"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/applicant/profile/update": {
             "post": {
                 "tags": [
