@@ -20,7 +20,7 @@ class ProfileController extends Controller
     /**
      * @OA\Put(
      *     path="/applicant/profile/update",
-     *     tags={"Applicant"},
+     *     tags={"Applicant Profile"},
      *     summary="Update applicant profile",
      *     description="Update the authenticated applicant's profile information.",
      *     security={{"bearerAuth":{}}},
@@ -128,7 +128,7 @@ class ProfileController extends Controller
     /**
      * @OA\Get(
      *     path="/applicant/profile",
-     *     tags={"Applicant"},
+     *     tags={"Applicant Profile"},
      *     summary="Get applicant profile",
      *     description="Retrieve the authenticated applicant's profile information.",
      *     security={{"bearerAuth":{}}},
@@ -196,28 +196,46 @@ class ProfileController extends Controller
     }
 
     /**
-     * @OA\Put(
-     *     path="/applicant/profile/update-advanced",
+     * @OA\Post(
+     *     path="/applicant/profile/complete_profile",
      *     tags={"Applicant Profile"},
      *     summary="Update applicant advanced profile",
-     *     description="Update the authenticated applicant's advanced profile information including bio, phone, and file uploads.",
+     *     description="Update the authenticated applicant's advanced profile information including bio, file uploads, career history, and education history.",
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="bio", type="string", example="Experienced software developer with 5+ years in web development"),
-     *             @OA\Property(property="phone", type="string", example="+6281234567890"),
-     *             @OA\Property(property="address", type="string", example="Jl. Sudirman No. 123, Jakarta Pusat"),
-     *             @OA\Property(property="file_cv", type="string", example="cv_john_doe.pdf"),
-     *             @OA\Property(property="file_cover_letter", type="string", example="cover_letter_john_doe.pdf"),
-     *             @OA\Property(property="file_profile_image", type="string", example="profile_john_doe.jpg"),
-     *             @OA\Property(property="linkedin_url", type="string", example="https://linkedin.com/in/johndoe"),
-     *             @OA\Property(property="github_url", type="string", example="https://github.com/johndoe"),
-     *             @OA\Property(property="portfolio_url", type="string", example="https://johndoe.dev"),
-     *             @OA\Property(property="expected_salary_id", type="integer", example=3),
-     *             @OA\Property(property="employment_type_id", type="integer", example=1),
-     *             @OA\Property(property="experience_id", type="integer", example=2),
-     *             @OA\Property(property="education_id", type="integer", example=3)
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(property="bio", type="string", example="Experienced software developer with 5+ years in web development"),
+     *                 @OA\Property(property="file_cv", type="file", format="binary", description="CV/Resume file (PDF, max 2MB)"),
+     *                 @OA\Property(property="file_cover_letter", type="file", format="binary", description="Cover letter file (PDF, max 2MB)"),
+     *                 @OA\Property(property="career_history", type="array", 
+     *                     @OA\Items(type="object",
+     *                         @OA\Property(property="company_name", type="string", example="Tech Corp"),
+     *                         @OA\Property(property="position", type="string", example="Senior Developer"),
+     *                         @OA\Property(property="start_date", type="string", format="date", example="2020-01-01"),
+     *                         @OA\Property(property="end_date", type="string", format="date", example="2023-12-31"),
+     *                         @OA\Property(property="description", type="string", example="Led development team of 5 developers"),
+     *                         @OA\Property(property="skills", type="array", 
+     *                             @OA\Items(type="integer", example=1),
+     *                             description="Array of skill IDs"
+     *                         ),
+     *                         @OA\Property(property="employment_type_id", type="integer", example=1)
+     *                     )
+     *                 ),
+     *                 @OA\Property(property="education", type="array",
+     *                     @OA\Items(type="object",
+     *                         @OA\Property(property="institution", type="string", example="University of Technology"),
+     *                         @OA\Property(property="degree", type="string", example="Bachelor of Science"),
+     *                         @OA\Property(property="field_of_study", type="string", example="Computer Science"),
+     *                         @OA\Property(property="start_date", type="string", format="date", example="2016-09-01"),
+     *                         @OA\Property(property="end_date", type="string", format="date", example="2020-06-30"),
+     *                         @OA\Property(property="description", type="string", example="Focused on software engineering and web development"),
+     *                         @OA\Property(property="grade", type="string", example="3.8/4.0")
+     *                     )
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -237,20 +255,52 @@ class ProfileController extends Controller
      *                 @OA\Property(property="city_id", type="string", example="1101"),
      *                 @OA\Property(property="phone", type="string", example="+6281234567890"),
      *                 @OA\Property(property="bio", type="string", example="Experienced software developer with 5+ years in web development"),
-     *                 @OA\Property(property="address", type="string", example="Jl. Sudirman No. 123, Jakarta Pusat"),
-     *                 @OA\Property(property="file_cv", type="string", example="cv_john_doe.pdf"),
-     *                 @OA\Property(property="file_cover_letter", type="string", example="cover_letter_john_doe.pdf"),
-     *                 @OA\Property(property="file_profile_image", type="string", example="profile_john_doe.jpg"),
-     *                 @OA\Property(property="linkedin_url", type="string", example="https://linkedin.com/in/johndoe"),
-     *                 @OA\Property(property="github_url", type="string", example="https://github.com/johndoe"),
-     *                 @OA\Property(property="portfolio_url", type="string", example="https://johndoe.dev"),
-     *                 @OA\Property(property="expected_salary_id", type="integer", example=3),
-     *                 @OA\Property(property="employment_type_id", type="integer", example=1),
-     *                 @OA\Property(property="experience_id", type="integer", example=2),
-     *                 @OA\Property(property="education_id", type="integer", example=3),
+     *                 @OA\Property(property="file_cv", type="string", example="applicant_files/cv/cv_1_1234567890.pdf"),
+     *                 @OA\Property(property="file_cover_letter", type="string", example="applicant_files/cover_letter/cover_letter_1_1234567890.pdf"),
      *                 @OA\Property(property="is_active", type="boolean", example=true),
      *                 @OA\Property(property="created_at", type="string", format="date-time"),
-     *                 @OA\Property(property="updated_at", type="string", format="date-time")
+     *                 @OA\Property(property="updated_at", type="string", format="date-time"),
+     *                 @OA\Property(property="career_history", type="array",
+     *                     @OA\Items(type="object",
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="user_id", type="integer", example=1),
+     *                         @OA\Property(property="company_name", type="string", example="Tech Corp"),
+     *                         @OA\Property(property="position", type="string", example="Senior Developer"),
+     *                         @OA\Property(property="start_date", type="string", format="date", example="2020-01-01"),
+     *                         @OA\Property(property="end_date", type="string", format="date", example="2023-12-31"),
+     *                         @OA\Property(property="description", type="string", example="Led development team of 5 developers"),
+     *                         @OA\Property(property="employment_type_id", type="integer", example=1),
+     *                         @OA\Property(property="created_at", type="string", format="date-time"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time"),
+     *                         @OA\Property(property="skills", type="array",
+     *                             @OA\Items(type="object",
+     *                                 @OA\Property(property="id", type="integer", example=1),
+     *                                 @OA\Property(property="name", type="string", example="PHP"),
+     *                                 @OA\Property(property="description", type="string", example="PHP programming language")
+     *                             )
+     *                         ),
+     *                         @OA\Property(property="employment_type", type="object",
+     *                             @OA\Property(property="id", type="integer", example=1),
+     *                             @OA\Property(property="name", type="string", example="Fulltime"),
+     *                             @OA\Property(property="description", type="string", example="Full-time employment")
+     *                         )
+     *                     )
+     *                 ),
+     *                 @OA\Property(property="education_history", type="array",
+     *                     @OA\Items(type="object",
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="user_id", type="integer", example=1),
+     *                         @OA\Property(property="institution", type="string", example="University of Technology"),
+     *                         @OA\Property(property="degree", type="string", example="Bachelor of Science"),
+     *                         @OA\Property(property="field_of_study", type="string", example="Computer Science"),
+     *                         @OA\Property(property="start_date", type="string", format="date", example="2016-09-01"),
+     *                         @OA\Property(property="end_date", type="string", format="date", example="2020-06-30"),
+     *                         @OA\Property(property="description", type="string", example="Focused on software engineering and web development"),
+     *                         @OA\Property(property="grade", type="string", example="3.8/4.0"),
+     *                         @OA\Property(property="created_at", type="string", format="date-time"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time")
+     *                     )
+     *                 )
      *             )
      *         )
      *     ),
@@ -261,11 +311,21 @@ class ProfileController extends Controller
      *             @OA\Property(property="status", type="string", example="error"),
      *             @OA\Property(property="message", type="string", example="Validation failed"),
      *             @OA\Property(property="errors", type="object",
-     *                 @OA\Property(property="phone", type="array",
-     *                     @OA\Items(type="string", example="The phone field must be a valid phone number.")
+     *                 @OA\Property(property="file_cv", type="array",
+     *                     @OA\Items(type="string", example="The file cv must be a file of type: pdf."),
+     *                     @OA\Items(type="string", example="The file cv may not be greater than 2048 kilobytes.")
      *                 ),
-     *                 @OA\Property(property="linkedin_url", type="array",
-     *                     @OA\Items(type="string", example="The linkedin url must be a valid URL.")
+     *                 @OA\Property(property="file_cover_letter", type="array",
+     *                     @OA\Items(type="string", example="The file cover letter may not be greater than 2048 kilobytes.")
+     *                 ),
+     *                 @OA\Property(property="career_history.0.company_name", type="array",
+     *                     @OA\Items(type="string", example="The career history.0.company name field is required.")
+     *                 ),
+     *                 @OA\Property(property="career_history.0.skills.0", type="array",
+     *                     @OA\Items(type="string", example="The selected career history.0.skills.0 is invalid.")
+     *                 ),
+     *                 @OA\Property(property="education.0.institution", type="array",
+     *                     @OA\Items(type="string", example="The education.0.institution field is required.")
      *                 )
      *             ),
      *             @OA\Property(property="data", type="object", example=null)
@@ -289,25 +349,25 @@ class ProfileController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'bio' => 'sometimes|string|max:1000',
-                'file_cv' => 'sometimes|file|mimes:pdf|max:2048',
-                'file_cover_letter' => 'sometimes|file|mimes:pdf|max:2048',
-                'career_history' => 'sometimes|array',
-                'career_history.*.company_name' => 'sometimes|string|max:255',
-                'career_history.*.position' => 'sometimes|string|max:255',
-                'career_history.*.start_date' => 'sometimes|date',
-                'career_history.*.end_date' => 'sometimes|date',
-                'career_history.*.description' => 'sometimes|string|max:1000',
-                'career_history.*.skills' => 'sometimes|array',
-                'career_history.*.skills.*' => 'sometimes|exists:skills,id',
-                'career_history.*.employment_type_id' => 'sometimes|exists:employment_types,id',
-                'education' => 'sometimes|array',
-                'education.*.institution' => 'sometimes|string|max:255',
-                'education.*.degree' => 'sometimes|string|max:255',
-                'education.*.field_of_study' => 'sometimes|string|max:255',
-                'education.*.start_date' => 'sometimes|date',
-                'education.*.end_date' => 'sometimes|date',
-                'education.*.description' => 'sometimes|string|max:1000',
-                'education.*.grade' => 'sometimes|string|max:255',
+                'file_cv' => 'nullable|file|mimes:pdf|max:2048',
+                'file_cover_letter' => 'nullable|file|mimes:pdf|max:2048',
+                'career_history' => 'sometimes',
+                // 'career_history.*.company_name' => 'sometimes|string|max:255',
+                // 'career_history.*.position' => 'sometimes|string|max:255',
+                // 'career_history.*.start_date' => 'sometimes|date',
+                // 'career_history.*.end_date' => 'sometimes|date',
+                // 'career_history.*.description' => 'sometimes|string|max:1000',
+                // 'career_history.*.skills' => 'sometimes|array',
+                // 'career_history.*.skills.*' => 'sometimes|exists:skills,id',
+                // 'career_history.*.employment_type_id' => 'sometimes|exists:employment_types,id',
+                'education' => 'sometimes',
+                // 'education.*.institution' => 'sometimes|string|max:255',
+                // 'education.*.degree' => 'sometimes|string|max:255',
+                // 'education.*.field_of_study' => 'sometimes|string|max:255',
+                // 'education.*.start_date' => 'sometimes|date',
+                // 'education.*.end_date' => 'sometimes|date',
+                // 'education.*.description' => 'sometimes|string|max:1000',
+                // 'education.*.grade' => 'sometimes|string|max:255',
             ]);
 
             if ($validator->fails()) {

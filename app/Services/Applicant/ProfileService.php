@@ -4,6 +4,11 @@ namespace App\Services\Applicant;
 
 use App\Models\User;
 use App\Models\UserProfileApplicant;
+use App\Models\UserEducationApplicant;
+use App\Models\UserExperienceApplicant;
+use App\Models\UserExperienceSkillApplicant;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileService
 {
@@ -66,28 +71,36 @@ class ProfileService
         }
 
         // Update basic profile fields
-        if (isset($data['bio'])) {
+        if (isset($data['bio']) && !empty($data['bio'])) {
             $profile->bio = $data['bio'];
         }
 
-        // Handle file uploads
-        if (isset($data['file_cv'])) {
+        // Handle file uploads with old file deletion
+        if (isset($data['file_cv']) && $data['file_cv'] instanceof \Illuminate\Http\UploadedFile) {
+            // Delete old CV file if exists
+            if ($profile->file_cv) {
+                $this->deleteFile($profile->file_cv);
+            }
             $profile->file_cv = $this->handleFileUpload($data['file_cv'], 'cv', $user->id);
         }
-        if (isset($data['file_cover_letter'])) {
+        
+        if (isset($data['file_cover_letter']) && $data['file_cover_letter'] instanceof \Illuminate\Http\UploadedFile) {
+            // Delete old cover letter file if exists
+            if ($profile->file_cover_letter) {
+                $this->deleteFile($profile->file_cover_letter);
+            }
             $profile->file_cover_letter = $this->handleFileUpload($data['file_cover_letter'], 'cover_letter', $user->id);
         }
 
-        $profile->is_active = true;
         $profile->save();
 
         // Handle career history
-        if (isset($data['career_history']) && is_array($data['career_history'])) {
+        if (isset($data['career_history'])) {
             $this->updateCareerHistory($user->id, $data['career_history']);
         }
 
         // Handle education history
-        if (isset($data['education']) && is_array($data['education'])) {
+        if (isset($data['education'])) {
             $this->updateEducationHistory($user->id, $data['education']);
         }
 
@@ -111,6 +124,25 @@ class ProfileService
     }
 
     /**
+     * Delete file from storage
+     *
+     * @param string $filePath
+     * @return bool
+     */
+    private function deleteFile($filePath)
+    {
+        try {
+            if ($filePath && Storage::disk('public')->exists($filePath)) {
+                return Storage::disk('public')->delete($filePath);
+            }
+            return false;
+        } catch (\Exception $e) {
+            Log::error('Error deleting file: ' . $filePath . ' - ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Update career history
      *
      * @param int $userId
@@ -119,8 +151,18 @@ class ProfileService
      */
     private function updateCareerHistory($userId, $careerHistory)
     {
+        if (gettype($careerHistory) == 'string') {
+            $careerHistory = json_decode($careerHistory, true);
+        }
+        
+        if (empty($careerHistory)) {
+            return;
+        }
+
         // Delete existing career history
-        \DB::table('user_experience_applicants')->where('user_id', $userId)->delete();
+        $data_id_experience = UserExperienceApplicant::where('user_id', $userId)->pluck('id');
+        UserExperienceSkillApplicant::whereIn('experience_id', $data_id_experience)->delete();
+        UserExperienceApplicant::where('user_id', $userId)->delete();
 
         foreach ($careerHistory as $career) {
             $careerData = [
@@ -131,17 +173,16 @@ class ProfileService
                 'end_date' => $career['end_date'] ?? null,
                 'description' => $career['description'] ?? null,
                 'employment_type_id' => $career['employment_type_id'] ?? null,
-                'is_active' => true,
                 'created_at' => now(),
                 'updated_at' => now()
             ];
 
-            $careerId = \DB::table('user_experience_applicants')->insertGetId($careerData);
+            $careerId = UserExperienceApplicant::insertGetId($careerData);
 
             // Handle skills for this career entry
             if (isset($career['skills']) && is_array($career['skills'])) {
                 foreach ($career['skills'] as $skillId) {
-                    \DB::table('user_experience_skill_applicants')->insert([
+                    UserExperienceSkillApplicant::create([
                         'user_experience_id' => $careerId,
                         'skill_id' => $skillId,
                         'created_at' => now(),
@@ -161,11 +202,19 @@ class ProfileService
      */
     private function updateEducationHistory($userId, $educationHistory)
     {
+        if (gettype($educationHistory) == 'string') {
+            $educationHistory = json_decode($educationHistory, true);
+        }
+
+        if (empty($educationHistory)) {
+            return;
+        }
+
         // Delete existing education history
-        \DB::table('user_education_applicants')->where('user_id', $userId)->delete();
+        UserEducationApplicant::where('user_id', $userId)->delete();
 
         foreach ($educationHistory as $education) {
-            \DB::table('user_education_applicants')->insert([
+            UserEducationApplicant::create([
                 'user_id' => $userId,
                 'institution' => $education['institution'] ?? null,
                 'degree' => $education['degree'] ?? null,
@@ -174,7 +223,6 @@ class ProfileService
                 'end_date' => $education['end_date'] ?? null,
                 'description' => $education['description'] ?? null,
                 'grade' => $education['grade'] ?? null,
-                'is_active' => true,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
