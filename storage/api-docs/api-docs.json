@@ -20,6 +20,134 @@
         }
     ],
     "paths": {
+        "/applicant/jobs/ontrending": {
+            "get": {
+                "tags": [
+                    "Applicant Jobs"
+                ],
+                "summary": "Get trending recruiters",
+                "description": "Get list of trending recruiters ordered by experience in descending order",
+                "operationId": "a72d5ea6efdc872a94a00f55cf08afa0",
+                "responses": {
+                    "200": {
+                        "description": "Trending recruiters retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Trending recruiters retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "john@example.com"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "recruiter"
+                                                    },
+                                                    "exp": {
+                                                        "type": "integer",
+                                                        "example": 1500
+                                                    },
+                                                    "total_jobs": {
+                                                        "type": "integer",
+                                                        "example": 25
+                                                    },
+                                                    "total_applications": {
+                                                        "type": "integer",
+                                                        "example": 150
+                                                    },
+                                                    "job_types": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string",
+                                                            "example": "Fulltime"
+                                                        }
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/applicant/profile/update": {
             "post": {
                 "tags": [
@@ -53,11 +181,11 @@
                                     },
                                     "province_id": {
                                         "type": "string",
-                                        "example": "11"
+                                        "example": "1"
                                     },
                                     "city_id": {
                                         "type": "string",
-                                        "example": "1101"
+                                        "example": "1"
                                     },
                                     "file_profile_image": {
                                         "description": "Profile image file (JPG, PNG, max 2MB)",
@@ -1818,6 +1946,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Applicant Jobs",
+            "description": "Applicant Jobs"
+        },
         {
             "name": "Applicant Profile",
             "description": "Applicant Profile"

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\Jobs\JobsController;
+use App\Http\Controllers\api\Applicant\JobController;
 use App\Http\Controllers\api\Masterdata\SkillController;
 use App\Http\Controllers\api\Masterdata\EmploymentTypeController;
 use App\Http\Controllers\api\Masterdata\ExperienceController;
@@ -37,7 +38,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/{id}/detail', [JobsController::class, 'detail_job']);
             Route::post('/bookmark', [JobsController::class, 'bookmark_job']);
             Route::post('/apply', [JobsController::class, 'apply_job']);
-            Route::get('/on_tranding', [JobsController::class, 'on_tranding']);
+            Route::get('/ontrending', [JobController::class, 'on_trending_jobs']);
         });
         
         Route::prefix('/profile')->group(function () {
