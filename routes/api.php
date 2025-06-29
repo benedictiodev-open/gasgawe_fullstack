@@ -39,6 +39,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::post('/bookmark', [JobsController::class, 'bookmark_job']);
             Route::post('/apply', [JobsController::class, 'apply_job']);
             Route::get('/ontrending', [JobController::class, 'on_trending_jobs']);
+            Route::get('/filter-option', [JobController::class, 'filter_jobs']);
         });
         
         Route::prefix('/profile')->group(function () {
