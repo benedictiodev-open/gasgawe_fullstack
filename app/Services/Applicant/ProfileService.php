@@ -23,6 +23,16 @@ class ProfileService
     {
         try {
             $profile = UserProfileApplicant::where('user_id', $user->id)->first();
+            
+            // Handle file upload for profile image
+            if (isset($data['file_profile_image']) && $data['file_profile_image'] instanceof \Illuminate\Http\UploadedFile) {
+                // Delete old profile image file if exists
+                if ($profile && $profile->file_profile_image) {
+                    $this->deleteFile($profile->file_profile_image);
+                }
+                $data['file_profile_image'] = $this->handleFileUpload($data['file_profile_image'], 'profile_image', $user->id);
+            }
+            
             if (!$profile) {
                 $profile = UserProfileApplicant::create([
                     'user_id' => $user->id,
@@ -32,6 +42,7 @@ class ProfileService
                     'gender' => $data['gender'],
                     'province_id' => $data['province_id'],
                     'city_id' => $data['city_id'],
+                    'file_profile_image' => $data['file_profile_image'] ?? null,
                 ]);
             } else {
                 $profile->update($data);
@@ -51,7 +62,7 @@ class ProfileService
      */
     public function getProfile(User $user)
     {
-        return UserProfileApplicant::where('user_id', $user->id)->with('province', 'city')->first();
+        return UserProfileApplicant::where('user_id', $user->id)->with('province', 'city', 'careerHistory', 'educationHistory')->first();
     }
 
     /**
@@ -165,6 +176,10 @@ class ProfileService
         UserExperienceApplicant::where('user_id', $userId)->delete();
 
         foreach ($careerHistory as $career) {
+            if (gettype($career) == 'string') {
+                $career = json_decode($career, true);
+            }
+
             $careerData = [
                 'user_id' => $userId,
                 'company_name' => $career['company_name'] ?? null,
@@ -177,13 +192,13 @@ class ProfileService
                 'updated_at' => now()
             ];
 
-            $careerId = UserExperienceApplicant::insertGetId($careerData);
+            $careerId = UserExperienceApplicant::create($careerData);
 
             // Handle skills for this career entry
             if (isset($career['skills']) && is_array($career['skills'])) {
                 foreach ($career['skills'] as $skillId) {
                     UserExperienceSkillApplicant::create([
-                        'user_experience_id' => $careerId,
+                        'experience_id' => $careerId->id,
                         'skill_id' => $skillId,
                         'created_at' => now(),
                         'updated_at' => now()
@@ -214,9 +229,13 @@ class ProfileService
         UserEducationApplicant::where('user_id', $userId)->delete();
 
         foreach ($educationHistory as $education) {
+            if (gettype($education) == 'string') {
+                $education = json_decode($education, true);
+            }
+
             UserEducationApplicant::create([
                 'user_id' => $userId,
-                'institution' => $education['institution'] ?? null,
+                'school_name' => $education['institution'] ?? null,
                 'degree' => $education['degree'] ?? null,
                 'field_of_study' => $education['field_of_study'] ?? null,
                 'start_date' => $education['start_date'] ?? null,

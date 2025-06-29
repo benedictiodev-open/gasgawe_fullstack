@@ -21,17 +21,17 @@
     ],
     "paths": {
         "/applicant/profile/update": {
-            "put": {
+            "post": {
                 "tags": [
                     "Applicant Profile"
                 ],
                 "summary": "Update applicant profile",
                 "description": "Update the authenticated applicant's profile information.",
-                "operationId": "054f5b87769e199006abe4a5aac6295f",
+                "operationId": "04ad38b04d3227a0436c521a2ac49398",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
                                     "first_name": {
@@ -58,6 +58,11 @@
                                     "city_id": {
                                         "type": "string",
                                         "example": "1101"
+                                    },
+                                    "file_profile_image": {
+                                        "description": "Profile image file (JPG, PNG, max 2MB)",
+                                        "type": "file",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -119,6 +124,10 @@
                                                     "type": "string",
                                                     "example": "Experienced software developer"
                                                 },
+                                                "file_profile_image": {
+                                                    "type": "string",
+                                                    "example": "applicant_files/profile_image/profile_image_1_1234567890.jpg"
+                                                },
                                                 "file_cv": {
                                                     "type": "string",
                                                     "example": "profile.jpg"
@@ -126,10 +135,6 @@
                                                 "file_cover_letter": {
                                                     "type": "string",
                                                     "example": "resume.pdf"
-                                                },
-                                                "file_profile_image": {
-                                                    "type": "boolean",
-                                                    "example": true
                                                 }
                                             },
                                             "type": "object"
@@ -168,6 +173,13 @@
                                                     "items": {
                                                         "type": "string",
                                                         "example": "The date of birth is not a valid date."
+                                                    }
+                                                },
+                                                "file_profile_image": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The file profile image must be a file of type: jpg, jpeg, png."
                                                     }
                                                 }
                                             },
@@ -374,12 +386,12 @@
                                     },
                                     "file_cv": {
                                         "description": "CV/Resume file (PDF, max 2MB)",
-                                        "type": "string",
+                                        "type": "file",
                                         "format": "binary"
                                     },
                                     "file_cover_letter": {
                                         "description": "Cover letter file (PDF, max 2MB)",
-                                        "type": "string",
+                                        "type": "file",
                                         "format": "binary"
                                     },
                                     "career_history": {

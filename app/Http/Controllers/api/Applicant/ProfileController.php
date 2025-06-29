@@ -18,7 +18,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * @OA\Put(
+     * @OA\Post(
      *     path="/applicant/profile/update",
      *     tags={"Applicant Profile"},
      *     summary="Update applicant profile",
@@ -26,13 +26,17 @@ class ProfileController extends Controller
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="first_name", type="string", example="John"),
-     *             @OA\Property(property="last_name", type="string", example="Doe"),
-     *             @OA\Property(property="date_of_birth", type="string", format="date", example="1990-05-15"),
-     *             @OA\Property(property="gender", type="string", example="male"),
-     *             @OA\Property(property="province_id", type="string", example="11"),
-     *             @OA\Property(property="city_id", type="string", example="1101"),
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(property="first_name", type="string", example="John"),
+     *                 @OA\Property(property="last_name", type="string", example="Doe"),
+     *                 @OA\Property(property="date_of_birth", type="string", format="date", example="1990-05-15"),
+     *                 @OA\Property(property="gender", type="string", example="male"),
+     *                 @OA\Property(property="province_id", type="string", example="1"),
+     *                 @OA\Property(property="city_id", type="string", example="1"),
+     *                 @OA\Property(property="file_profile_image", type="file", format="binary", description="Profile image file (JPG, PNG, max 2MB)"),
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -51,9 +55,9 @@ class ProfileController extends Controller
      *                 @OA\Property(property="province_id", type="string", example="11"),
      *                 @OA\Property(property="city_id", type="string", example="1101"),
      *                 @OA\Property(property="bio", type="string", example="Experienced software developer"),
+     *                 @OA\Property(property="file_profile_image", type="string", example="applicant_files/profile_image/profile_image_1_1234567890.jpg"),
      *                 @OA\Property(property="file_cv", type="string", example="profile.jpg"),
      *                 @OA\Property(property="file_cover_letter", type="string", example="resume.pdf"),
-     *                 @OA\Property(property="file_profile_image", type="boolean", example=true),
      *             )
      *         )
      *     ),
@@ -69,6 +73,10 @@ class ProfileController extends Controller
      *                 ),
      *                 @OA\Property(property="date_of_birth", type="array",
      *                     @OA\Items(type="string", example="The date of birth is not a valid date.")
+     *                 ),
+     *                 @OA\Property(property="file_profile_image", type="array",
+     *                     @OA\Items(type="string", example="The file profile image must be a file of type: jpg, jpeg, png."),
+     *                     @OA\Items(type="string", example="The file profile image may not be greater than 2048 kilobytes.")
      *                 )
      *             ),
      *             @OA\Property(property="data", type="object", example=null)
@@ -96,7 +104,8 @@ class ProfileController extends Controller
                 'date_of_birth' => 'required|date',
                 'gender' => 'required|in:male,female',
                 'province_id' => 'required|string',
-                'city_id' => 'required|string'
+                'city_id' => 'required|string',
+                'file_profile_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048'
             ]);
 
             if ($validator->fails()) {
@@ -117,6 +126,7 @@ class ProfileController extends Controller
             ], 200);
 
         } catch (\Throwable $th) {
+            throw $th;
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update profile',
@@ -352,22 +362,7 @@ class ProfileController extends Controller
                 'file_cv' => 'nullable|file|mimes:pdf|max:2048',
                 'file_cover_letter' => 'nullable|file|mimes:pdf|max:2048',
                 'career_history' => 'sometimes',
-                // 'career_history.*.company_name' => 'sometimes|string|max:255',
-                // 'career_history.*.position' => 'sometimes|string|max:255',
-                // 'career_history.*.start_date' => 'sometimes|date',
-                // 'career_history.*.end_date' => 'sometimes|date',
-                // 'career_history.*.description' => 'sometimes|string|max:1000',
-                // 'career_history.*.skills' => 'sometimes|array',
-                // 'career_history.*.skills.*' => 'sometimes|exists:skills,id',
-                // 'career_history.*.employment_type_id' => 'sometimes|exists:employment_types,id',
                 'education' => 'sometimes',
-                // 'education.*.institution' => 'sometimes|string|max:255',
-                // 'education.*.degree' => 'sometimes|string|max:255',
-                // 'education.*.field_of_study' => 'sometimes|string|max:255',
-                // 'education.*.start_date' => 'sometimes|date',
-                // 'education.*.end_date' => 'sometimes|date',
-                // 'education.*.description' => 'sometimes|string|max:1000',
-                // 'education.*.grade' => 'sometimes|string|max:255',
             ]);
 
             if ($validator->fails()) {
@@ -388,6 +383,7 @@ class ProfileController extends Controller
             ], 200);
 
         } catch (\Throwable $th) {
+            throw $th;
             Log::error('Failed to update advanced profile: ' . $th->getMessage());
             
             return response()->json([
