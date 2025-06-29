@@ -21,13 +21,14 @@ trait ResponseTrait
     ], $code);
   }
 
-  protected function errorResponse($message, $code = 500)
+  protected function errorResponse($message, $code = 500, $errors = [])
   {
     return response()->json([
       'status' => 'error',
       'message' => $message,
       'data' => null,
-      'error' => true
+      'error' => true,
+      'errors' => $errors
     ], $code);
   }
 }
