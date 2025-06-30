@@ -259,6 +259,378 @@
                 ]
             }
         },
+        "/applicant/jobs/recommendations": {
+            "get": {
+                "tags": [
+                    "Applicant Jobs"
+                ],
+                "summary": "Get all jobs with pagination and filters",
+                "description": "Get all active jobs with simple pagination and optional filters for applicant",
+                "operationId": "15d9413c853d3025cd241adc3b19000b",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of jobs per page (default: 10)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number (default: 1)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "skills",
+                        "in": "query",
+                        "description": "Filter by skill IDs (comma-separated or array)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "1,2,3"
+                        }
+                    },
+                    {
+                        "name": "province_id",
+                        "in": "query",
+                        "description": "Filter by province ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 31
+                        }
+                    },
+                    {
+                        "name": "city_id",
+                        "in": "query",
+                        "description": "Filter by city ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3171
+                        }
+                    },
+                    {
+                        "name": "employment_type_id",
+                        "in": "query",
+                        "description": "Filter by employment type ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "expected_salary_id",
+                        "in": "query",
+                        "description": "Filter by expected salary ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    },
+                    {
+                        "name": "time_filter",
+                        "in": "query",
+                        "description": "Filter by time period (most_recent, this_week, this_month, any_time)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "most_recent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jobs retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Jobs retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "position": {
+                                                                "type": "string",
+                                                                "example": "Software Engineer"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "We are looking for a skilled software engineer..."
+                                                            },
+                                                            "qualification": {
+                                                                "type": "string",
+                                                                "example": "Bachelor's degree in Computer Science..."
+                                                            },
+                                                            "image": {
+                                                                "type": "string",
+                                                                "example": "jobs/123_image.jpg"
+                                                            },
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "active"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "employment_type": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Full-time"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "experience": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 2
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "2-5 years"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "education": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Bachelor's Degree"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "expected_salary": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 3
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "5-10 million"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "province": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 31
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "DKI Jakarta"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "city": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 3171
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Jakarta Selatan"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "skills": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "type": "integer",
+                                                                            "example": 1
+                                                                        },
+                                                                        "name": {
+                                                                            "type": "string",
+                                                                            "example": "PHP"
+                                                                        },
+                                                                        "skill_group": {
+                                                                            "properties": {
+                                                                                "id": {
+                                                                                    "type": "integer",
+                                                                                    "example": 1
+                                                                                },
+                                                                                "name": {
+                                                                                    "type": "string",
+                                                                                    "example": "Programming Languages"
+                                                                                }
+                                                                            },
+                                                                            "type": "object"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "user": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Tech Company Inc"
+                                                                    },
+                                                                    "email": {
+                                                                        "type": "string",
+                                                                        "example": "hr@techcompany.com"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "bookmark": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "apply": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "object"
+                                                                }
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost/api/applicant/jobs/recommendations?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost/api/applicant/jobs/recommendations?page=2"
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost/api/applicant/jobs/recommendations"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/applicant/profile/update": {
             "post": {
                 "tags": [

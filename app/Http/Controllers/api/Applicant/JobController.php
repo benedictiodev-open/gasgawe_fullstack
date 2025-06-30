@@ -12,9 +12,17 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Skill;
 use App\Models\Province;
 use App\Models\City;
+use App\Services\Job\JobService;
 
 class JobController extends Controller
 {
+    protected $jobService;
+
+    public function __construct(JobService $jobService)
+    {
+        $this->jobService = $jobService;
+    }
+
     /**
      * @OA\Get(
      *     path="/applicant/jobs/ontrending",
@@ -186,6 +194,209 @@ class JobController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to filter jobs: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/applicant/jobs/recommendations",
+     *     tags={"Applicant Jobs"},
+     *     summary="Get all jobs with pagination and filters",
+     *     description="Get all active jobs with simple pagination and optional filters for applicant",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of jobs per page (default: 10)",
+     *         @OA\Schema(type="integer", default=10)
+     *     ),
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         required=false,
+     *         description="Page number (default: 1)",
+     *         @OA\Schema(type="integer", default=1)
+     *     ),
+     *     @OA\Parameter(
+     *         name="skills",
+     *         in="query",
+     *         required=false,
+     *         description="Filter by skill IDs (comma-separated or array)",
+     *         @OA\Schema(type="string", example="1,2,3")
+     *     ),
+     *     @OA\Parameter(
+     *         name="province_id",
+     *         in="query",
+     *         required=false,
+     *         description="Filter by province ID",
+     *         @OA\Schema(type="integer", example=31)
+     *     ),
+     *     @OA\Parameter(
+     *         name="city_id",
+     *         in="query",
+     *         required=false,
+     *         description="Filter by city ID",
+     *         @OA\Schema(type="integer", example=3171)
+     *     ),
+     *     @OA\Parameter(
+     *         name="employment_type_id",
+     *         in="query",
+     *         required=false,
+     *         description="Filter by employment type ID",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Parameter(
+     *         name="expected_salary_id",
+     *         in="query",
+     *         required=false,
+     *         description="Filter by expected salary ID",
+     *         @OA\Schema(type="integer", example=3)
+     *     ),
+     *     @OA\Parameter(
+     *         name="time_filter",
+     *         in="query",
+     *         required=false,
+     *         description="Filter by time period (most_recent, this_week, this_month, any_time)",
+     *         @OA\Schema(type="string", example="most_recent")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Jobs retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Jobs retrieved successfully"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="current_page", type="integer", example=1),
+     *                 @OA\Property(property="data", type="array",
+     *                     @OA\Items(type="object",
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="position", type="string", example="Software Engineer"),
+     *                         @OA\Property(property="description", type="string", example="We are looking for a skilled software engineer..."),
+     *                         @OA\Property(property="qualification", type="string", example="Bachelor's degree in Computer Science..."),
+     *                         @OA\Property(property="image", type="string", example="jobs/123_image.jpg"),
+     *                         @OA\Property(property="status", type="string", example="active"),
+     *                         @OA\Property(property="created_at", type="string", format="date-time"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time"),
+     *                         @OA\Property(property="employment_type", type="object",
+     *                             @OA\Property(property="id", type="integer", example=1),
+     *                             @OA\Property(property="name", type="string", example="Full-time")
+     *                         ),
+     *                         @OA\Property(property="experience", type="object",
+     *                             @OA\Property(property="id", type="integer", example=2),
+     *                             @OA\Property(property="name", type="string", example="2-5 years")
+     *                         ),
+     *                         @OA\Property(property="education", type="object",
+     *                             @OA\Property(property="id", type="integer", example=1),
+     *                             @OA\Property(property="name", type="string", example="Bachelor's Degree")
+     *                         ),
+     *                         @OA\Property(property="expected_salary", type="object",
+     *                             @OA\Property(property="id", type="integer", example=3),
+     *                             @OA\Property(property="name", type="string", example="5-10 million")
+     *                         ),
+     *                         @OA\Property(property="province", type="object",
+     *                             @OA\Property(property="id", type="integer", example=31),
+     *                             @OA\Property(property="name", type="string", example="DKI Jakarta")
+     *                         ),
+     *                         @OA\Property(property="city", type="object",
+     *                             @OA\Property(property="id", type="integer", example=3171),
+     *                             @OA\Property(property="name", type="string", example="Jakarta Selatan")
+     *                         ),
+     *                         @OA\Property(property="skills", type="array",
+     *                             @OA\Items(type="object",
+     *                                 @OA\Property(property="id", type="integer", example=1),
+     *                                 @OA\Property(property="name", type="string", example="PHP"),
+     *                                 @OA\Property(property="skill_group", type="object",
+     *                                     @OA\Property(property="id", type="integer", example=1),
+     *                                     @OA\Property(property="name", type="string", example="Programming Languages")
+     *                                 )
+     *                             )
+     *                         ),
+     *                         @OA\Property(property="user", type="object",
+     *                             @OA\Property(property="id", type="integer", example=1),
+     *                             @OA\Property(property="name", type="string", example="Tech Company Inc"),
+     *                             @OA\Property(property="email", type="string", example="hr@techcompany.com")
+     *                         ),
+     *                         @OA\Property(property="bookmark", type="array", @OA\Items(type="object")),
+     *                         @OA\Property(property="apply", type="array", @OA\Items(type="object"))
+     *                     )
+     *                 ),
+     *                 @OA\Property(property="first_page_url", type="string", example="http://localhost/api/applicant/jobs/recommendations?page=1"),
+     *                 @OA\Property(property="from", type="integer", example=1),
+     *                 @OA\Property(property="next_page_url", type="string", example="http://localhost/api/applicant/jobs/recommendations?page=2"),
+     *                 @OA\Property(property="path", type="string", example="http://localhost/api/applicant/jobs/recommendations"),
+     *                 @OA\Property(property="per_page", type="integer", example=10),
+     *                 @OA\Property(property="prev_page_url", type="string", example=null),
+     *                 @OA\Property(property="to", type="integer", example=10)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Internal server error")
+     *         )
+     *     )
+     * )
+     */
+    public function recommendation_job(Request $request)
+    {
+        try {
+            $userId = auth()->id();
+            $perPage = $request->get('per_page', 10);
+
+            // Build filters array
+            $filters = [];
+            
+            if ($request->has('skills')) {
+                $filters['skills'] = $request->get('skills');
+            }
+            
+            if ($request->has('province_id')) {
+                $filters['province_id'] = $request->get('province_id');
+            }
+            
+            if ($request->has('city_id')) {
+                $filters['city_id'] = $request->get('city_id');
+            }
+            
+            if ($request->has('employment_type_id')) {
+                $filters['employment_type_id'] = $request->get('employment_type_id');
+            }
+            
+            if ($request->has('expected_salary_id')) {
+                $filters['expected_salary_id'] = $request->get('expected_salary_id');
+            }
+            
+            if ($request->has('time_filter')) {
+                $filters['time_filter'] = $request->get('time_filter');
+            }
+
+            // Get all jobs with pagination and filters
+            $jobs = $this->jobService->getJobRecommendations($userId, $perPage, $filters);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Jobs retrieved successfully',
+                'data' => $jobs
+            ], 200);
+
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to get jobs: ' . $error->getMessage(),
                 'data' => null
             ], 500);
         }

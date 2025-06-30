@@ -20,4 +20,32 @@ class JobMaster extends Model
     public function apply() {
         return $this->hasMany(JobUsersApply::class, 'job_id');
     }
+
+    public function skills() {
+        return $this->hasMany(JobSkill::class, 'job_id');
+    }
+
+    public function province() {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+
+    public function city() {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+    
+    public function employmentType() {
+        return $this->belongsTo(EmploymentType::class, 'employment_type_id');
+    }
+
+    public function experience() {
+        return $this->belongsTo(Experience::class, 'experience_id');
+    }
+
+    public function education() {
+        return $this->belongsTo(Education::class, 'education_id');
+    }
+
+    public function expectedSalary() {
+        return $this->belongsTo(ExpectedSalary::class, 'expected_salary_id');
+    }
 }
