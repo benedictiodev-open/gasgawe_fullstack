@@ -1043,6 +1043,189 @@
                 ]
             }
         },
+        "/recruiter/jobs/create": {
+            "post": {
+                "tags": [
+                    "Jobs"
+                ],
+                "summary": "Create a new job",
+                "description": "Create a new job.",
+                "operationId": "b2e33352191f1464ab38ccf2634ea0e4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "image",
+                                    "position",
+                                    "province_id",
+                                    "city_id",
+                                    "employment_type_id",
+                                    "experience_id",
+                                    "expected_salary_id",
+                                    "education_id",
+                                    "job_description",
+                                    "qualification",
+                                    "skills[]"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "position": {
+                                        "type": "string",
+                                        "example": "Software Engineer"
+                                    },
+                                    "province_id": {
+                                        "type": "integer",
+                                        "example": 11
+                                    },
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 11
+                                    },
+                                    "employment_type_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "experience_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "expected_salary_id": {
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "education_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "job_description": {
+                                        "type": "string",
+                                        "example": "Develop and maintain backend systems."
+                                    },
+                                    "qualification": {
+                                        "type": "string",
+                                        "example": "Bachelor's Degree in Computer Science."
+                                    },
+                                    "skills[]": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created a New Job Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Created a New Job Successful"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Failed"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Created a New Job Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Created a New Job Failed"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/masterdata/province": {
             "get": {
                 "tags": [
@@ -2064,6 +2247,10 @@
         {
             "name": "Applicant Profile",
             "description": "Applicant Profile"
+        },
+        {
+            "name": "Jobs",
+            "description": "Jobs"
         },
         {
             "name": "Masterdata",
