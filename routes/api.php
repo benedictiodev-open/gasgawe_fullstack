@@ -34,12 +34,13 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('applicant')->middleware(AuthApiApplicant::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
-            Route::get('/', [JobsController::class, 'list_job_applicant']);
-            Route::get('/{id}/detail', [JobsController::class, 'detail_job']);
-            Route::post('/bookmark', [JobsController::class, 'bookmark_job']);
-            Route::post('/apply', [JobsController::class, 'apply_job']);
+            // Route::get('/', [JobsController::class, 'list_job_applicant']);
+            // Route::get('/{id}/detail', [JobsController::class, 'detail_job']);
+            // Route::post('/bookmark', [JobsController::class, 'bookmark_job']);
+            // Route::post('/apply', [JobsController::class, 'apply_job']);
             Route::get('/ontrending', [JobController::class, 'on_trending_jobs']);
             Route::get('/filter-option', [JobController::class, 'filter_jobs']);
+            Route::get('/recommendations', [JobController::class, 'recommendation_job']);
         });
         
         Route::prefix('/profile')->group(function () {

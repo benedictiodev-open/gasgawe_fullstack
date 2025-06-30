@@ -9,4 +9,8 @@ class JobSkill extends Model
     protected $table = 'job_skills';
 
     protected $guarded = ["id"];
+
+    public function skill() {
+        return $this->belongsTo(Skill::class, 'skill_id');
+    }
 }

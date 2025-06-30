@@ -4,6 +4,7 @@ namespace App\Services\Job;
 
 use App\Models\JobBookmarks;
 use App\Models\JobMaster;
+use App\Models\JobSkills;
 use App\Models\JobQualificationRequrements;
 use App\Models\JobUsersApply;
 use Exception;
@@ -213,5 +214,105 @@ class JobService
         $filePath = $file->storeAs('jobs', $fileName, 'public');
 
         return $filePath;
+    }
+
+    /**
+     * Get all jobs with simple pagination for applicant
+     *
+     * @param int $userId
+     * @param int $perPage
+     * @param array $filters
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getJobRecommendations($userId, $perPage = 10, $filters = [])
+    {
+        try {
+            // Get all active jobs with pagination
+            $jobs = JobMaster::query()
+                ->with([
+                    'skills',
+                    'skills.skill',
+                    'employmentType',
+                    'experience',
+                    'education',
+                    'expectedSalary',
+                    'province',
+                    'city',
+                    'bookmark' => function($query) use($userId) {
+                        $query->where('user_id', $userId);
+                    },
+                    'apply' => function($query) use($userId) {
+                        $query->where('user_id', $userId);
+                    }
+                ])
+                ->where('status', 'active')
+                ->where('created_by', '!=', $userId); // Exclude jobs created by the applicant
+
+            // Apply filters
+            if (!empty($filters)) {
+                // Filter by skills
+                if (!empty($filters['skills'])) {
+                    $skillIds = is_array($filters['skills']) ? $filters['skills'] : explode(',', $filters['skills']);
+                    $jobs->whereHas('skills', function($query) use ($skillIds) {
+                        $query->whereIn('skill_id', $skillIds);
+                    });
+                }
+
+                // Filter by province
+                if (!empty($filters['province_id'])) {
+                    $jobs->where('province_id', $filters['province_id']);
+                }
+
+                // Filter by city
+                if (!empty($filters['city_id'])) {
+                    $jobs->where('city_id', $filters['city_id']);
+                }
+
+                // Filter by employment type
+                if (!empty($filters['employment_type_id'])) {
+                    $jobs->where('employment_type_id', $filters['employment_type_id']);
+                }
+
+                // Filter by expected salary
+                if (!empty($filters['expected_salary_id'])) {
+                    $jobs->where('expected_salary_id', $filters['expected_salary_id']);
+                }
+
+                // Filter by time
+                if (!empty($filters['time_filter'])) {
+                    $now = now();
+                    
+                    switch ($filters['time_filter']) {
+                        case 'most_recent':
+                            // Last 24 hours
+                            $jobs->where('created_at', '>=', $now->subDay());
+                            break;
+                        case 'this_week':
+                            // This week (Monday to Sunday)
+                            $jobs->where('created_at', '>=', $now->startOfWeek());
+                            break;
+                        case 'this_month':
+                            // This month
+                            $jobs->where('created_at', '>=', $now->startOfMonth());
+                            break;
+                        case 'any_time':
+                            // No time filter - show all jobs
+                            break;
+                        default:
+                            // Default to most recent if invalid value
+                            $jobs->where('created_at', '>=', $now->subDay());
+                            break;
+                    }
+                }
+            }
+
+            $jobs->orderBy('created_at', 'desc');
+
+            return $jobs->simplePaginate($perPage);
+
+        } catch (Exception $error) {
+            Log::error('Error getting job recommendations: ' . $error->getMessage());
+            throw $error;
+        }
     }
 }
