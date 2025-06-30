@@ -828,7 +828,7 @@
                                     "education_id",
                                     "job_description",
                                     "qualification",
-                                    "skills"
+                                    "skills[]"
                                 ],
                                 "properties": {
                                     "image": {
@@ -871,7 +871,7 @@
                                         "type": "string",
                                         "example": "Bachelor's Degree in Computer Science."
                                     },
-                                    "skills": {
+                                    "skills[]": {
                                         "type": "array",
                                         "items": {
                                             "type": "integer",

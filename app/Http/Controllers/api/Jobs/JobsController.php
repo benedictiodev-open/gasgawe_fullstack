@@ -129,7 +129,7 @@ class JobsController extends Controller
      *                 required={
      *                     "image", "position", "province_id", "city_id",
      *                     "employment_type_id", "experience_id", "expected_salary_id",
-     *                     "education_id", "job_description", "qualification", "skills"
+     *                     "education_id", "job_description", "qualification", "skills[]"
      *                 },
      *                 @OA\Property(property="image", type="string", format="binary"),
      *                 @OA\Property(property="position", type="string", example="Software Engineer"),
@@ -141,7 +141,7 @@ class JobsController extends Controller
      *                 @OA\Property(property="education_id", type="integer", example=2),
      *                 @OA\Property(property="job_description", type="string", example="Develop and maintain backend systems."),
      *                 @OA\Property(property="qualification", type="string", example="Bachelor's Degree in Computer Science."),
-     *                 @OA\Property(property="skills", type="array", @OA\Items(type="integer", example=1))
+     *                 @OA\Property(property="skills[]", type="array", @OA\Items(type="integer", example=1))
      *             ),
      *         ),
      *     ),

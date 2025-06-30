@@ -149,10 +149,20 @@ class JobService
                 ]);
 
                 foreach ($data["skills"] as $skill) {
-                    $this->jobSkillService->store([
-                        "job_id" => $job_master->id,
-                        "skill_id" => $skill
-                    ]);
+                    if (gettype($skill) == 'string') {
+                        $skill_id = explode(',', $skill);
+                        foreach ($skill_id as $id) {
+                            $this->jobSkillService->store([
+                                "job_id" => $job_master->id,
+                                "skill_id" => $id
+                            ]);
+                        }
+                    } else {
+                        $this->jobSkillService->store([
+                            "job_id" => $job_master->id,
+                            "skill_id" => $skill
+                        ]);
+                    }
                 }
                 return $job_master;
             });
