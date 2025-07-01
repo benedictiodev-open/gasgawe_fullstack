@@ -403,4 +403,115 @@ class JobController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * @OA\Post(
+     *     path="/applicant/jobs/apply",
+     *     tags={"Applicant Jobs"},
+     *     summary="Apply for a job",
+     *     description="Authenticated applicant applies for a job by job_id.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"job_id"},
+     *             @OA\Property(property="job_id", type="integer", example=1, description="The ID of the job to apply for.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Job applied successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Job applied successfully"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="position", type="string", example="Software Engineer"),
+     *                 @OA\Property(property="status", type="string", example="active"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Job already applied",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Job already applied"),
+     *             @OA\Property(property="data", type="object", example=null)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Job not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Job not found"),
+     *             @OA\Property(property="data", type="object", example=null)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Failed to apply job",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Failed to apply job: ..."),
+     *             @OA\Property(property="data", type="object", example=null)
+     *         )
+     *     )
+     * )
+     */
+    public function apply_job(Request $request)
+    {
+        try {
+            $userId = auth('sanctum')->id();
+            $jobId = $request->job_id;
+
+            $job = JobMaster::find($jobId);
+            if (!$job) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Job not found',
+                    'data' => null
+                ], 404);
+            }
+
+            if ($job->apply()->where('user_id', $userId)->exists()) {   
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Job already applied',
+                    'data' => null
+                ], 400);
+            }
+            
+            $job->apply()->create([
+                'job_id' => $jobId,
+                'user_id' => $userId,
+                'status' => 'Applied',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);     
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Job applied successfully',
+                'data' => $job
+            ], 200);
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to apply job: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
+        }
+    }
 }
