@@ -50,6 +50,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::post('/bookmark_company', [ActivityController::class, 'bookmark_company']);
             Route::prefix('/saved')->group(function () {
                 Route::get('/job', [ActivityController::class, 'get_bookmark_job']);
+                Route::get('/company', [ActivityController::class, 'get_bookmark_company']);
             });
         });
         

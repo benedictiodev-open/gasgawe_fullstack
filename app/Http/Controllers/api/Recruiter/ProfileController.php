@@ -23,7 +23,7 @@ class ProfileController extends Controller
      * @OA\Get(
      *     path="/recruiter/profile",
      *     summary="Get recruiter profile",
-     *     tags={"Recruiter"},
+     *     tags={"Recruiter Profile"},
      *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
@@ -84,7 +84,7 @@ class ProfileController extends Controller
      * @OA\Post(
      *     path="/recruiter/profile",
      *     summary="Update recruiter profile",
-     *     tags={"Recruiter"},
+     *     tags={"Recruiter Profile"},
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,

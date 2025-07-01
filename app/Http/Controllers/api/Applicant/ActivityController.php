@@ -322,4 +322,88 @@ class ActivityController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/applicant/activity/saved/company",
+     *     tags={"Applicant Activity"},
+     *     summary="Get all bookmarked companies",
+     *     description="Get all companies that have been bookmarked by the authenticated applicant.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Bookmarked companies retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Bookmark company fetched successfully"),
+     *             @OA\Property(property="data", type="array",
+     *                 @OA\Items(type="object",
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="name", type="string", example="Tech Company Inc"),
+     *                     @OA\Property(property="email", type="string", example="hr@techcompany.com"),
+     *                     @OA\Property(property="type", type="string", example="recruiter"),
+     *                     @OA\Property(property="exp", type="integer", example=1500),
+     *                     @OA\Property(property="created_at", type="string", format="date-time"),
+     *                     @OA\Property(property="updated_at", type="string", format="date-time"),
+     *                     @OA\Property(property="profile_company", type="object",
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="user_id", type="integer", example=1),
+     *                         @OA\Property(property="company_name", type="string", example="Tech Company Inc"),
+     *                         @OA\Property(property="company_description", type="string", example="Leading technology company specializing in software development..."),
+     *                         @OA\Property(property="company_website", type="string", example="https://techcompany.com"),
+     *                         @OA\Property(property="company_size", type="string", example="50-100 employees"),
+     *                         @OA\Property(property="industry", type="string", example="Technology"),
+     *                         @OA\Property(property="province_id", type="string", example="31"),
+     *                         @OA\Property(property="city_id", type="string", example="3171"),
+     *                         @OA\Property(property="company_logo", type="string", example="company_logos/logo_1.jpg"),
+     *                         @OA\Property(property="is_active", type="boolean", example=true),
+     *                         @OA\Property(property="created_at", type="string", format="date-time"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time")
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Failed to get bookmarked companies",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Failed to get bookmark company: ..."),
+     *             @OA\Property(property="data", type="object", example=null)
+     *         )
+     *     )
+     * )
+     */
+
+    public function get_bookmark_company(Request $request)
+    {
+        try {
+            $userId = auth('sanctum')->id();
+            $bookmark = UserBookmark::where('user_id', $userId)->get();
+            $companies = User::query()
+                ->with('profileCompany')
+                ->whereIn('id', $bookmark->pluck('bookmarked_user_id'))
+                ->get();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Bookmark company fetched successfully',
+                'data' => $companies
+            ], 200);
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to get bookmark company: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
+        }
+    }
 }
