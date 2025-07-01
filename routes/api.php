@@ -10,6 +10,7 @@ use App\Http\Controllers\api\Masterdata\ExpectedSalaryController;
 use App\Http\Controllers\api\Masterdata\EducationController;
 use App\Http\Controllers\api\Applicant\ProfileController;
 use App\Http\Controllers\api\Location\LocationController;
+use App\Http\Controllers\api\Applicant\ActivityController;
 use App\Http\Middleware\AuthApiApplicant;
 use App\Http\Middleware\AuthApiChecker;
 use App\Http\Middleware\AuthApiRecruiter;
@@ -36,6 +37,14 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/filter-option', [JobController::class, 'filter_jobs']);
             Route::get('/recommendations', [JobController::class, 'recommendation_job']);
             Route::post('/apply', [JobController::class, 'apply_job']);
+        });
+
+        Route::prefix('/activity')->group(function () {
+            Route::post('/bookmark_job', [ActivityController::class, 'bookmark_job']);
+            Route::post('/bookmark_company', [ActivityController::class, 'bookmark_company']);
+            Route::prefix('/saved')->group(function () {
+                Route::get('/job', [ActivityController::class, 'get_bookmark_job']);
+            });
         });
         
         Route::prefix('/profile')->group(function () {
