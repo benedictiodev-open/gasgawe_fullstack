@@ -56,7 +56,6 @@ class SkillController extends Controller
 
             return $this->successResponse($data, 'Skill retrieved successfully');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return $this->errorResponse('Internal Server Error', 500);
         }
     }

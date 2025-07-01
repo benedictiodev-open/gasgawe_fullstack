@@ -2878,6 +2878,241 @@
                 ]
             }
         },
+        "/recruiter/profile": {
+            "get": {
+                "tags": [
+                    "Recruiter"
+                ],
+                "summary": "Get recruiter profile",
+                "operationId": "59b2f35de2654564393723b805b23877",
+                "responses": {
+                    "200": {
+                        "description": "Profile retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "company_name": {
+                                                    "type": "string",
+                                                    "example": "perusahaan keluarga"
+                                                },
+                                                "established_date": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2020-04-21T17:00:00.000000Z"
+                                                },
+                                                "province_id": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "city_id": {
+                                                    "type": "integer",
+                                                    "example": 181
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "bio bio bio perusahaan"
+                                                },
+                                                "file_profile_image": {
+                                                    "type": "string",
+                                                    "example": "recruiter_files/profile_image/profile_image_1_1751385624.png"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-07-01T15:51:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-07-01T16:00:24.000000Z"
+                                                },
+                                                "employee_count": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to retrieve profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to retrieve profile"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Recruiter"
+                ],
+                "summary": "Update recruiter profile",
+                "operationId": "f82b3d179f5514ce1824857e5f634539",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "company_name",
+                                    "established_date",
+                                    "province_id",
+                                    "city_id",
+                                    "employee_count",
+                                    "bio"
+                                ],
+                                "properties": {
+                                    "company_name": {
+                                        "type": "string",
+                                        "example": "nama perusahaan"
+                                    },
+                                    "established_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2020-04-22"
+                                    },
+                                    "province_id": {
+                                        "type": "integer",
+                                        "example": 12
+                                    },
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 181
+                                    },
+                                    "employee_count": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "bio perusahaan"
+                                    },
+                                    "file_profile_image": {
+                                        "description": "Profile image file (JPG, PNG, max 2MB)",
+                                        "type": "file",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profile updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile updated successfully"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -3342,6 +3577,10 @@
         {
             "name": "Masterdata",
             "description": "Masterdata"
+        },
+        {
+            "name": "Recruiter",
+            "description": "Recruiter"
         },
         {
             "name": "Auth",
