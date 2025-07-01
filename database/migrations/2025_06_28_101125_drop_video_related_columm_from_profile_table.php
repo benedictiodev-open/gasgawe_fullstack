@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('user_profile_applicants', function (Blueprint $table) {
-            $table->dropColumn('file_profile_video');
-        });
-        Schema::table('user_profile_companies', function (Blueprint $table) {
-            $table->dropColumn('file_profile_video');
-        });
+        if (Schema::hasColumn('user_profile_applicants', 'file_profile_video')) {
+            Schema::table('user_profile_applicants', function (Blueprint $table) {
+                $table->dropColumn('file_profile_video');
+            });
+        }
+        if (Schema::hasColumn('user_profile_applicants', 'file_profile_video')) {
+            Schema::table('user_profile_applicants', function (Blueprint $table) {
+                $table->dropColumn('file_profile_video');
+            });
+        }
     }
 
     /**
@@ -24,11 +28,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('user_profile_applicants', function (Blueprint $table) {
-            $table->text('file_profile_video')->nullable();
-        });
-        Schema::table('user_profile_companies', function (Blueprint $table) {
-            $table->text('file_profile_video')->nullable();
-        });
+        if (!Schema::hasColumn('user_profile_applicants', 'file_profile_video')) {
+            Schema::table('user_profile_applicants', function (Blueprint $table) {
+                $table->text('file_profile_video')->nullable();
+            });
+        }
+        if (!Schema::hasColumn('user_profile_companies', 'file_profile_video')) {
+            Schema::table('user_profile_companies', function (Blueprint $table) {
+                $table->text('file_profile_video')->nullable();
+            });
+        }
     }
 };

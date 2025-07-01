@@ -10,6 +10,7 @@ use App\Http\Controllers\api\Masterdata\ExpectedSalaryController;
 use App\Http\Controllers\api\Masterdata\EducationController;
 use App\Http\Controllers\api\Applicant\ProfileController;
 use App\Http\Controllers\api\Location\LocationController;
+use App\Http\Controllers\api\Recruiter\ProfileController as RecruiterProfileController;
 use App\Http\Middleware\AuthApiApplicant;
 use App\Http\Middleware\AuthApiChecker;
 use App\Http\Middleware\AuthApiRecruiter;
@@ -28,6 +29,11 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
             Route::post('/create', [JobsController::class, 'add_job']);
         });
+
+        Route::prefix('/profile')->group(function () {
+            Route::get('/', [RecruiterProfileController::class, 'getProfile']);
+            Route::post('/', [RecruiterProfileController::class, 'updateProfile']);
+        });
     });
 
     Route::prefix('applicant')->middleware(AuthApiApplicant::class)->group(function () {
@@ -37,7 +43,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/recommendations', [JobController::class, 'recommendation_job']);
             Route::post('/apply', [JobController::class, 'apply_job']);
         });
-        
+
         Route::prefix('/profile')->group(function () {
             Route::get('/', [ProfileController::class, 'get_profile']);
             Route::post('/update', [ProfileController::class, 'update_profile']);
