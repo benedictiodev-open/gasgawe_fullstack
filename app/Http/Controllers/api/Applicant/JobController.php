@@ -92,6 +92,8 @@ class JobController extends Controller
                 ->leftJoin('indonesia_provinces', 'user_profile_companies.province_id', '=', 'indonesia_provinces.id')
                 ->leftJoin('indonesia_cities', 'user_profile_companies.city_id', '=', 'indonesia_cities.id')
                 ->where('users.type', 'recruiter')
+                ->where('job_masters.status', 'active')
+                ->having('total_jobs', '>', 0)
                 ->groupBy('users.id', 'user_profile_companies.company_name', 'indonesia_provinces.name', 'indonesia_cities.name', 'users.exp')
                 ->orderByDesc('users.exp')
                 ->limit(10)
