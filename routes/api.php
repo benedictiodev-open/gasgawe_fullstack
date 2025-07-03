@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\auth\AuthController;
-use App\Http\Controllers\api\Jobs\JobsController;
-use App\Http\Controllers\api\Applicant\JobController;
+use App\Http\Controllers\api\Applicant\JobController as ApplicantJobController;
+use App\Http\Controllers\api\Recruiter\JobController as RecruiterJobController;
 use App\Http\Controllers\api\Masterdata\SkillController;
 use App\Http\Controllers\api\Masterdata\EmploymentTypeController;
 use App\Http\Controllers\api\Masterdata\ExperienceController;
@@ -28,7 +28,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('recruiter')->middleware(AuthApiRecruiter::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
-            Route::post('/create', [JobsController::class, 'add_job']);
+            Route::post('/create', [RecruiterJobController::class, 'add_job']);
         });
 
         Route::prefix('/profile')->group(function () {
@@ -39,10 +39,10 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('applicant')->middleware(AuthApiApplicant::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
-            Route::get('/ontrending', [JobController::class, 'on_trending_jobs']);
-            Route::get('/filter-option', [JobController::class, 'filter_jobs']);
-            Route::get('/recommendations', [JobController::class, 'recommendation_job']);
-            Route::post('/apply', [JobController::class, 'apply_job']);
+            Route::get('/ontrending', [ApplicantJobController::class, 'on_trending_jobs']);
+            Route::get('/filter-option', [ApplicantJobController::class, 'filter_jobs']);
+            Route::get('/recommendations', [ApplicantJobController::class, 'recommendation_job']);
+            Route::post('/apply', [ApplicantJobController::class, 'apply_job']);
         });
 
         Route::prefix('/activity')->group(function () {

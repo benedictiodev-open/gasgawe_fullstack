@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\api\Jobs;
+namespace App\Http\Controllers\api\Recruiter;
 
 use App\Http\Controllers\Controller;
-use App\Services\Job\JobService;
-use App\Traits\ResponseTrait;
-use Exception;
 use Illuminate\Http\Request;
+use App\Services\JobService;
+use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Exception;
 
-class JobsController extends Controller
+class JobController extends Controller
 {
     use ResponseTrait;
     private $jobService;
