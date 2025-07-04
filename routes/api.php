@@ -29,6 +29,8 @@ Route::middleware(AuthApiChecker::class)->group(function () {
     Route::prefix('recruiter')->middleware(AuthApiRecruiter::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
             Route::post('/create', [RecruiterJobController::class, 'add_job']);
+            Route::post('/update-status', [RecruiterJobController::class, 'update_status_job']);
+            Route::post('/delete', [RecruiterJobController::class, 'delete_job']);
         });
 
         Route::prefix('/profile')->group(function () {
@@ -73,5 +75,6 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::post('/expected-salaries', [ExpectedSalaryController::class, 'store']);
         Route::get('/educations', [EducationController::class, 'index']);
         Route::post('/educations', [EducationController::class, 'store']);
+        Route::get('/industry-types', [IndustryTypeController::class, 'index']);
     });
 });

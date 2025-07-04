@@ -128,4 +128,135 @@ class JobController extends Controller
             return $this->errorResponse($error->getMessage());
         }
     }
+
+    /**
+     * @OA\POST(
+     *     path="/recruiter/jobs/update-status",
+     *     tags={"Reqruiter Jobs"},
+     *     summary="Update job status",
+     *     description="Update job status. (To active or inactive job)",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"job_id", "status"},
+     *                 @OA\Property(property="job_id", type="integer", example=1),
+     *                 @OA\Property(property="status", type="string", example="inactive"),
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Job status updated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Job status updated successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     * )
+     */
+    public function update_status_job(Request $request)
+    {
+        try {
+            $validated = Validator::make($request->all(), [
+                'job_id' => 'required|exists:jobs,id',
+                'status' => 'required|in:active,inactive',
+            ]);
+
+            if ($validated->fails()) {
+                return $this->errorResponse("Validation Failed", 422, $validated->errors());
+            } else {
+                $user_id = Auth::guard('sanctum')->user()->id;
+                $job = $this->jobService->update_status_job($validated->getData(), $user_id);
+                return $this->successResponse($job);
+            }
+        } catch (Exception $error) {
+            return $this->errorResponse($error->getMessage());
+        }
+    }
+
+    /**
+     * @OA\POST(
+     *     path="/recruiter/jobs/delete",
+     *     tags={"Reqruiter Jobs"},
+     *     summary="Delete job",
+     *     description="Delete job.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"job_id"},
+     *                 @OA\Property(property="job_id", type="integer", example=1),
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Job deleted successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Job deleted successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Failed",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Validation Failed"),
+     *             @OA\Property(property="data", type="null", nullable="true", example="null"), 
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Job deleted failed",    
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Job deleted failed"),
+     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         ),   
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized"),
+     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         ),
+     *     ),
+     * )
+     */
+    public function delete_job(Request $request)
+    {
+        try {
+            $validated = Validator::make($request->all(), [
+                'job_id' => 'required|exists:jobs,id',
+            ]);
+
+            if ($validated->fails()) {
+                return $this->errorResponse("Validation Failed", 422, $validated->errors());
+            } else {
+                $user_id = Auth::guard('sanctum')->user()->id;
+                $job = $this->jobService->delete_job($validated->getData(), $user_id);
+                return $this->successResponse($job);
+            }
+        } catch (Exception $error) {
+            return $this->errorResponse($error->getMessage());
+        }
+    }
 }

@@ -176,4 +176,33 @@ class JobService
             throw $error;
         }
     }
+
+    public function update_status_job($data, $user_id)
+    {
+        try {
+            $job = JobMaster::find($data['job_id']);
+            if ($job->created_by != $user_id) {
+                throw new Exception("You are not authorized to update this job");
+            }
+            $job->status = $data['status'];
+            $job->save();
+            return $job;
+        } catch (Exception $error) {
+            throw $error;
+        }
+    }
+
+    public function delete_job($data, $user_id)
+    {
+        try {
+            $job = JobMaster::find($data['job_id']);
+            if ($job->created_by != $user_id) {
+                throw new Exception("You are not authorized to delete this job");
+            }
+            $job->delete();
+            return $job;
+        } catch (Exception $error) {
+            throw $error;
+        }
+    }
 }
