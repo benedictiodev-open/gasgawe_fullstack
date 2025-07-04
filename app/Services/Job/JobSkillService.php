@@ -15,4 +15,9 @@ class JobSkillService
     {
         return $this->jobSkillRepository->store($data);
     }
+
+    public function deleteByJobId($job_id)
+    {
+        return $this->jobSkillRepository->deleteByJobId($job_id);
+    }
 }

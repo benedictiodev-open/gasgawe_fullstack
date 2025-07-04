@@ -29,8 +29,13 @@ Route::middleware(AuthApiChecker::class)->group(function () {
     Route::prefix('recruiter')->middleware(AuthApiRecruiter::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
             Route::post('/create', [RecruiterJobController::class, 'add_job']);
+            Route::post('/update', [RecruiterJobController::class, 'update_job']);
+            Route::get('/get-by-id', [RecruiterJobController::class, 'get_job_by_id']);
+            Route::get('/get-applicant-by-job-id', [RecruiterJobController::class, 'get_applicant_by_job_id']);
             Route::post('/update-status', [RecruiterJobController::class, 'update_status_job']);
             Route::post('/delete', [RecruiterJobController::class, 'delete_job']);
+            Route::get('/get-applicant-detail-by-id', [RecruiterJobController::class, 'get_applicant_detail_by_id']);
+            Route::post('/update-applicant-apply-status', [RecruiterJobController::class, 'update_applicant_apply_status']);
         });
 
         Route::prefix('/profile')->group(function () {

@@ -9,6 +9,7 @@ use App\Models\JobQualificationRequrements;
 use App\Models\JobUsersApply;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -60,6 +61,63 @@ class JobService
         } catch (Exception $error) {
             throw $error;
         }
+    }
+
+    public function update_job_master($data, $user_id)
+    {
+        try {
+            return DB::transaction(function () use ($data, $user_id) {
+                $job_master = $this->jobMasterService->update($data['job_id'], $data);
+                
+                if ($data['image']) {
+                    Storage::disk('public')->delete($job_master->image);
+                    $uri = $this->handleFileUpload($data['image'], $user_id);
+                    $job_master->image = $uri;
+                    $job_master->save();
+                } 
+
+                $this->jobSkillService->deleteByJobId($data['job_id']);
+                foreach ($data["skills"] as $skill) {
+                    if (gettype($skill) == 'string') {
+                        $skill_id = explode(',', $skill);
+                        foreach ($skill_id as $id) {
+                            $this->jobSkillService->store([
+                                "job_id" => $job_master->id,
+                                "skill_id" => $id
+                            ]);
+                        }
+                    } else {
+                        $this->jobSkillService->store([
+                            "job_id" => $job_master->id,
+                            "skill_id" => $skill
+                        ]);
+                    }
+                }
+                return $job_master;
+            });
+        } catch (Exception $error) {
+            throw $error;
+        }
+    }
+
+    public function get_job_by_id($job_id)
+    {
+        return JobMaster::with('skills', 'skills.skill', 'employmentType', 'experience', 'education', 'expectedSalary', 'province', 'city')->find($job_id);
+    }   
+
+    public function get_applicant_by_job_id($job_id)
+    {
+        return JobUsersApply::with('user', 'user.profileApplicant', 'user.profileApplicant.province', 'user.profileApplicant.city')->where('job_id', $job_id)->get();
+    }
+
+    public function get_applicant_detail_by_id($applicant_id)
+    {
+        return User::with('profileApplicant', 'profileApplicant.province', 'profileApplicant.city')->find($applicant_id);
+    }
+
+    public function update_applicant_apply_status($applicant_id, $status, $user_id)
+    {
+        return JobUsersApply::where('id', $applicant_id)->where('user_id', $user_id)->update(['status' => $status]);
     }
 
     /**
