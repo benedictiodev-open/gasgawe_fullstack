@@ -444,7 +444,8 @@ class JobController extends Controller
             } else {
                 $user_id = Auth::guard('sanctum')->user()->id;
                 $applicant = $this->jobService->update_applicant_apply_status($request->applicant_id, $request->status, $user_id);
-            return $this->successResponse($applicant);
+                return $this->successResponse($applicant);
+            }
         } catch (Exception $error) {
             return $this->errorResponse($error->getMessage());
         }
