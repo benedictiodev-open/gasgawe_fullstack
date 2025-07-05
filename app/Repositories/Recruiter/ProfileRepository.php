@@ -25,21 +25,16 @@ class ProfileRepository
    */
   public function updateProfile(User $user, UserProfileCompany|null $profile, $data)
   {
-    if (!$profile) {
-      $profile = UserProfileCompany::create([
-        'user_id' => $user->id,
-        'company_name' => $data['company_name'],
-        'established_date' => $data['established_date'],
-        'province_id' => $data['province_id'],
-        'city_id' => $data['city_id'],
-        'employee_count' => $data['employee_count'],
-        'bio' => $data['bio'],
-        'file_profile_image' => $data['file_profile_image'] ?? null,
-      ]);
-    } else {
-      $profile->update($data);
+    $payload = [
+      ...$data,
+      'user_id' => $user->id,
+    ];
+
+    if ($profile) {
+      $profile->update($payload);
+      return $profile;
     }
 
-    return $profile;
+    return UserProfileCompany::create($payload);
   }
 }
