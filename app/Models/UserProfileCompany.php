@@ -17,6 +17,7 @@ class UserProfileCompany extends Model
         'established_date',
         'province_id',
         'city_id',
+        'industry_type_id',
         'bio',
         'employee_count',
         'file_profile_image',
@@ -48,5 +49,13 @@ class UserProfileCompany extends Model
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+
+    /**
+     * Get the industry data for this profile.
+     */
+    public function industryType()
+    {
+        return $this->hasOne(IndustryType::class, 'industry_type_id');
     }
 }

@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    protected $table = 'videos';
-
-    protected $guarded = ['id'];
-
+    protected $fillable = [
+        'user_id',
+        'path',
+        'thumbnail_path',
+        'duration',
+        'size',
+    ];
+  
     public function user() {
         $this->belongsTo(User::class, 'user_id');
     }

@@ -51,7 +51,7 @@ class ProfileService
                 $data['file_profile_image'] = $this->handleFileUpload($data['file_profile_image'], 'profile_image', $user->id);
             }
 
-            $this->profileRepository->updateProfile($user, $profile, $data);
+            $profile = $this->profileRepository->updateProfile($user, $profile, $data);
 
             DB::commit();
 
