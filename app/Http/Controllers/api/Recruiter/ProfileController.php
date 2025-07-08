@@ -91,12 +91,13 @@ class ProfileController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *                 required={"company_name", "established_date", "province_id", "city_id", "employee_count", "bio"},
+     *                 required={"company_name", "established_date", "province_id", "city_id", "industry_type_id", "employee_count", "bio"},
      *
      *                 @OA\Property(property="company_name", type="string", example="nama perusahaan"),
      *                 @OA\Property(property="established_date", type="string", format="date", example="2020-04-22"),
      *                 @OA\Property(property="province_id", type="integer", example=12),
      *                 @OA\Property(property="city_id", type="integer", example=181),
+     *                 @OA\Property(property="industry_type_id", type="integer", example=1),
      *                 @OA\Property(property="employee_count", type="integer", example=100),
      *                 @OA\Property(property="bio", type="string", example="bio perusahaan"),
      *                 @OA\Property(property="file_profile_image", type="file", format="binary", description="Profile image file (JPG, PNG, max 2MB)"),

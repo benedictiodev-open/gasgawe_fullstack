@@ -24,8 +24,9 @@ class UpdateProfileRequest extends FormRequest
         return [
             'company_name'        => ['required', 'string', 'max:250'],
             'established_date'    => ['required', 'date'],
-            'province_id'         => ['required', 'integer',],
-            'city_id'             => ['required', 'integer',],
+            'province_id'         => ['required', 'integer'],
+            'city_id'             => ['required', 'integer'],
+            'industry_type_id'    => ['required', 'integer'],
             'bio'                 => ['required', 'string', 'max:250'],
             'employee_count'      => ['required', 'integer', 'min:1'],
             'file_profile_image'  => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
