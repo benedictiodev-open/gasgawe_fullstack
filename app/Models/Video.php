@@ -13,4 +13,8 @@ class Video extends Model
         'duration',
         'size',
     ];
+  
+    public function user() {
+        $this->belongsTo(User::class, 'user_id');
+    }
 }
