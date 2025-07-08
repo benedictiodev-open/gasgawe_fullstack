@@ -38,6 +38,10 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::post('/update-applicant-apply-status', [RecruiterJobController::class, 'update_applicant_apply_status']);
         });
 
+        Route::prefix('/explor')->group(function () {
+            Route::get('/', [ExplorController::class, 'explode']);
+        });
+
         Route::prefix('/profile')->group(function () {
             Route::get('/', [RecruiterProfileController::class, 'getProfile']);
             Route::post('/', [RecruiterProfileController::class, 'updateProfile']);
@@ -50,6 +54,8 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/filter-option', [ApplicantJobController::class, 'filter_jobs']);
             Route::get('/recommendations', [ApplicantJobController::class, 'recommendation_job']);
             Route::post('/apply', [ApplicantJobController::class, 'apply_job']);
+            Route::get('/get-job-by-id', [ApplicantJobController::class, 'get_job_by_id']);
+            Route::get('/search', [ApplicantJobController::class, 'search_job']);
         });
 
         Route::prefix('/activity')->group(function () {

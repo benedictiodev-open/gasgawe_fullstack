@@ -215,6 +215,23 @@ class JobController extends Controller
         }
     }
 
+    public function search_applicant(Request $request)
+    {
+        try {
+            $jobs = User::with('user', 'user.profileApplicant', 'skills', 'province', 'city', 'employmentType', 'experience', 'education', 'expectedSalary')
+                ->orWhereHas('user.profileApplicant', function($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhereHas('skills', function($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->get();
+            return $this->successResponse($jobs);
+        } catch (Exception $error) {
+            return $this->errorResponse($error->getMessage());
+        }
+    }
+
     /**
      * @OA\GET(
      *     path="/recruiter/jobs/get-by-id",
@@ -431,7 +448,66 @@ class JobController extends Controller
         }
     }
 
-    public function update_applicant_apply_status(Request $request)
+    /**
+     * @OA\POST(
+     *     path="/recruiter/jobs/update-applicant-apply-status",
+     *     tags={"Reqruiter Jobs"},
+     *     summary="Update applicant apply status",
+     *     description="Update applicant apply status.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"applicant_id", "status"},
+     *                 @OA\Property(property="applicant_id", type="integer", example=1),
+     *                 @OA\Property(property="status", type="string", example="Accepted"),
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Applicant apply status updated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Applicant apply status updated successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Failed",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Validation Failed"),
+     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Applicant apply status updated failed", 
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Applicant apply status updated failed"),
+     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized"),
+     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
+     * )
+     */
+     public function update_applicant_apply_status(Request $request)
     {
         try {
             $validated = Validator::make($request->all(), [
@@ -444,7 +520,8 @@ class JobController extends Controller
             } else {
                 $user_id = Auth::guard('sanctum')->user()->id;
                 $applicant = $this->jobService->update_applicant_apply_status($request->applicant_id, $request->status, $user_id);
-            return $this->successResponse($applicant);
+                return $this->successResponse($applicant);
+            }
         } catch (Exception $error) {
             return $this->errorResponse($error->getMessage());
         }

@@ -25,6 +25,47 @@ class JobController extends Controller
 
     /**
      * @OA\Get(
+     *     path="/applicant/jobs/get-job-by-id",
+     *     tags={"Applicant Jobs"},
+     *     summary="Get job by id",
+     *     description="Get job by id.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="job_id",
+     *         in="query",
+     *         required=true,
+     *         description="Job id"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Job retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Job retrieved successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized"),
+     * )
+     */
+    public function get_job_by_id(Request $request)
+    {
+        try {
+            $job = $this->jobService->get_job_by_id($request->job_id);
+            return $this->successResponse($job);
+        } catch (Exception $error) {
+            return $this->errorResponse($error->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Get(
      *     path="/applicant/jobs/ontrending",
      *     tags={"Applicant Jobs"},
      *     summary="Get trending recruiters",
@@ -401,6 +442,57 @@ class JobController extends Controller
                 'message' => 'Failed to get jobs: ' . $error->getMessage(),
                 'data' => null
             ], 500);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/applicant/jobs/search",
+     *     tags={"Applicant Jobs"},
+     *     summary="Search jobs",
+     *     description="Search jobs by position, company name, or skill",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         required=true,
+     *         description="Search for jobs by position, company name, or skill"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Jobs retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Jobs retrieved successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     * )
+     */
+    public function search_job(Request $request)
+    {
+        try {
+            $jobs = JobMaster::with('user', 'user.profileCompany', 'skills', 'province', 'city', 'employmentType', 'experience', 'education', 'expectedSalary')
+                ->where('position', 'like', '%' . $request->search . '%')
+                ->orWhereHas('user.profileCompany', function($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhereHas('skills', function($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->get();
+            return $this->successResponse($jobs);
+        } catch (Exception $error) {
+            return $this->errorResponse($error->getMessage());
         }
     }
 
