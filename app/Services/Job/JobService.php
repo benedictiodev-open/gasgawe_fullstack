@@ -7,6 +7,7 @@ use App\Models\JobMaster;
 use App\Models\JobSkills;
 use App\Models\JobQualificationRequrements;
 use App\Models\JobUsersApply;
+use App\Repositories\Jobs\JobMasterRepository;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -15,11 +16,19 @@ use Illuminate\Support\Facades\Log;
 
 class JobService
 {
-
-    public function __construct(protected JobMasterService $jobMasterService, protected JobSkillService $jobSkillService)
+    public function __construct(protected JobMasterService $jobMasterService, protected JobSkillService $jobSkillService, protected JobMasterRepository $jobMasterRepository)
     {
         $this->jobMasterService = $jobMasterService;
         $this->jobSkillService = $jobSkillService;
+
+        $this->jobMasterRepository = $jobMasterRepository;
+    }
+
+    public function getActivity(array $request)
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        return $this->jobMasterRepository->getActivityByUser($request, $user);
     }
 
     public function store_job_master($data, $user_id)
@@ -68,13 +77,13 @@ class JobService
         try {
             return DB::transaction(function () use ($data, $user_id) {
                 $job_master = $this->jobMasterService->update($data['job_id'], $data);
-                
+
                 if ($data['image']) {
                     Storage::disk('public')->delete($job_master->image);
                     $uri = $this->handleFileUpload($data['image'], $user_id);
                     $job_master->image = $uri;
                     $job_master->save();
-                } 
+                }
 
                 $this->jobSkillService->deleteByJobId($data['job_id']);
                 foreach ($data["skills"] as $skill) {
@@ -103,7 +112,7 @@ class JobService
     public function get_job_by_id($job_id)
     {
         return JobMaster::with('skills', 'skills.skill', 'employmentType', 'experience', 'education', 'expectedSalary', 'province', 'city')->find($job_id);
-    }   
+    }
 
     public function get_applicant_by_job_id($job_id)
     {
@@ -157,10 +166,10 @@ class JobService
                     'expectedSalary',
                     'province',
                     'city',
-                    'bookmark' => function($query) use($userId) {
+                    'bookmark' => function ($query) use ($userId) {
                         $query->where('user_id', $userId);
                     },
-                    'apply' => function($query) use($userId) {
+                    'apply' => function ($query) use ($userId) {
                         $query->where('user_id', $userId);
                     }
                 ])
@@ -172,7 +181,7 @@ class JobService
                 // Filter by skills
                 if (!empty($filters['skills'])) {
                     $skillIds = is_array($filters['skills']) ? $filters['skills'] : explode(',', $filters['skills']);
-                    $jobs->whereHas('skills', function($query) use ($skillIds) {
+                    $jobs->whereHas('skills', function ($query) use ($skillIds) {
                         $query->whereIn('skill_id', $skillIds);
                     });
                 }
@@ -200,7 +209,7 @@ class JobService
                 // Filter by time
                 if (!empty($filters['time_filter'])) {
                     $now = now();
-                    
+
                     switch ($filters['time_filter']) {
                         case 'most_recent':
                             // Last 24 hours
@@ -228,7 +237,6 @@ class JobService
             $jobs->orderBy('created_at', 'desc');
 
             return $jobs->simplePaginate($perPage);
-
         } catch (Exception $error) {
             Log::error('Error getting job recommendations: ' . $error->getMessage());
             throw $error;

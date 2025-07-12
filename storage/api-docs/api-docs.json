@@ -731,6 +731,77 @@
                 ]
             }
         },
+        "/applicant/jobs/get-job-by-id": {
+            "get": {
+                "tags": [
+                    "Applicant Jobs"
+                ],
+                "summary": "Get job by id",
+                "description": "Get job by id.",
+                "operationId": "efb1f7b17537dde73a9868664d0b71c3",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "query",
+                        "description": "Job id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Job retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/applicant/jobs/ontrending": {
             "get": {
                 "tags": [
@@ -1327,6 +1398,77 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/applicant/jobs/search": {
+            "get": {
+                "tags": [
+                    "Applicant Jobs"
+                ],
+                "summary": "Search jobs",
+                "description": "Search jobs by position, company name, or skill",
+                "operationId": "aa4fa23a18467eea369d47a6d18dc83a",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search for jobs by position, company name, or skill",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jobs retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Jobs retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
                                         }
                                     },
                                     "type": "object"
@@ -2992,10 +3134,407 @@
                 ]
             }
         },
+        "/recruiter/explor": {
+            "get": {
+                "tags": [
+                    "Reqruiter Explor"
+                ],
+                "summary": "Get all explor",
+                "description": "Get all explor.",
+                "operationId": "f22b4e50799c7a6a5daa0c3c9a918b3b",
+                "responses": {
+                    "200": {
+                        "description": "Explor retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Explor retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "title"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "description"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2021-01-01 00:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2021-01-01 00:00:00"
+                                                    },
+                                                    "user": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "name"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "email"
+                                                            },
+                                                            "phone": {
+                                                                "type": "string",
+                                                                "example": "phone"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "address"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2021-01-01 00:00:00"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2021-01-01 00:00:00"
+                                                            },
+                                                            "profileApplicant": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "user_id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "province_id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "city_id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "created_at": {
+                                                                        "type": "string",
+                                                                        "example": "2021-01-01 00:00:00"
+                                                                    },
+                                                                    "updated_at": {
+                                                                        "type": "string",
+                                                                        "example": "2021-01-01 00:00:00"
+                                                                    },
+                                                                    "province": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    },
+                                                                    "city": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    },
+                                                                    "education": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    },
+                                                                    "experience": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    },
+                                                                    "skill": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/jobs/activity": {
+            "get": {
+                "tags": [
+                    "Recruiter Jobs"
+                ],
+                "summary": "Get job activity list",
+                "description": "Get job activity list",
+                "operationId": "62f958762a1e1b9bd64f4934e9ce4a12",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter jobs by status. Allowed: active, inactive",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "active",
+                                "inactive"
+                            ],
+                            "example": "active",
+                            "nullable": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jobs activity retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Jobs activity retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "created_by": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Develop and maintain backend systems."
+                                                    },
+                                                    "position": {
+                                                        "type": "string",
+                                                        "example": "Software Engineer"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    },
+                                                    "province_id": {
+                                                        "type": "integer",
+                                                        "example": 11
+                                                    },
+                                                    "city_id": {
+                                                        "type": "integer",
+                                                        "example": 11
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "inactive"
+                                                    },
+                                                    "employment_type_id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "experience_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "education_id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "expected_salary_id": {
+                                                        "type": "integer",
+                                                        "example": 4
+                                                    },
+                                                    "qualification": {
+                                                        "type": "string",
+                                                        "example": "Bachelor's Degree in Computer Science."
+                                                    },
+                                                    "deleted_at": {
+                                                        "type": "string",
+                                                        "example": null,
+                                                        "nullable": true
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "jobs/1_1752295941.jpg"
+                                                    },
+                                                    "province_name": {
+                                                        "type": "string",
+                                                        "example": "DKI JAKARTA"
+                                                    },
+                                                    "city_name": {
+                                                        "type": "string",
+                                                        "example": "KABUPATEN BIREUEN"
+                                                    },
+                                                    "employment_type_name": {
+                                                        "type": "string",
+                                                        "example": "Parttime"
+                                                    },
+                                                    "expected_salary_name": {
+                                                        "type": "string",
+                                                        "example": "Rp. 7.000.000 - Rp. 10.000.000"
+                                                    },
+                                                    "education_name": {
+                                                        "type": "string",
+                                                        "example": "Diploma (D1-D3)"
+                                                    },
+                                                    "experience_name": {
+                                                        "type": "string",
+                                                        "example": "1-3 Year"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "status": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The selected status is invalid."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Service Unavailable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/recruiter/jobs/create": {
             "post": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Create a new job",
                 "description": "Create a new job.",
@@ -3178,7 +3717,7 @@
         "/recruiter/jobs/update": {
             "post": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Update a job",
                 "description": "Update a job.",
@@ -3295,30 +3834,23 @@
         "/recruiter/jobs/get-by-id": {
             "get": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Get job by id",
                 "description": "Get job by id.",
                 "operationId": "6b9b3e2bc02c3d90b92645dd03720c52",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "job_id"
-                                ],
-                                "properties": {
-                                    "job_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "query",
+                        "description": "Job ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Job retrieved successfully",
@@ -3361,9 +3893,8 @@
                                             "example": "Validation Failed"
                                         },
                                         "data": {
-                                            "type": "null",
-                                            "example": "null",
-                                            "nullable": "true"
+                                            "example": null,
+                                            "nullable": true
                                         },
                                         "error": {
                                             "type": "boolean"
@@ -3395,9 +3926,8 @@
                                             "example": "Job retrieved failed"
                                         },
                                         "data": {
-                                            "type": "null",
-                                            "example": "null",
-                                            "nullable": "true"
+                                            "example": null,
+                                            "nullable": true
                                         },
                                         "error": {
                                             "type": "boolean"
@@ -3429,9 +3959,8 @@
                                             "example": "Unauthorized"
                                         },
                                         "data": {
-                                            "type": "null",
-                                            "example": "null",
-                                            "nullable": "true"
+                                            "example": null,
+                                            "nullable": true
                                         },
                                         "error": {
                                             "type": "boolean"
@@ -3459,7 +3988,7 @@
         "/recruiter/jobs/get-applicant-by-job-id": {
             "get": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Get applicant by job id",
                 "description": "Get applicant by job id.",
@@ -3623,7 +4152,7 @@
         "/recruiter/jobs/get-applicant-detail-by-id": {
             "get": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Get applicant detail by id",
                 "description": "Get applicant detail by id.",
@@ -3784,10 +4313,170 @@
                 ]
             }
         },
+        "/recruiter/jobs/update-applicant-apply-status": {
+            "post": {
+                "tags": [
+                    "Recruiter Jobs"
+                ],
+                "summary": "Update applicant apply status",
+                "description": "Update applicant apply status.",
+                "operationId": "8a73f03ce14af194a8e60c9385dbf2bb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "applicant_id",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "applicant_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Accepted"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Applicant apply status updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Applicant apply status updated successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Failed"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Applicant apply status updated failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Applicant apply status updated failed"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/recruiter/jobs/update-status": {
             "post": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Update job status",
                 "description": "Update job status. (To active or inactive job)",
@@ -3854,7 +4543,7 @@
         "/recruiter/jobs/delete": {
             "post": {
                 "tags": [
-                    "Reqruiter Jobs"
+                    "Recruiter Jobs"
                 ],
                 "summary": "Delete job",
                 "description": "Delete job.",
@@ -4253,6 +4942,113 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/video": {
+            "post": {
+                "tags": [
+                    "Video"
+                ],
+                "summary": "Upload a video file",
+                "operationId": "b95d8ecd13aed995c1aa6ba023d0a567",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "Video file (mp4, mov, avi), max 100MB",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video uploaded successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Upload successful"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/storage/files/video/abc123.mp4"
+                                                },
+                                                "thumbnail_path": {
+                                                    "type": "string",
+                                                    "example": "/storage/files/thumbnails/abc123.jpg"
+                                                },
+                                                "duration": {
+                                                    "description": "Duration of the video in seconds",
+                                                    "type": "number",
+                                                    "format": "integer",
+                                                    "example": 1255
+                                                },
+                                                "size": {
+                                                    "description": "File size in bytes",
+                                                    "type": "integer",
+                                                    "example": 10485760
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "file": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The file field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/login": {
@@ -4691,6 +5487,110 @@
         }
     },
     "components": {
+        "responses": {
+            "422": {
+                "description": "Validation Failed",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "error"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Validation Failed"
+                                },
+                                "data": {
+                                    "type": "null",
+                                    "example": "null",
+                                    "nullable": "true"
+                                },
+                                "error": {
+                                    "type": "boolean"
+                                },
+                                "errors": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Explor retrieved failed",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "error"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Explor retrieved failed"
+                                },
+                                "data": {
+                                    "type": "null",
+                                    "example": "null",
+                                    "nullable": "true"
+                                },
+                                "error": {
+                                    "type": "boolean"
+                                },
+                                "errors": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "error"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                },
+                                "data": {
+                                    "type": "null",
+                                    "example": "null",
+                                    "nullable": "true"
+                                },
+                                "error": {
+                                    "type": "boolean"
+                                },
+                                "errors": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
@@ -4717,12 +5617,20 @@
             "description": "Masterdata"
         },
         {
-            "name": "Reqruiter Jobs",
-            "description": "Reqruiter Jobs"
+            "name": "Reqruiter Explor",
+            "description": "Reqruiter Explor"
+        },
+        {
+            "name": "Recruiter Jobs",
+            "description": "Recruiter Jobs"
         },
         {
             "name": "Recruiter Profile",
             "description": "Recruiter Profile"
+        },
+        {
+            "name": "Video",
+            "description": "Video"
         },
         {
             "name": "Auth",
