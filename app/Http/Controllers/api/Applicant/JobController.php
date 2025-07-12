@@ -52,6 +52,8 @@ class JobController extends Controller
      *         @OA\JsonContent(
      *             @OA\Property(property="status", type="string", example="error"),
      *             @OA\Property(property="message", type="string", example="Unauthorized"),
+     *         )
+     *      )
      * )
      */
     public function get_job_by_id(Request $request)
@@ -155,7 +157,6 @@ class JobController extends Controller
                 'message' => 'Trending recruiters retrieved successfully',
                 'data' => $recruiters
             ], 200);
-
         } catch (Exception $error) {
             return response()->json([
                 'status' => 'error',
@@ -164,7 +165,7 @@ class JobController extends Controller
             ], 500);
         }
     }
-    
+
     /**
      * @OA\Get(
      *     path="/applicant/jobs/filter-option",
@@ -402,27 +403,27 @@ class JobController extends Controller
 
             // Build filters array
             $filters = [];
-            
+
             if ($request->has('skills')) {
                 $filters['skills'] = $request->get('skills');
             }
-            
+
             if ($request->has('province_id')) {
                 $filters['province_id'] = $request->get('province_id');
             }
-            
+
             if ($request->has('city_id')) {
                 $filters['city_id'] = $request->get('city_id');
             }
-            
+
             if ($request->has('employment_type_id')) {
                 $filters['employment_type_id'] = $request->get('employment_type_id');
             }
-            
+
             if ($request->has('expected_salary_id')) {
                 $filters['expected_salary_id'] = $request->get('expected_salary_id');
             }
-            
+
             if ($request->has('time_filter')) {
                 $filters['time_filter'] = $request->get('time_filter');
             }
@@ -435,7 +436,6 @@ class JobController extends Controller
                 'message' => 'Jobs retrieved successfully',
                 'data' => $jobs
             ], 200);
-
         } catch (Exception $error) {
             return response()->json([
                 'status' => 'error',
@@ -483,10 +483,10 @@ class JobController extends Controller
         try {
             $jobs = JobMaster::with('user', 'user.profileCompany', 'skills', 'province', 'city', 'employmentType', 'experience', 'education', 'expectedSalary')
                 ->where('position', 'like', '%' . $request->search . '%')
-                ->orWhereHas('user.profileCompany', function($query) use ($request) {
+                ->orWhereHas('user.profileCompany', function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%');
                 })
-                ->orWhereHas('skills', function($query) use ($request) {
+                ->orWhereHas('skills', function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%');
                 })
                 ->get();
@@ -577,21 +577,21 @@ class JobController extends Controller
                 ], 404);
             }
 
-            if ($job->apply()->where('user_id', $userId)->exists()) {   
+            if ($job->apply()->where('user_id', $userId)->exists()) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Job already applied',
                     'data' => null
                 ], 400);
             }
-            
+
             $job->apply()->create([
                 'job_id' => $jobId,
                 'user_id' => $userId,
                 'status' => 'Applied',
                 'created_at' => now(),
                 'updated_at' => now()
-            ]);     
+            ]);
 
             return response()->json([
                 'status' => 'success',
