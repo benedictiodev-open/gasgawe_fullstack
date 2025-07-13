@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\Recruiter;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Recruiter\GetActivityJobsRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\Job\JobService;
 use App\Traits\ResponseTrait;

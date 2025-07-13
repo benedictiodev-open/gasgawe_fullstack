@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api\Recruiter;
 
 use App\Http\Controllers\Controller;
+use App\Models\Video;
+use Exception;
 use Illuminate\Http\Request;
 
 class ExplorController extends Controller
@@ -109,13 +111,21 @@ class ExplorController extends Controller
     public function explode()
     {
         try {
-            $vidio = Vidio::with('user', 'user.profileApplicant', 'user.profileApplicant.province', 'user.profileApplicant.city',)
+            $vidio = Video::with('user', 'user.profileApplicant', 'user.profileApplicant.province', 'user.profileApplicant.city',)
                 ->whereHas('user', function($query) {
                     $query->where('type', 'applicant');
                 })->get();
-            return $this->successResponse($vidio);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Get data explor successfully',
+                'data' => $vidio
+            ], 200);
         } catch (Exception $error) {
-            return $this->errorResponse($error->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to get explor: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
         }
     }
 }

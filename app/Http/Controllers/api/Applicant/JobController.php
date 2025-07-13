@@ -60,9 +60,17 @@ class JobController extends Controller
     {
         try {
             $job = $this->jobService->get_job_by_id($request->job_id);
-            return $this->successResponse($job);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Get data job Successfully',
+                'data' => $job
+            ], 200);
         } catch (Exception $error) {
-            return $this->errorResponse($error->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to get data job: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
         }
     }
 
@@ -398,7 +406,7 @@ class JobController extends Controller
     public function recommendation_job(Request $request)
     {
         try {
-            $userId = auth()->id();
+            $userId = auth('sanctum')->user()->id;
             $perPage = $request->get('per_page', 10);
 
             // Build filters array
@@ -490,9 +498,18 @@ class JobController extends Controller
                     $query->where('name', 'like', '%' . $request->search . '%');
                 })
                 ->get();
-            return $this->successResponse($jobs);
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Search data job successfully',
+                'data' => $jobs
+            ], 200);
         } catch (Exception $error) {
-            return $this->errorResponse($error->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to search jobs: ' . $error->getMessage(),
+                'data' => null
+            ], 500);
         }
     }
 

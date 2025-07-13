@@ -7,6 +7,7 @@ use App\Models\JobMaster;
 use App\Models\User;
 use App\Models\UserBookmark;
 use App\Models\JobBookmarks;
+use Exception;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
