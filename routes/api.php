@@ -12,6 +12,7 @@ use App\Http\Controllers\api\Applicant\ProfileController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\api\Applicant\ActivityController;
 use App\Http\Controllers\api\Recruiter\ProfileController as RecruiterProfileController;
+use App\Http\Controllers\api\Video\VideoController;
 use App\Http\Middleware\AuthApiApplicant;
 use App\Http\Middleware\AuthApiChecker;
 use App\Http\Middleware\AuthApiRecruiter;
@@ -28,6 +29,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('recruiter')->middleware(AuthApiRecruiter::class)->group(function () {
         Route::prefix('/jobs')->group(function () {
+            Route::get('/activity', [RecruiterJobController::class, 'activity']);
             Route::post('/create', [RecruiterJobController::class, 'add_job']);
             Route::post('/update', [RecruiterJobController::class, 'update_job']);
             Route::get('/get-by-id', [RecruiterJobController::class, 'get_job_by_id']);
@@ -66,7 +68,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
                 Route::get('/company', [ActivityController::class, 'get_bookmark_company']);
             });
         });
-        
+
         Route::prefix('/profile')->group(function () {
             Route::get('/', [ProfileController::class, 'get_profile']);
             Route::post('/update', [ProfileController::class, 'update_profile']);
@@ -87,5 +89,10 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::get('/educations', [EducationController::class, 'index']);
         Route::post('/educations', [EducationController::class, 'store']);
         Route::get('/industry-types', [IndustryTypeController::class, 'index']);
+    });
+
+
+    Route::prefix('/video')->group(function () {
+        Route::post('/', [VideoController::class, 'store']);
     });
 });
