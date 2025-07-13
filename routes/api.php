@@ -11,6 +11,9 @@ use App\Http\Controllers\api\Masterdata\EducationController;
 use App\Http\Controllers\api\Applicant\ProfileController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\api\Applicant\ActivityController;
+use App\Http\Controllers\api\Applicant\ExplorController as ApplicantExplorController;
+use App\Http\Controllers\api\Masterdata\IndustryTypeController;
+use App\Http\Controllers\api\Recruiter\ExplorController;
 use App\Http\Controllers\api\Recruiter\ProfileController as RecruiterProfileController;
 use App\Http\Controllers\api\Video\VideoController;
 use App\Http\Middleware\AuthApiApplicant;
@@ -67,6 +70,10 @@ Route::middleware(AuthApiChecker::class)->group(function () {
                 Route::get('/job', [ActivityController::class, 'get_bookmark_job']);
                 Route::get('/company', [ActivityController::class, 'get_bookmark_company']);
             });
+        });
+
+        Route::prefix('/explor')->group(function () {
+            Route::get('/', [ApplicantExplorController::class, 'explode']);
         });
 
         Route::prefix('/profile')->group(function () {

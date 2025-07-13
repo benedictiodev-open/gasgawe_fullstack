@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\Recruiter;
+namespace App\Http\Controllers\api\Applicant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Video;
@@ -11,10 +11,10 @@ class ExplorController extends Controller
 {
     /**
      * @OA\GET(
-     *     path="/recruiter/explor",
-     *     tags={"Reqruiter Explor"},
+     *     path="/applicant/explor",
+     *     tags={"Applicant Explor"},
      *     summary="Get all explor",
-     *     description="Get all explor.",
+     *     description="Get all explor company.",
      *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
@@ -38,7 +38,7 @@ class ExplorController extends Controller
      *                          @OA\Property(property="address", type="string", example="address"), 
      *                          @OA\Property(property="created_at", type="string", example="2021-01-01 00:00:00"), 
      *                          @OA\Property(property="updated_at", type="string", example="2021-01-01 00:00:00"),
-     *                          @OA\Property(property="profileApplicant", type="object", 
+     *                          @OA\Property(property="profileCompany", type="object", 
      *                              @OA\Property(property="id", type="integer", example=1), 
      *                              @OA\Property(property="user_id", type="integer", example=1), 
      *                              @OA\Property(property="province_id", type="integer", example=1), 
@@ -53,18 +53,6 @@ class ExplorController extends Controller
      *                                  @OA\Property(property="id", type="integer", example=1), 
      *                                  @OA\Property(property="name", type="string", example="name"), 
      *                              ),
-     *                              @OA\Property(property="education", type="object", 
-     *                                  @OA\Property(property="id", type="integer", example=1), 
-     *                                  @OA\Property(property="name", type="string", example="name"), 
-     *                              ),
-     *                              @OA\Property(property="experience", type="object", 
-     *                                  @OA\Property(property="id", type="integer", example=1), 
-     *                                  @OA\Property(property="name", type="string", example="name"), 
-     *                              ),
-     *                              @OA\Property(property="skill", type="object", 
-     *                                  @OA\Property(property="id", type="integer", example=1), 
-     *                                  @OA\Property(property="name", type="string", example="name"), 
-     *                              ),
      *                          ),
      *                      ),
      *                  ),
@@ -74,23 +62,11 @@ class ExplorController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=500,
-     *         description="Explor retrieved failed",
+     *         response=422,
+     *         description="Validation company Failed",
      *         @OA\JsonContent(
      *             @OA\Property(property="status", type="string", example="error"),
-     *             @OA\Property(property="message", type="string", example="Explor retrieved failed"),
-     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
-     *             @OA\Property(property="error", type="boolean"),
-     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthorized",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="error"),
-     *             @OA\Property(property="message", type="string", example="Unauthorized"),
-     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="message", type="string", example="Validation Failed"),
      *             @OA\Property(property="error", type="boolean"),
      *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
      *         ),
@@ -100,9 +76,9 @@ class ExplorController extends Controller
     public function explode()
     {
         try {
-            $vidio = Video::with('user', 'user.profileApplicant', 'user.profileApplicant.province', 'user.profileApplicant.city',)
+            $vidio = Video::with('user', 'user.profileCompany', 'user.profileCompany.province', 'user.profileCompany.city',)
                 ->whereHas('user', function($query) {
-                    $query->where('type', 'applicant');
+                    $query->where('type', 'recruiter');
                 })->get();
             return response()->json([
                 'status' => 'success',

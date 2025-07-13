@@ -731,6 +731,163 @@
                 ]
             }
         },
+        "/applicant/explor": {
+            "get": {
+                "tags": [
+                    "Applicant Explor"
+                ],
+                "summary": "Get all explor",
+                "description": "Get all explor company.",
+                "operationId": "2fe6383d6fcc5e84c6a537267e1fe8c9",
+                "responses": {
+                    "200": {
+                        "description": "Explor retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Explor retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "title"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "description"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2021-01-01 00:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2021-01-01 00:00:00"
+                                                    },
+                                                    "user": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "name"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "email"
+                                                            },
+                                                            "phone": {
+                                                                "type": "string",
+                                                                "example": "phone"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "address"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2021-01-01 00:00:00"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2021-01-01 00:00:00"
+                                                            },
+                                                            "profileCompany": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "user_id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "province_id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "city_id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "created_at": {
+                                                                        "type": "string",
+                                                                        "example": "2021-01-01 00:00:00"
+                                                                    },
+                                                                    "updated_at": {
+                                                                        "type": "string",
+                                                                        "example": "2021-01-01 00:00:00"
+                                                                    },
+                                                                    "province": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    },
+                                                                    "city": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "integer",
+                                                                                "example": 1
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string",
+                                                                                "example": "name"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/applicant/jobs/get-job-by-id": {
             "get": {
                 "tags": [
@@ -5489,7 +5646,7 @@
     "components": {
         "responses": {
             "422": {
-                "description": "Validation Failed",
+                "description": "Validation company Failed",
                 "content": {
                     "application/json": {
                         "schema": {
@@ -5501,11 +5658,6 @@
                                 "message": {
                                     "type": "string",
                                     "example": "Validation Failed"
-                                },
-                                "data": {
-                                    "type": "null",
-                                    "example": "null",
-                                    "nullable": "true"
                                 },
                                 "error": {
                                     "type": "boolean"
@@ -5603,6 +5755,10 @@
         {
             "name": "Applicant Activity",
             "description": "Applicant Activity"
+        },
+        {
+            "name": "Applicant Explor",
+            "description": "Applicant Explor"
         },
         {
             "name": "Applicant Jobs",
