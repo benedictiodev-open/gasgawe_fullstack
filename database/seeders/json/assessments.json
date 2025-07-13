@@ -1,0 +1,10 @@
+[
+    {
+        "assessment_id": "gpi_1",
+        "assessment_name": "GasGawe Potential Insight (GPI-SCORE)",
+        "role": "applicant",
+        "total_questions": 32,
+        "estimated_duration": 20,
+        "scoring_system": "5-point Likert scale"
+    }
+]

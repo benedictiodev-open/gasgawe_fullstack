@@ -9,6 +9,7 @@ use App\Http\Controllers\api\Masterdata\ExperienceController;
 use App\Http\Controllers\api\Masterdata\ExpectedSalaryController;
 use App\Http\Controllers\api\Masterdata\EducationController;
 use App\Http\Controllers\api\Applicant\ProfileController;
+use App\Http\Controllers\api\Assessment\AssessmentController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\api\Applicant\ActivityController;
 use App\Http\Controllers\api\Applicant\ExplorController as ApplicantExplorController;
@@ -80,6 +81,10 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/', [ProfileController::class, 'get_profile']);
             Route::post('/update', [ProfileController::class, 'update_profile']);
             Route::post('/complete_profile', [ProfileController::class, 'update_advance_profile']);
+        });
+
+        Route::prefix('assessment')->group(function () {
+            Route::get('/', [AssessmentController::class, 'index']);
         });
     });
 

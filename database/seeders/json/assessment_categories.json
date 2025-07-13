@@ -1,0 +1,44 @@
+[
+    [
+        {
+            "name": "Kesesuaian Kualifikasi",
+            "weight": 20,
+            "description": "Mengukur kesiapan dan kesesuaian kualifikasi pelamar"
+        },
+        {
+            "name": "Dedikasi & Komitmen",
+            "weight": 20,
+            "description": "Mengukur dedikasi dan komitmen pelamar"
+        },
+        {
+            "name": "Soft Skill",
+            "weight": 20,
+            "description": "Mengukur soft skill pelamar"
+        },
+        {
+            "name": "Kemampuan Teknis",
+            "weight": 20,
+            "description": "Mengukur kemampuan teknis pelamar"
+        },
+        {
+            "name": "Potensi Berkembang",
+            "weight": 20,
+            "description": "Mengukur potensi berkembang pelamar"
+        },
+        {
+            "name": "Kesesuaian Budaya Kerja",
+            "weight": 20,
+            "description": "Mengukur kesesuaian budaya kerja pelamar"
+        },
+        {
+            "name": "Motivation & Alignment of Purpose ",
+            "weight": 20,
+            "description": "Mengukur motivation and alignment of purpose pelamar"
+        },
+        {
+            "name": "Attitude & Integrity",
+            "weight": 20,
+            "description": "Mengukur attitude and integrity pelamar"
+        }
+    ]
+]
