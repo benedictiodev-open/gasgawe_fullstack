@@ -11,6 +11,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
@@ -314,16 +315,17 @@ class JobController extends Controller
     public function search_applicant(Request $request)
     {
         try {
-            $jobs = User::with('user', 'user.profileApplicant', 'skills', 'province', 'city', 'employmentType', 'experience', 'education', 'expectedSalary')
-                ->orWhereHas('user.profileApplicant', function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%');
-                })
-                ->orWhereHas('skills', function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%');
-                })
+            $jobs = User::with('profileApplicant', 'profileApplicant.careerHistory.skills', 'profileApplicant.province', 'profileApplicant.city', 'profileApplicant.experience', 'profileApplicant.education')
+                // ->orWhereHas('profileApplicant', function ($query) use ($request) {
+                //     $query->where('name', 'like', '%' . $request->search . '%');
+                // })
+                // ->orWhereHas('profileApplicant.careerHistory.skills', function ($query) use ($request) {
+                //     $query->where('name', 'like', '%' . $request->search . '%');
+                // })
                 ->get();
             return $this->successResponse($jobs);
         } catch (Exception $error) {
+            throw $error;
             return $this->errorResponse($error->getMessage());
         }
     }

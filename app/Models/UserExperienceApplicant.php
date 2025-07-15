@@ -47,7 +47,7 @@ class UserExperienceApplicant extends Model
      */
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'user_experience_skill_applicants', 'user_experience_id', 'skill_id');
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 
     /**
