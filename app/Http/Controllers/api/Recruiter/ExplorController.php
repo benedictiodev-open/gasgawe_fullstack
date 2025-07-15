@@ -73,39 +73,6 @@ class ExplorController extends Controller
      *             @OA\Property(property="error", type="boolean"),
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validation Failed",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="error"),
-     *             @OA\Property(property="message", type="string", example="Validation Failed"),
-     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
-     *             @OA\Property(property="error", type="boolean"),
-     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Explor retrieved failed",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="error"),
-     *             @OA\Property(property="message", type="string", example="Explor retrieved failed"),
-     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
-     *             @OA\Property(property="error", type="boolean"),
-     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthorized",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="error"),
-     *             @OA\Property(property="message", type="string", example="Unauthorized"),
-     *             @OA\Property(property="data", type="null", nullable="true", example="null"),
-     *             @OA\Property(property="error", type="boolean"),
-     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
-     *         ),
-     *     ),
      * ) 
      */
     public function explode()
