@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\Location\LocationController;
+use App\Http\Controllers\Recruiter\RecruiterController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect("/", "/dashboard");
@@ -20,12 +21,8 @@ Route::prefix('dashboard')->group(function () {
     });
 
     Route::prefix('recruiters')->group(function () {
-        Route::get('/', function () {
-            return view('pages.recruiters.index');
-        })->name('recruiters');
-        Route::get('/detail', function () {
-            return view('pages.recruiters.detail');
-        })->name('recruiters.detail');
+        Route::get('/', [RecruiterController::class, 'index'])->name('recruiters');
+        Route::get('/{id}/detail', [RecruiterController::class, 'detail'])->name('recruiters.detail');
     });
 
     Route::prefix('jobs')->group(function () {
