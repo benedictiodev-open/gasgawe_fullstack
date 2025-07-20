@@ -89,8 +89,8 @@
                     <div class="avatar">
                       <div class="rounded-full h-12 w-12">
                         @if ($item->profileCompany->file_profile_image)
-                          <img src="{{ asset($item->profileCompany->file_profile_image) }}"
-                            alt="Company Picture" />
+                          <img src="{{ asset('storage/' . $item->profileCompany->file_profile_image) }}"
+                            alt="Company Picture" class="object-cover w-full h-full" />
                         @else
                           <div class="h-12 w-12 bg-info flex justify-center items-center text-white text-2xl font-bold">
                             {{ strtoupper(substr($item->profileCompany->company_name, 0, 1)) }}
@@ -100,7 +100,8 @@
                     </div>
                     <div>
                       <p class="font-bold">{{ $item->profileCompany->company_name }}</p>
-                      <p class="text-sm opacity-50">Registered {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</p>
+                      <p class="text-sm opacity-50">Registered
+                        {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</p>
                     </div>
                   </div>
                 </td>
