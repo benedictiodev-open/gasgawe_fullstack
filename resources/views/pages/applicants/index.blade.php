@@ -78,26 +78,26 @@
             </tr>
           </thead>
           <tbody>
-            @foreach (range(1, 4) as $item)
+            @foreach ($applicants as $applicant)
               <tr class="rounded-xl bg-base-100 mb-2">
                 <td class="first:rounded-l-xl">
                   <div class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="rounded-full h-12 w-12">
-                        <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                          alt="Avatar Tailwind CSS Component" />
+                        <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
+                          alt="Profile Image" />
                       </div>
                     </div>
                     <div>
-                      <p class="font-bold">John Doe</p>
-                      <p class="text-sm opacity-50">Registered 20 May 2025</p>
+                      <p class="font-bold">{{ $applicant->user->profileApplicant->getFullNameAttribute() }}</p>
+                      <p class="text-sm opacity-50">Registered {{ $applicant->created_at->format('d M Y') }}</p>
                     </div>
                   </div>
                 </td>
-                <td>johndoe@gmail.com</td>
-                <td>+62823456789</td>
-                <td>Jakarta, Indonesia</td>
-                <td>78 / 200 XP</td>
+                <td>{{ $applicant->user->email }}</td>
+                <td>{{ $applicant->user->profileApplicant->phone ?? '!!!' }}</td>
+                <td>{{ $applicant->user->profileApplicant->getFullLocationAttribute() }}</td>
+                <td>{{ $applicant->user->exp }} XP</td>
                 <th class="last:rounded-r-xl">
                   <div class="flex flex-row items-center gap-2">
                     <div class="badge badge-info rounded-md p-3 text-white font-normal">Verified</div>
@@ -105,13 +105,14 @@
                   </div>
                 </th>
                 <td>
-                  <a href="{{ route('applicants.detail') }}" rel="noopener noreferrer">
+                  <a href="{{ route('applicants.detail', [$applicant]) }}" rel="noopener noreferrer">
                     <i class="fa-solid fa-circle-info text-lg text-gray-400"></i>
                   </a>
                 </td>
               </tr>
             @endforeach
         </table>
+        {{ $applicants->links() }}
       </div>
     </div>
     {{-- END FILTER --}}

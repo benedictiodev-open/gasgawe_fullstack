@@ -13,13 +13,14 @@
           <div class="flex flex-row items-center gap-5">
             <div class="avatar">
               <div class="rounded-md h-16 w-16">
-                <img src="https://img.daisyui.com/images/profile/demo/2@94.webp" alt="Avatar Tailwind CSS Component" />
+                <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
+                  alt="Profile Image" />
               </div>
             </div>
 
             <div>
-              <h2 class="card-title">John Doe</h2>
-              <p class="text-gray-400 text-sm">Joined 16 April 2025</p>
+              <h2 class="card-title">{{ $applicant->user->profileApplicant->getFullNameAttribute() }}</h2>
+              <p class="text-gray-400 text-sm">Joined {{ $applicant->user->created_at->format('d F Y') }}</p>
             </div>
           </div>
 
@@ -37,7 +38,8 @@
         <div class="card-body p-5">
           <div class="flex flex-row items-center justify-between">
             <h2 class="card-title">Personal Information</h2>
-            <button type="button" class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
+            <button type="button" id="personalInformationBtn"
+              class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
               <i class="fa-solid fa-pen"></i>
               <span>Edit Information</span>
               <i class="fa-solid fa-caret-down"></i>
@@ -48,11 +50,11 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Full Name</td>
-                <th class="text-left pl-5">John Doe</th>
+                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->getFullNameAttribute() }}</th>
               </tr>
               <tr>
                 <td>Location</td>
-                <th class="text-left pl-5">Jakarta, Indonesia</th>
+                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->getFullLocationAttribute() }}</th>
               </tr>
               <tr>
                 <td>Account</td>
@@ -67,7 +69,7 @@
               </tr>
               <tr>
                 <td>Registration Date</td>
-                <th class="text-left pl-5">16 Juni 2025</th>
+                <th class="text-left pl-5">{{ $applicant->created_at->format('d F Y') }}</th>
               </tr>
             </table>
           </div>
@@ -84,11 +86,11 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Email</td>
-                <th class="text-left pl-5">johndoe@gmail.com</th>
+                <th class="text-left pl-5">{{ $applicant->user->email }}</th>
               </tr>
               <tr>
                 <td>Phone</td>
-                <th class="text-left pl-5">+6281298128</th>
+                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->phone ?? '!!!' }}</th>
               </tr>
             </table>
           </div>
@@ -108,7 +110,7 @@
               </div>
             </div>
             <div>
-              <p class="font-medium">150 Experiences Points</p>
+              <p class="font-medium">{{ $applicant->user->exp }} Experiences Points</p>
               <p class="text-sm font-medium">Based on skill assessment and job performance</p>
             </div>
           </div>
@@ -160,5 +162,45 @@
       </div>
       {{-- END VIDEO --}}
     </div>
+
+    <dialog id="showPersonalInformationModal" class="modal">
+      <div class="modal-box">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Personal Information</h3>
+        <form action="{{ route('applicants.update', $applicant) }}" method="post">
+          @csrf
+          @method('PUT')
+          <div class="space-y-3">
+            <input type="hidden" value="personal_information" name="type_update" />
+            {{-- <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Size</span>
+              </div>
+              <input type="number" name="employee_count" placeholder="size of employees"
+                class="input input-bordered w-full input-sm" value="{{ old('employee_count', $applicant->id ?? 0) }}"
+                required />
+              @if ($errors->has('employee_count'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('employee_count') }}</span>
+                </div>
+              @endif
+            </label> --}}
+            <div class="flex gap-3 items-center">
+              <button class="btn btn-sm btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </dialog>
   </div>
 @endsection
+
+@push('script')
+  <script>
+    document.getElementById('personalInformationBtn').addEventListener('click', function(event) {
+      document.getElementById('showPersonalInformationModal').showModal();
+    });
+  </script>
+@endpush

@@ -256,7 +256,6 @@
               </div>
               <select class="select select-bordered select-sm w-full" name="province_id" id="province_id" required>
                 <option disabled selected>~ Select Province ~</option>
-                {{ debug($detail) }}
                 @foreach ($provinces as $province)
                   <option value="{{ $province->id }}"
                     {{ $province->id == old('province', $detail->profileCompany->province_id) ? 'selected' : '' }}>
