@@ -2,8 +2,7 @@
   <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-3 rounded">
     <!-- Logo & Menu -->
     <div class="flex items-center gap-4">
-      <img src="/logo.svg" alt="Logo" class="h-6" />
-      <span class="text-lg font-bold text-primary">gasgawe!</span>
+      <img src="{{ asset('gasgawe-horizontal-logo.png') }}" alt="Logo" class="h-6" />
 
       <!-- Desktop Nav -->
       <ul class="hidden sm:flex gap-6 ml-8 text-sm font-medium items-center">
@@ -80,9 +79,9 @@
     <div class="flex items-center gap-4">
       <!-- Notification -->
       <div class="relative">
-        <button class="relative text-gray-600 hover:text-primary">
+        {{-- <button class="relative text-gray-600 hover:text-primary">
           <i class="fa-solid fa-bell text-lg"></i>
-        </button>
+        </button> --}}
       </div>
 
       <!-- Profile Dropdown -->
@@ -105,16 +104,6 @@
             </div>
           </div>
           <ul class="py-2 text-sm">
-            <li>
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                <i class="fa-solid fa-arrow-right-arrow-left w-4"></i> Ganti Akun
-              </a>
-            </li>
-            <li>
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                <i class="fa-solid fa-gear w-4"></i> Setting
-              </a>
-            </li>
             <li>
               <a href="#" class="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-gray-100">
                 <i class="fa-solid fa-arrow-right-from-bracket w-4"></i> Logout

@@ -18,13 +18,13 @@
     </div>
 
     <!-- Remember Me -->
-    <div class="block ">
+    {{-- <div class="block ">
       <label for="remember_me" class="inline-flex items-center">
         <input id="remember_me" type="checkbox"
           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
         <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
       </label>
-    </div>
+    </div> --}}
 
     <div class="flex items-center justify-end ">
       {{-- @if (Route::has('password.request'))
@@ -34,7 +34,7 @@
         </a>
       @endif --}}
 
-      <x-primary-button class="ms-3">
+      <x-primary-button class="ms-3 bg-info mt-3">
         {{ __('Log in') }}
       </x-primary-button>
     </div>
