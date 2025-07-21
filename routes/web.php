@@ -16,6 +16,7 @@ Route::prefix('dashboard')->group(function () {
     Route::prefix('applicants')->group(function () {
         Route::get('/', [ApplicantController::class, "index"])->name('applicants');
         Route::get('/{id}/detail', [ApplicantController::class, "show"])->name('applicants.detail');
+        Route::put('/{id}/update', [ApplicantController::class, 'update'])->name('applicants.update');
     });
 
     Route::prefix('recruiters')->group(function () {
