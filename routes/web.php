@@ -4,6 +4,11 @@ use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\Masterdata\SkillController;
 use App\Http\Controllers\Recruiter\RecruiterController;
 use App\Http\Controllers\Applicant\ApplicantController;
+use App\Http\Controllers\Masterdata\EducationController;
+use App\Http\Controllers\Masterdata\EmploymentTypeController;
+use App\Http\Controllers\Masterdata\ExpectedSalaryController;
+use App\Http\Controllers\Masterdata\ExperienceController;
+use App\Http\Controllers\Masterdata\IndustryTypeController;
 // use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,12 +54,40 @@ Route::prefix('dashboard')->group(function () {
             Route::delete('/{id}', [SkillController::class, 'destroy'])->name('delete');
         });
 
-        // Route::get('/education', [EducationController::class, 'index'])->name('education');
-        // Route::get('/languages', [LanguageController::class, 'index'])->name('languages');
-        // Route::get('/industries', [IndustryController::class, 'index'])->name('industries');
-        // Route::get('/positions', [PositionController::class, 'index'])->name('positions');
-        // Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
-        // Route::get('/locations', [LocationController::class, 'index'])->name('locations');
+        Route::prefix('/education')->name('education.')->group(function () {
+            Route::get('/', [EducationController::class, 'index'])->name('index');
+            Route::post('/', [EducationController::class, 'store'])->name('store');
+            Route::put('/{id}', [EducationController::class, 'update'])->name('update');
+            Route::delete('/{id}', [EducationController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('/experience')->name('experience.')->group(function () {
+            Route::get('/', [ExperienceController::class, 'index'])->name('index');
+            Route::post('/', [ExperienceController::class, 'store'])->name('store');
+            Route::put('/{id}', [ExperienceController::class, 'update'])->name('update');
+            Route::delete('/{id}', [ExperienceController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('/expected-salary')->name('expectedSalary.')->group(function () {
+            Route::get('/', [ExpectedSalaryController::class, 'index'])->name('index');
+            Route::post('/', [ExpectedSalaryController::class, 'store'])->name('store');
+            Route::put('/{id}', [ExpectedSalaryController::class, 'update'])->name('update');
+            Route::delete('/{id}', [ExpectedSalaryController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('/employment-type')->name('employmentType.')->group(function () {
+            Route::get('/', [EmploymentTypeController::class, 'index'])->name('index');
+            Route::post('/', [EmploymentTypeController::class, 'store'])->name('store');
+            Route::put('/{id}', [EmploymentTypeController::class, 'update'])->name('update');
+            Route::delete('/{id}', [EmploymentTypeController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('/industry-type')->name('industryType.')->group(function () {
+            Route::get('/', [IndustryTypeController::class, 'index'])->name('index');
+            Route::post('/', [IndustryTypeController::class, 'store'])->name('store');
+            Route::put('/{id}', [IndustryTypeController::class, 'update'])->name('update');
+            Route::delete('/{id}', [IndustryTypeController::class, 'destroy'])->name('delete');
+        });
     });
 });
 
