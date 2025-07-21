@@ -47,4 +47,47 @@ class JobMasterRepository
     {
         return JobMaster::query()->create($data);
     }
+
+    /**
+     * Get List of Jobs
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function index(array $data)
+    {
+        $query = JobMaster::query();
+        if (array_key_exists('status', $data)) {
+            $query->where('job_masters.status', $data['status']);
+        }
+
+        return $query->get();
+    }
+
+
+    /**
+     * Get Detail Job
+     * @param id $id job master
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function show($id)
+    {
+        $query = JobMaster::query()->findOrFail($id);
+
+        return $query;
+    }
+
+    /**
+     * Update Information Job
+     * @param id $id job master
+     * @param array $data data information update
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function update($id, $data)
+    {
+        $query = JobMaster::query()->find($id)->update($data);
+
+        return $query;
+    }
 }

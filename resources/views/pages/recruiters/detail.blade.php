@@ -263,9 +263,9 @@
                   </option>
                 @endforeach
               </select>
-              @if ($errors->has('province'))
+              @if ($errors->has('province_id'))
                 <div class="label">
-                  <span class="label-text-alt">{{ $errors->first('province') }}</span>
+                  <span class="label-text-alt">{{ $errors->first('province_id') }}</span>
                 </div>
               @endif
             </label>
@@ -277,9 +277,9 @@
               <select class="select select-bordered select-sm w-full" name="city_id" id="city_id" required>
                 <option disabled selected>~ Select City ~</option>
               </select>
-              @if ($errors->has('city'))
+              @if ($errors->has('city_id'))
                 <div class="label">
-                  <span class="label-text-alt">{{ $errors->first('city') }}</span>
+                  <span class="label-text-alt">{{ $errors->first('city_id') }}</span>
                 </div>
               @endif
             </label>

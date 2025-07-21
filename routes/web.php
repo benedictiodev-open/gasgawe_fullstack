@@ -4,6 +4,7 @@ use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\Masterdata\SkillController;
 use App\Http\Controllers\Recruiter\RecruiterController;
 use App\Http\Controllers\Applicant\ApplicantController;
+use App\Http\Controllers\Job\JobController;
 // use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +28,9 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     });
 
     Route::prefix('jobs')->group(function () {
-        Route::get('/', function () {
-            return view('pages.jobs.index');
-        })->name('jobs');
-        Route::get('/detail', function () {
-            return view('pages.jobs.detail');
-        })->name('jobs.detail');
+        Route::get('/', [JobController::class, 'index'])->name('jobs');
+        Route::get('/{id}/detail', [JobController::class, 'show'])->name('jobs.detail');
+        Route::put('/{id}/update', [JobController::class, 'update'])->name('jobs.update');
     });
 
     Route::prefix('accounts')->group(function () {
