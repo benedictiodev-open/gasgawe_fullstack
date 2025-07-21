@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\Recruiter;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Recruiter\GetActivityJobsRequest;
+use App\Models\JobUsersApply;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\Job\JobService;
@@ -11,6 +12,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
@@ -311,19 +313,51 @@ class JobController extends Controller
         }
     }
 
+    public function job_applier() {
+        try {
+            $user_id = Auth::guard('sanctum')->user()->id;
+
+            $list_job_user = JobUsersApply::query()
+                ->whereHas('jobs', function($query) use($user_id) {
+                    $query->where('created_by', $user_id);
+                })
+                ->pluck('user_id')->toArray();
+
+            $jobs = User::with('profileApplicant', 'profileApplicant.careerHistory.skills', 'profileApplicant.province', 'profileApplicant.city', 'profileApplicant.experience', 'profileApplicant.education')
+                ->whereIn('id', $list_job_user)
+                ->get();
+            return $this->successResponse($jobs);
+        } catch (Exception $error) {
+            throw $error;
+            return $this->errorResponse($error->getMessage());
+        }
+    }
+
+    public function top_applicant() {
+        try {
+            $jobs = User::with('profileApplicant', 'profileApplicant.careerHistory.skills', 'profileApplicant.province', 'profileApplicant.city', 'profileApplicant.experience', 'profileApplicant.education')
+                ->get();
+            return $this->successResponse($jobs);
+        } catch (Exception $error) {
+            throw $error;
+            return $this->errorResponse($error->getMessage());
+        }
+    }
+
     public function search_applicant(Request $request)
     {
         try {
-            $jobs = User::with('user', 'user.profileApplicant', 'skills', 'province', 'city', 'employmentType', 'experience', 'education', 'expectedSalary')
-                ->orWhereHas('user.profileApplicant', function ($query) use ($request) {
+            $jobs = User::with('profileApplicant', 'profileApplicant.careerHistory.skills', 'profileApplicant.province', 'profileApplicant.city', 'profileApplicant.experience', 'profileApplicant.education')
+                ->WhereHas('profileApplicant', function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%');
                 })
-                ->orWhereHas('skills', function ($query) use ($request) {
+                ->orWhereHas('profileApplicant.careerHistory.skills', function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%');
                 })
                 ->get();
             return $this->successResponse($jobs);
         } catch (Exception $error) {
+            throw $error;
             return $this->errorResponse($error->getMessage());
         }
     }
