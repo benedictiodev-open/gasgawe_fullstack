@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,27 +48,38 @@ class User extends Authenticatable
         ];
     }
 
-    public function profileApplicant() {
+    public function profileApplicant()
+    {
         return $this->hasOne(UserProfileApplicant::class, 'user_id');
     }
 
-    public function profileCompany() {
+    public function profileCompany()
+    {
         return $this->hasOne(UserProfileCompany::class, 'user_id');
     }
 
-    public function experience() {
+    public function experience()
+    {
         return $this->hasMany(UserExperienceApplicant::class, 'user_id');
     }
 
-    public function experienceSkillApplicant() { 
+    public function experienceSkillApplicant()
+    {
         return $this->hasMany(UserExperienceSkillApplicant::class, 'user_id');
     }
 
-    public function educationApplicant() {
+    public function educationApplicant()
+    {
         return $this->hasMany(UserEducationApplicant::class, 'user_id');
     }
 
-    public function bookmark() {
+    public function bookmark()
+    {
         return $this->hasMany(UserBookmark::class, 'user_id');
-    }    
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
 }

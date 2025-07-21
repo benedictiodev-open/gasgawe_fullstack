@@ -3389,6 +3389,244 @@
                 ]
             }
         },
+        "/applicant/notification": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get Applicant Notification",
+                "description": "Get Applicant Notification",
+                "operationId": "674a4018de54ed7c98047eeffa0a4653",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter jobs by status. Allowed: Accepted,Rejected,On Riview,Notice,Applied",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "Accepted",
+                                "Rejected",
+                                "On Riview",
+                                "Notice",
+                                "Applied"
+                            ],
+                            "example": "Accepted",
+                            "nullable": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Notification retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Interview Invitation: PT. One Two Three - Software Engineer"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "You have been invited for an interview by PT. One Two Three for the Software Engineer position. Please check your schedule and confirm your availability."
+                                                    },
+                                                    "is_read": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "status": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The selected status is invalid."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Service Unavailable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/notification": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get Recruiter Notification",
+                "description": "Get Recruiter Notification",
+                "operationId": "245b495a950eabf36f744ff1f5ec1863",
+                "responses": {
+                    "200": {
+                        "description": "Notification retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Notification retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "New Application Received for Software Engineer"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "John Doe has applied for the Software Engineer position at PT. One Two Three. Review the application and take the next step."
+                                                    },
+                                                    "is_read": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Service Unavailable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/recruiter/explor": {
             "get": {
                 "tags": [
@@ -5771,74 +6009,6 @@
                         }
                     }
                 }
-            },
-            "500": {
-                "description": "Explor retrieved failed",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "example": "error"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Explor retrieved failed"
-                                },
-                                "data": {
-                                    "type": "null",
-                                    "example": "null",
-                                    "nullable": "true"
-                                },
-                                "error": {
-                                    "type": "boolean"
-                                },
-                                "errors": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "401": {
-                "description": "Unauthorized",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "example": "error"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Unauthorized"
-                                },
-                                "data": {
-                                    "type": "null",
-                                    "example": "null",
-                                    "nullable": "true"
-                                },
-                                "error": {
-                                    "type": "boolean"
-                                },
-                                "errors": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
             }
         },
         "securitySchemes": {
@@ -5873,6 +6043,10 @@
         {
             "name": "Masterdata",
             "description": "Masterdata"
+        },
+        {
+            "name": "Notification",
+            "description": "Notification"
         },
         {
             "name": "Reqruiter Explor",

@@ -14,6 +14,7 @@ use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\api\Applicant\ActivityController;
 use App\Http\Controllers\api\Applicant\ExplorController as ApplicantExplorController;
 use App\Http\Controllers\api\Masterdata\IndustryTypeController;
+use App\Http\Controllers\api\Notification\NotificationController;
 use App\Http\Controllers\api\Recruiter\ExplorController;
 use App\Http\Controllers\api\Recruiter\ProfileController as RecruiterProfileController;
 use App\Http\Controllers\api\Video\VideoController;
@@ -52,6 +53,11 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/', [RecruiterProfileController::class, 'getProfile']);
             Route::post('/', [RecruiterProfileController::class, 'updateProfile']);
         });
+
+
+        Route::prefix('/notification')->group(function () {
+            Route::get('/', [NotificationController::class, 'recruiter']);
+        });
     });
 
     Route::prefix('applicant')->middleware(AuthApiApplicant::class)->group(function () {
@@ -85,6 +91,10 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
         Route::prefix('assessment')->group(function () {
             Route::get('/', [AssessmentController::class, 'index']);
+        });
+      
+        Route::prefix('/notification')->group(function () {
+            Route::get('/', [NotificationController::class, 'applicant']);
         });
     });
 
