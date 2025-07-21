@@ -27,8 +27,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login-with-google', [AuthController::class, 'login_with_google']);
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/search', [RecruiterJobController::class, 'search_applicant']);
-
 Route::middleware(AuthApiChecker::class)->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
