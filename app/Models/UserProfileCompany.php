@@ -56,6 +56,6 @@ class UserProfileCompany extends Model
      */
     public function industryType()
     {
-        return $this->hasOne(IndustryType::class, 'industry_type_id');
+        return $this->belongsTo(IndustryType::class, 'industry_type_id');
     }
 }

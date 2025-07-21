@@ -100,6 +100,14 @@ class UserProfileApplicant extends Model
     }
 
     /**
+     * Get full location attribute
+     */
+    public function getFullLocationAttribute()
+    {
+        return trim($this->city->name . ', ' . $this->province->name);
+    }
+
+    /**
      * Get age attribute
      */
     public function getAgeAttribute()
