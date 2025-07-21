@@ -1,0 +1,884 @@
+[
+    [
+        [
+            [
+                {
+                    "text": "Melamar jika yakin bisa belajar cepat",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Hanya melamar jika sesuai persis",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Konsultasi dulu dengan mentor",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Melamar sambil menyertakan proyek terkait",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Mencari lowongan lain yang lebih cocok",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya merasa tertantang dan ingin mencoba",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya mencoba pahami pelan-pelan",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya bandingkan dengan pengalaman saya",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya biasanya melewatkan dulu",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya cari pekerjaan yang mirip dengan pengalaman saya",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Pendidikan & pengalaman kerja",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Sertifikat & keahlian tambahan",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Portofolio dan project terkait",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Ringkasan pribadi yang kuat",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Semua yang relevan dan disesuaikan dengan posisi",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Segera browsing istilah-istilahnya",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Langsung bertanya ke kenalan profesional",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Mengandalkan intuisi & pengalaman",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Ragu-ragu untuk lanjut",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Tidak melamar",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Bertahan dalam jangka panjang",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Aktif menyelesaikan tanggung jawab",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Konsisten ikut rapat dan evaluasi",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Hanya ikut di awal-awal",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Sering berpindah karena tantangan",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Mencari cara agar terasa menarik",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Tetap jalankan hingga selesai",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Konsultasi dengan atasan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Menunda-nunda sebentar",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Cenderung mencari pekerjaan baru",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Langsung membuat perencanaan",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Tetap tenang dan fokus",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Minta bantuan tim",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Panik tapi berusaha",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Merasa kewalahan",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Berkomitmen jangka panjang",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Akan terus belajar & berkembang",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menyesuaikan dengan budaya kantor",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Akan evaluasi 3 bulan pertama dulu",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Lihat kondisi sambil jalan",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Jadi pendengar aktif",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Mengatur alur komunikasi",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Memberi ide & solusi",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Mengikuti arahan",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Cenderung bekerja mandiri",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya bantu cari solusi",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Menenangkan rekan tim",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menghubungi pemimpin tim",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Diam tapi tetap bekerja",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Menghindar dari situasi itu",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya menyusun kata dengan hati-hati",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya menyesuaikan gaya bicara",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya mengutamakan kejelasan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya menulis dengan sopan",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya bicara apa adanya",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya menyiapkan materi dengan baik",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya latihan dulu sebelum tampil",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya langsung tampil spontan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya pilih jadi tim pendukung",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya hindari tugas itu",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Saya belajar mandiri dari tutorial",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya bertanya pada yang lebih ahli",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya eksplor sambil praktik langsung",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya butuh pelatihan dulu",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya biasanya merasa sulit",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya cek standar dan SOP",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya mulai dari struktur dasar",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya improvisasi dari pengalaman",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya banyak trial-error",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya sering butuh bantuan",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya cari dokumentasinya",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya browsing forum online",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya bertanya ke rekan tim",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya tunda sampai ada waktu",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya tinggalkan dulu",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Up-to-date dengan perkembangan industri",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Cukup untuk posisi yang saya lamar",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Masih butuh peningkatan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Bergantung pada proyek yang dikerjakan",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Baru pada tahap dasar",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Menerima dengan terbuka dan reflektif",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Menanyakan lebih lanjut untuk perbaikan",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Langsung memperbaiki jika perlu",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Perlu waktu mencerna",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Cenderung merasa defensif",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Mengikuti pelatihan/sertifikasi baru",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Mempelajari hal baru secara mandiri",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Berpartisipasi dalam project tambahan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Belum sempat belajar hal baru",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Fokus pada rutinitas yang ada",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Saya jadikan tantangan belajar",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Saya minta waktu adaptasi",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Saya kerjakan sebisa mungkin",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Saya diskusikan dengan atasan",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Saya merasa itu bukan bagian saya",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Segera rancang rencana jangka panjang",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Diskusikan dengan mentor/pimpinan",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Cari info dan riset jalur karier",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Pikirkan jika sudah urgent",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Jarang memikirkan hal tersebut",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Struktur jelas dan hirarkis",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Ada ruang diskusi terbuka",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Pemimpin memberi arahan jelas",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Semua orang setara",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Lingkungan fleksibel dan cair",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Fokus pada hasil & target",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Kerja sama tim yang harmonis",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Tantangan dan kompetisi sehat",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Proses yang stabil dan aman",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Keseimbangan hidup dan kerja",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Cepat beradaptasi",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Ajak tim diskusi",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menunggu arahan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Analisis dampaknya dulu",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Perlu waktu cukup lama",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Perusahaan inovatif & gesit",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Organisasi stabil & sistematik",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Startup dengan ritme cepat",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Kantor tradisional dengan nilai kuat",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Komunitas yang fleksibel",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Karena sesuai dengan tujuan karier saya",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Karena bidang ini membuat saya berkembang",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Karena saya memiliki sedikit pengalaman di bidang ini",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Karena saya ingin mencoba hal baru",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Karena saya sedang butuh pekerjaan apapun",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Sudah punya rencana karier yang jelas dan bertahap",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Punya arah umum dan sedang menata langkah",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Masih mencari tahu dan mencoba berbagai pilihan",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Mengikuti alur kesempatan yang datang",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Tidak terlalu memikirkan visi karier",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Berkembang dalam bidang yang saya minati saat ini",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Meningkatkan posisi dalam karier yang sedang saya tempuh",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menemukan bidang yang benar-benar cocok",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Masih menjelajah peluang karier",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Belum yakin apa yang akan saya lakukan",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Tantangan dan kesempatan belajar",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Perasaan bermanfaat dan kontribusi",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Gaji dan stabilitas finansial",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Pengakuan dari orang lain",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Tekanan kebutuhan hidup",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "text": "Mengerjakan semaksimal mungkin dan bertanggung jawab penuh",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Mengusahakan selesai, walau butuh bantuan",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menyampaikan kesulitan sejak awal",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Menunggu solusi atau bantuan dulu",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Menghindar jika merasa tidak mampu",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Menolak karena tidak sesuai prinsip",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Menolak jika risikonya tinggi",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menyesuaikan dengan lingkungan kerja",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Menghindari tapi tidak menegur orang lain",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Kadang melakukannya jika mendesak",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Tetap fokus dan bekerja dengan strategi",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Minta bantuan dan kolaborasi tim",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Stres tapi tetap mencoba",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Menyerahkan tugas ke orang lain",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Mengabaikan sementara sampai suasana tenang",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ],
+            [
+                {
+                    "text": "Mengakui dan memperbaikinya segera",
+                    "score_value": 5,
+                    "score_conversion": 100
+                },
+                {
+                    "text": "Mengakui saat ditanya",
+                    "score_value": 4,
+                    "score_conversion": 80
+                },
+                {
+                    "text": "Menunggu apakah ada yang menyadari",
+                    "score_value": 3,
+                    "score_conversion": 60
+                },
+                {
+                    "text": "Menutupinya jika bisa diperbaiki diam-diam",
+                    "score_value": 2,
+                    "score_conversion": 40
+                },
+                {
+                    "text": "Menyalahkan faktor lain",
+                    "score_value": 1,
+                    "score_conversion": 20
+                }
+            ]
+        ]
+    ]
+]

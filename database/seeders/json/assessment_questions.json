@@ -1,0 +1,148 @@
+[
+    [
+        [
+            {
+                "text": "Dalam menghadapi lowongan yang mensyaratkan pengalaman minimal 1 tahun, kamu akan...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika membaca deskripsi pekerjaan yang kompleks...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Dalam CV saya terdapat informasi...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika melihat jobdesc yang tidak familiar, saya...",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Dalam organisasi atau pekerjaan sebelumnya, saya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika proyek terasa membosankan, saya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika menghadapi tekanan deadline, saya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika saya diterima di pekerjaan impian, saya...",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Saat bekerja dalam tim, saya biasanya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika terjadi konflik kecil dalam tim...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Dalam komunikasi profesional...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika harus mempresentasikan ide di depan umum...",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Saat diminta menggunakan tools baru...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Dalam menyelesaikan tugas teknis...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika tidak tahu cara kerja fitur tertentu...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": " Kemampuan teknis saya biasanya...",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Ketika menerima kritik atau evaluasi, saya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Dalam 6 bulan terakhir, saya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Kalau diberikan tugas baru di luar keahlian saya...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": " Saat melihat peluang pengembangan karier...",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Dalam tim, saya lebih nyaman jika...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Dalam bekerja, saya lebih suka...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika tempat kerja mendadak berubah arah kebijakan...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Gaya kerja saya lebih cocok untuk...",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Apa alasan utama Anda memilih posisi atau bidang pekerjaan ini?",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika memikirkan masa depan, Anda...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Di 3–5 tahun mendatang, saya berharap...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika bekerja, apa yang paling memotivasi Anda?",
+                "question_type": "multiple_choice"
+            }
+        ],
+        [
+            {
+                "text": "Saat diberi tugas yang sulit, Anda akan...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Ketika ada kesempatan untuk \"curang\" di tempat kerja, Anda...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika pekerjaan menumpuk dan deadline mepet, Anda...",
+                "question_type": "multiple_choice"
+            },
+            {
+                "text": "Jika Anda melakukan kesalahan dalam pekerjaan, apa yang Anda lakukan?",
+                "question_type": "multiple_choice"
+            }
+        ]
+    ]
+]
