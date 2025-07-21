@@ -2599,6 +2599,104 @@
                 ]
             }
         },
+        "/applicant/assessment": {
+            "get": {
+                "tags": [
+                    "Applicant Assessment"
+                ],
+                "summary": "Get Applicant Assessments",
+                "description": "Retrieve a list of all assessments.",
+                "operationId": "122c08188b252500c5350783dd949880",
+                "responses": {
+                    "200": {
+                        "description": "Assessments retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Assessments retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to retrieve assessments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to retrieve assessments"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/masterdata/province": {
             "get": {
                 "tags": [
@@ -5937,6 +6035,10 @@
         {
             "name": "Applicant Profile",
             "description": "Applicant Profile"
+        },
+        {
+            "name": "Applicant Assessment",
+            "description": "Applicant Assessment"
         },
         {
             "name": "Masterdata",
