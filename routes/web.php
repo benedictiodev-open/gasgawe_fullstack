@@ -12,9 +12,9 @@ use App\Http\Controllers\Masterdata\IndustryTypeController;
 // use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect("/", "/dashboard");
+Route::redirect("/", "/login");
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.dashboard.index');
     })->name('dashboard');
@@ -115,4 +115,4 @@ Route::get('/villages/{id}', [LocationController::class, 'getVillagesbyDistrictI
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth.php';
