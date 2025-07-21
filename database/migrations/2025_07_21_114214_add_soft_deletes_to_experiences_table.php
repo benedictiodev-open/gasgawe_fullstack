@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasColumn('skills', 'created_at')) {
-            Schema::table('skills', function (Blueprint $table) {
-                $table->timestamps();
+        if (!Schema::hasColumn('experiences', 'deleted_at')) {
+            Schema::table('experiences', function (Blueprint $table) {
                 $table->softDeletes();
             });
         }
@@ -24,10 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasColumn('skills', 'created_at')) {
-            Schema::table('skills', function (Blueprint $table) {
-                $table->dropColumn('created_at');
-                $table->dropColumn('updated_at');
+        if (Schema::hasColumn('experiences', 'deleted_at')) {
+            Schema::table('experiences', function (Blueprint $table) {
                 $table->dropColumn('deleted_at');
             });
         }

@@ -50,26 +50,26 @@
               <a href="{{ route('masterdata.skills.index') }}" class="block px-4 py-2 hover:bg-gray-100">Skills
               </a>
             </li>
-            {{-- 
             <li>
-              <a class="block px-4 py-2 hover:bg-gray-100">Education</a>
+              <a href="{{ route('masterdata.education.index') }}"
+                class="block px-4 py-2 hover:bg-gray-100">Education</a>
             </li>
             <li>
-              <a class="block px-4 py-2 hover:bg-gray-100">Languages</a>
+              <a href="{{ route('masterdata.experience.index') }}"
+                class="block px-4 py-2 hover:bg-gray-100">Experience</a>
             </li>
             <li>
-              <a class="block px-4 py-2 hover:bg-gray-100">Industry</a>
+              <a href="{{ route('masterdata.expectedSalary.index') }}"
+                class="block px-4 py-2 hover:bg-gray-100">Expected Salary</a>
             </li>
             <li>
-              <a class="block px-4 py-2 hover:bg-gray-100">Positions</a>
+              <a href="{{ route('masterdata.employmentType.index') }}"
+                class="block px-4 py-2 hover:bg-gray-100">Employment Type</a>
             </li>
             <li>
-              <a class="block px-4 py-2 hover:bg-gray-100">Companies</a>
+              <a href="{{ route('masterdata.industryType.index') }}" class="block px-4 py-2 hover:bg-gray-100">Industry
+                Type</a>
             </li>
-            <li>
-              <a class="block px-4 py-2 hover:bg-gray-100">Locations</a>
-            </li>
-            --}}
           </ul>
         </li>
 
