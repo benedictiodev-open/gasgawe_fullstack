@@ -15,7 +15,9 @@
   <main class="container py-5">
     @yield('main')
   </main>
+  <x-layout.toast />
 </body>
+<script src="//unpkg.com/alpinejs" defer></script>
 @stack('script')
 
 </html>

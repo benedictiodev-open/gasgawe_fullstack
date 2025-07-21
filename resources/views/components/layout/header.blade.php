@@ -1,94 +1,128 @@
-<div class="navbar bg-base-100 shadow-md">
-  <div class="flex-1 sm:flex-none items-center">
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </div>
-      <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
+<nav class="w-full bg-white shadow-sm">
+  <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-3 rounded">
+    <!-- Logo & Menu -->
+    <div class="flex items-center gap-4">
+      <img src="/logo.svg" alt="Logo" class="h-6" />
+      <span class="text-lg font-bold text-primary">gasgawe!</span>
+
+      <!-- Desktop Nav -->
+      <ul class="hidden sm:flex gap-6 ml-8 text-sm font-medium items-center">
         <li>
-          <a>Parent</a>
-          <ul class="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
+          <a href="{{ route('dashboard') }}"
+            class="border-b-2 pb-4 {{ str_contains(Request::route()->getName(), 'dashboard') ? 'border-primary text-primary' : 'border-transparent text-gray-800 hover:text-primary' }}">
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('applicants') }}"
+            class="border-b-2 pb-4 {{ str_contains(Request::route()->getName(), 'applicants') ? 'border-primary text-primary' : 'border-transparent text-gray-800 hover:text-primary' }}">
+            Applicants
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('recruiters') }}"
+            class="border-b-2 pb-4 {{ str_contains(Request::route()->getName(), 'recruiters') ? 'border-primary text-primary' : 'border-transparent text-gray-800 hover:text-primary' }}">
+            Recruiters
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('jobs') }}"
+            class="border-b-2 pb-4 {{ str_contains(Request::route()->getName(), 'jobs') ? 'border-primary text-primary' : 'border-transparent text-gray-800 hover:text-primary' }}">
+            Jobs
+          </a>
+        </li>
+
+        <!-- Dropdown for Masterdata -->
+        <li class="relative" x-data="{ open: false }">
+          <button @click="open = !open" @click.away="open = false"
+            class="flex items-center gap-1 {{ str_contains(Request::route()->getName(), 'masterdata') ? 'border-primary text-primary' : 'border-transparent text-gray-800 hover:text-primary' }}">
+            Masterdata
+            <svg class="w-4 h-4 mt-0.5 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none"
+              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Dropdown -->
+          <ul x-show="open" x-transition
+            class="absolute left-0 top-8 mt-2 w-48 bg-white rounded-md shadow-md z-50 py-2 text-sm">
+            <li>
+              <a href="{{ route('masterdata.skills.index') }}" class="block px-4 py-2 hover:bg-gray-100">Skills
+              </a>
+            </li>
+            {{-- 
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100">Education</a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100">Languages</a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100">Industry</a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100">Positions</a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100">Companies</a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100">Locations</a>
+            </li>
+            --}}
           </ul>
         </li>
-        <li><a>Item 3</a></li>
+
       </ul>
-    </div>
-    <a class="btn btn-ghost text-xl">gasgawe!</a>
-  </div>
-  <div class="flex-none items-center hidden sm:flex-1 sm:inline-block">
-    <ul class="menu menu-horizontal px-1 gap-2">
-      <li><a href="{{ route('dashboard') }}"
-          class="{{ str_contains(Request::route()->getName(), 'dashboard') ? 'active' : '' }}">Dashboard</a>
-      </li>
-      <li><a href="{{ route('applicants') }}"
-          class="{{ str_contains(Request::route()->getName(), 'applicants') ? 'active' : '' }}">Applicants</a>
-      </li>
-      <li><a href="{{ route('recruiters') }}"
-          class="{{ str_contains(Request::route()->getName(), 'recruiters') ? 'active' : '' }}">Recruiters</a>
-      </li>
-      <li><a href="{{ route('jobs') }}"
-          class="{{ str_contains(Request::route()->getName(), 'jobs') ? 'active' : '' }}">Jobs</a>
-      </li>
-    </ul>
-  </div>
-  <div class="flex-none items-center flex gap-x-2.5">
-    <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <i class="fa-solid fa-bell text-lg"></i>
-      </div>
-      <div tabindex="0" class="card card-compact dropdown-content bg-base-100 z-[1] mt-4 w-52 shadow rounded-lg">
-        <div class="card-body">
-          <span>Jobs</span>
-        </div>
-      </div>
     </div>
 
-    <div class="dropdown dropdown-end drop-shadow-lg z-10">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-        </div>
+    <!-- Right Side Icons -->
+    <div class="flex items-center gap-4">
+      <!-- Notification -->
+      <div class="relative">
+        <button class="relative text-gray-600 hover:text-primary">
+          <i class="fa-solid fa-bell text-lg"></i>
+        </button>
       </div>
-      <ul tabindex="0" class="menu menu-md dropdown-content bg-base-100 rounded-lg z-[1] mt-4 shadow p-0">
-        <a href="{{ route('accounts') }}" rel="noopener noreferrer">
-          <div class="flex flex-row items-center justify-between gap-3 p-3 bg-base-200 rounded-t-lg">
-            <div class="avatar">
-              <div class="w-8 rounded-full">
-                <img alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-              </div>
+
+      <!-- Profile Dropdown -->
+      <div class="relative group">
+        <button
+          class="w-8 h-8 bg-primary text-white font-semibold rounded-full text-sm flex items-center justify-center">
+          S
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="flex items-center gap-3 px-4 py-3 border-b">
+            <div class="w-8 h-8 rounded-full overflow-hidden">
+              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="avatar"
+                class="w-full h-full object-cover" />
             </div>
-            <div class="flex flex-col gap-1 justify-center">
-              <span class="text-sm">Stevani Permana</span>
-              <span class="text-xs">stevanipermana@gmail.com</span>
+            <div>
+              <p class="text-sm font-medium">Stevani Permana</p>
+              <p class="text-xs text-gray-500">stevanipermana@gmail.com</p>
             </div>
           </div>
-        </a>
-        <li class="mx-0.5">
-          <a class="flex flex-row items-center gap-2">
-            <i class="w-fit h-fit fa-solid fa-arrow-right-arrow-left"></i>
-            <span class="text-sm">Ganti Akun</span>
-          </a>
-        </li>
-        <li class="mx-0.5">
-          <a class="flex flex-row items-center gap-2">
-            <i class="w-fit h-fit fa-solid fa-arrow-right-from-bracket"></i>
-            <span class="text-sm">Logout</span>
-          </a>
-        </li>
-        <li class="mx-0.5">
-          <a class="flex flex-row items-center gap-2">
-            <i class="w-fit h-fit fa-solid fa-gear"></i>
-            <span class="text-sm">Setting</span>
-          </a>
-        </li>
-      </ul>
+          <ul class="py-2 text-sm">
+            <li>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                <i class="fa-solid fa-arrow-right-arrow-left w-4"></i> Ganti Akun
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                <i class="fa-solid fa-gear w-4"></i> Setting
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-gray-100">
+                <i class="fa-solid fa-arrow-right-from-bracket w-4"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</nav>
