@@ -105,6 +105,11 @@
           </div>
           <ul class="py-2 text-sm">
             <li>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                <i class="fa-solid fa-gear w-4"></i> Setting
+              </a>
+            </li>
+            <li>
               <a href="#" class="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-gray-100">
                 <i class="fa-solid fa-arrow-right-from-bracket w-4"></i> Logout
               </a>
