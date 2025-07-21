@@ -7,8 +7,8 @@
   <div class="label">
     <span class="label-text">{{ $label }}</span>
   </div>
-  <input type="text"
-    {{ $attributes->merge(['class' => 'input input-bordered w-full input-sm text-base-content']) }} />
+  <input
+    {{ $attributes->merge(['class' => 'input input-bordered w-full input-sm text-base-content', 'type' => 'text']) }} />
   @if ($error)
     <div class="label">
       <span class="label-text-alt text-error">{{ $error }}</span>
