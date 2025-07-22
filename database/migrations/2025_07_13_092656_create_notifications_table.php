@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users');
             $table->text('title');
             $table->text('description');
             $table->boolean('is_read')->default(false);
-            $table->foreignId('job_users_apply_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('job_users_apply_id')->nullable()->constrained('job_users_apply');
             $table->timestamps();
         });
     }

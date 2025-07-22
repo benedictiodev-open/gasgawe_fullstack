@@ -43,6 +43,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::post('/delete', [RecruiterJobController::class, 'delete_job']);
             Route::get('/get-applicant-detail-by-id', [RecruiterJobController::class, 'get_applicant_detail_by_id']);
             Route::post('/update-applicant-apply-status', [RecruiterJobController::class, 'update_applicant_apply_status']);
+            Route::get('/search', [RecruiterJobController::class, 'search_applicant']);
         });
 
         Route::prefix('/explor')->group(function () {

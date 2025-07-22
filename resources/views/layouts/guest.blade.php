@@ -17,7 +17,7 @@
     <div>
       <a href="/">
         {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
-        <h1 class="text-3xl text-primary font-bold">gasgawe</h1>
+        <img src="{{ asset('gasgawe-horizontal-logo.png') }}" alt="Logo" class="h-12" />
       </a>
     </div>
 
