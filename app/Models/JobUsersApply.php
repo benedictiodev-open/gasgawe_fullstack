@@ -18,4 +18,9 @@ class JobUsersApply extends Model
     {
         return $this->belongsTo(JobMaster::class, 'job_id');
     }
+
+    public function count()
+    {
+        $this->count();
+    }
 }

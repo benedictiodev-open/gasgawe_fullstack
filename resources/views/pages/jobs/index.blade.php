@@ -78,24 +78,24 @@
             </tr>
           </thead>
           <tbody>
-            @foreach (range(1, 4) as $item)
+            @foreach ($jobs as $job)
               <tr class="rounded-xl bg-base-100 mb-2">
                 <th class="first:rounded-l-xl">
-                  Full-Stack Developer
+                  {{ $job->position }}
                 </th>
-                <td>Tech Solution Inc.</td>
-                <td>HR Manager</td>
-                <td>Jakarta, Indonesia</td>
-                <td>2025-06-15</td>
+                <td>{{ $job->getCompanyNameAttribute() }}</td>
+                <td>{{ '!!!' }}</td>
+                <td>{{ $job->getFullLocationAttribute() }}</td>
+                <td>{{ Carbon\Carbon::parse($job->created_at)->format('Y-m-d') }}</td>
                 <th>
                   <div
-                    class="badge {{ $item == 1 ? 'badge-success' : ($item == 2 ? 'bg-gray-400' : 'bg-error') }} rounded-md p-3 text-white font-normal">
-                    {{ $item == 1 ? 'Active' : ($item == 2 ? 'Pending' : 'Closed') }}
+                    class="badge {{ $job->status == 'active' ? 'badge-success' : ($job->status == 'pending' ? 'bg-gray-400' : 'bg-error') }} rounded-md p-3 text-white font-normal">
+                    {{ $job->status == 'active' ? 'Active' : ($job->status == 'pending' ? 'Pending' : 'Closed') }}
                   </div>
                 </th>
                 <th class="last:rounded-r-xl">
                   <div class="flex flex-row items-center gap-2">
-                    <a href="{{ route('jobs.detail') }}" rel="noopener noreferrer">
+                    <a href="{{ route('jobs.detail', $job) }}" rel="noopener noreferrer">
                       <i class="fa-solid fa-pen text-lg text-info"></i>
                     </a>
                     <i class="fa-solid fa-ban text-lg text-error"></i>

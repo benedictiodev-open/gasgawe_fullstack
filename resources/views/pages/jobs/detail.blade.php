@@ -11,12 +11,14 @@
       <div class="card bg-base-100 shadow-xl w-full">
         <div class="card-body p-5 flex flex-row justify-between">
           <div>
-            <h2 class="card-title">Senior Software Engineer</h2>
-            <p class="text-gray-400 text-sm">Tech Innovation Inc.</p>
+            <h2 class="card-title">{{ $job->position }}</h2>
+            <p class="text-gray-400 text-sm">{{ $job->getCompanyNameAttribute() }}</p>
           </div>
 
           <div>
-            <div class="badge badge-success rounded-md p-3 text-white font-normal">Active</div>
+            <div
+              class="badge {{ $job->status == 'active' ? 'badge-success' : ($job->status == 'pending' ? 'bg-gray-400' : 'bg-error') }} rounded-md p-3 text-white font-normal capitalize">
+              {{ $job->status }}</div>
           </div>
         </div>
       </div>
@@ -29,7 +31,8 @@
         <div class="card-body p-5">
           <div class="flex flex-row items-center justify-between">
             <h2 class="card-title">Job Information</h2>
-            <button type="button" class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
+            <button type="button" id="editJobInformationBtn"
+              class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
               <i class="fa-solid fa-pen"></i>
               <span>Edit Information</span>
               <i class="fa-solid fa-caret-down"></i>
@@ -40,35 +43,35 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Company</td>
-                <th class="text-left pl-5">Tech Inovation Inc.</th>
+                <th class="text-left pl-5">{{ $job->getCompanyNameAttribute() }}</th>
               </tr>
               <tr>
                 <td>Location</td>
-                <th class="text-left pl-5">Jakarta, Indonesia</th>
+                <th class="text-left pl-5">{{ $job->getFullLocationAttribute() }}</th>
               </tr>
               <tr>
                 <td>Posted By</td>
-                <th class="text-left pl-5">HR Manager</th>
+                <th class="text-left pl-5">{{ '!!!' }}</th>
               </tr>
               <tr>
                 <td>Post Date</td>
-                <th class="text-left pl-5">16 Juni 2025</th>
+                <th class="text-left pl-5">{{ Carbon\Carbon::parse($job->created_at)->format('d F Y') }}</th>
               </tr>
               <tr>
                 <td>Deadline</td>
-                <th class="text-left pl-5">16 November 2025</th>
+                <th class="text-left pl-5">{{ '!!!' }}</th>
               </tr>
               <tr>
                 <td>Job Type</td>
-                <th class="text-left pl-5">Full-Time</th>
+                <th class="text-left pl-5">{{ $job->employmentType->name }}</th>
               </tr>
               <tr>
                 <td>Position</td>
-                <th class="text-left pl-5">Senior Software Engineer</th>
+                <th class="text-left pl-5">{{ $job->position }}</th>
               </tr>
               <tr>
                 <td>Salary</td>
-                <th class="text-left pl-5">Rp 20.000.000 - Rp 30.000.000</th>
+                <th class="text-left pl-5">{{ $job->expectedSalary->name }}</th>
               </tr>
             </table>
           </div>
@@ -80,29 +83,16 @@
       <div class="card bg-base-100 w-full shadow-xl">
         <div class="card-body p-5">
           <div class="flex flex-row items-center justify-between">
-            <h2 class="card-title">Contact Information</h2>
-            <button type="button" class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
+            <h2 class="card-title">Job Description</h2>
+            <button type="button" id="editJobDescriptionBtn"
+              class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
               <i class="fa-solid fa-pen"></i>
               <span>Edit Information</span>
               <i class="fa-solid fa-caret-down"></i>
             </button>
           </div>
-          <div>
-            <p class="text-justify text-gray-400">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, totam
-              ipsa repellat excepturi et quos sint laudantium? Nam sit ducimus quidem illum impedit aspernatur autem at
-              voluptate, in dolore veniam quo fugiat nemo sunt est assumenda eius eos quasi? Iste debitis tempora eum
-              illum, consectetur soluta quos est quia minus omnis minima unde nesciunt, maxime possimus provident sunt
-              ipsam vel sequi officia. Officia consequuntur tempore corporis est voluptates ut obcaecati quisquam neque a,
-              sunt fugit. Cum praesentium expedita est eos provident dolore voluptates animi fugiat. Commodi quidem
-              incidunt consequatur culpa mollitia sed blanditiis expedita quo odio possimus beatae aliquam quaerat ut
-              officia itaque eveniet odit adipisci labore, iusto, porro aperiam dolores dicta animi! Consectetur
-              exercitationem tenetur nostrum cupiditate molestiae, est veniam quibusdam perferendis ab, fugiat quas
-              veritatis animi delectus, enim laboriosam. Quod similique iste nulla ratione dolorem molestias numquam,
-              iusto aspernatur voluptatibus ex, quidem saepe? Magni error reiciendis suscipit ex, officia ea fuga id
-              praesentium dicta consequuntur, architecto sequi autem recusandae quas iste, at qui blanditiis fugiat
-              similique ut! Quibusdam, quisquam nam. Nemo necessitatibus dolorem ad nesciunt nam sit alias, vel, ipsum
-              corporis neque quaerat molestiae sequi a. Reiciendis, eum reprehenderit. Ullam illo unde, mollitia minima
-              dolorum dolorem. Natus, alias!</p>
+          <div class="text-gray-400 whitespace-pre-line prose">
+            {{ $job->description }}
           </div>
         </div>
       </div>
@@ -111,28 +101,17 @@
       {{-- QUALIFICATIONS AND REQUIREMENTS --}}
       <div class="card bg-base-100 w-full shadow-xl">
         <div class="card-body p-5">
-          <h2 class="card-title">Qualifications and Requirements</h2>
-          <div>
-            <p class="text-lg text-gray-400 align-middle">
-              <i class="fa-solid fa-circle-check text-success mr-2"></i>
-              Minimum 3 years of experience in software engineer
-            </p>
-            <p class="text-lg text-gray-400 align-middle">
-              <i class="fa-solid fa-circle-check text-success mr-2"></i>
-              Strong profiency in Go and Ruby on Rails
-            </p>
-            <p class="text-lg text-gray-400 align-middle">
-              <i class="fa-solid fa-circle-check text-success mr-2"></i>
-              Experience with state management
-            </p>
-            <p class="text-lg text-gray-400 align-middle">
-              <i class="fa-solid fa-circle-check text-success mr-2"></i>
-              Familiarity with RESTful APIs and JSON parsing
-            </p>
-            <p class="text-lg text-gray-400 align-middle">
-              <i class="fa-solid fa-circle-check text-success mr-2"></i>
-              Understanding the web developer and mobile development cycle
-            </p>
+          <div class="flex flex-row items-center justify-between">
+            <h2 class="card-title">Qualifications and Requirements</h2>
+            <button type="button" id="editJobQualificationBtn"
+              class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
+              <i class="fa-solid fa-pen"></i>
+              <span>Edit Information</span>
+              <i class="fa-solid fa-caret-down"></i>
+            </button>
+          </div>
+          <div class="text-gray-400 whitespace-pre-line prose">
+            {{ $job->qualification }}
           </div>
         </div>
       </div>
@@ -163,11 +142,11 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Total Applicants</td>
-                <th class="text-left pl-5">120</th>
+                <th class="text-left pl-5">{{ $job->apply->count() }}</th>
               </tr>
               <tr>
                 <td>ID</td>
-                <th class="text-left pl-5">1</th>
+                <th class="text-left pl-5">{{ $job->id }}</th>
               </tr>
             </table>
           </div>
@@ -175,4 +154,276 @@
         {{-- END APPLICANTS INFORMATION --}}
       </div>
     </div>
-  @endsection
+
+    <dialog id="showJobInformationModal" class="modal">
+      <div class="modal-box">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Job Information</h3>
+        <form action="{{ route('jobs.update', $job) }}" method="post">
+          @csrf
+          @method('PUT')
+          <input type="hidden" value="job_information" name="type_update" />
+          <div class="space-y-3">
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Company</span>
+              </div>
+              <input type="text" name="company_name" placeholder="Company Name"
+                class="input input-bordered w-full input-sm"
+                value="{{ old('company_name', $job->getCompanyNameAttribute() ?? '') }}" required />
+              @if ($errors->has('company_name'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('company_name') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Province</span>
+              </div>
+              <select class="select select-bordered select-sm w-full" name="province_id" id="province_id" required>
+                <option disabled selected>~ Select Province ~</option>
+                @foreach ($provinces as $province)
+                  <option value="{{ $province->id }}"
+                    {{ $province->id == old('province', $job->province_id) ? 'selected' : '' }}>
+                    {{ $province->name }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('province'))
+                <div class="label">
+                  <span class="label-text-alt">{{ $errors->first('province') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">City</span>
+              </div>
+              <select class="select select-bordered select-sm w-full" name="city_id" id="city_id" required>
+                <option disabled selected>~ Select City ~</option>
+              </select>
+              @if ($errors->has('city'))
+                <div class="label">
+                  <span class="label-text-alt">{{ $errors->first('city') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Posted By</span>
+              </div>
+              <input type="text" name="posted_by" placeholder="Posted By"
+                class="input input-bordered w-full input-sm" value="{{ old('posted_by', '') }}" required />
+              @if ($errors->has('posted_by'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('posted_by') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Posted Date</span>
+              </div>
+              <input type="datetime-local" name="created_at" placeholder="Posted Date"
+                class="input input-bordered w-full input-sm" value="{{ old('created_at', $job->created_at) }}"
+                required />
+              @if ($errors->has('created_at'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('created_at') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Deadline</span>
+              </div>
+              <input type="datetime-local" name="deadlined_at" placeholder="Deadline"
+                class="input input-bordered w-full input-sm"
+                value="{{ old('deadlined_at', $job?->deadlined_at ?? '') }}" required />
+              @if ($errors->has('deadlined_at'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('deadlined_at') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Job Type</span>
+              </div>
+              <select class="select select-bordered select-sm w-full" name="employee_type_id" id="employee_type_id"
+                required>
+                <option disabled selected>~ Select Job Type ~</option>
+                @foreach ($employee_types as $employee_type)
+                  <option value="{{ $employee_type->id }}"
+                    {{ $employee_type->id == old('employee_type_id', $job->employee_type_id) ? 'selected' : '' }}>
+                    {{ $employee_type->name }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('employee_type_id'))
+                <div class="label">
+                  <span class="label-text-alt">{{ $errors->first('province') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Position</span>
+              </div>
+              <input type="text" name="position" placeholder="Position"
+                class="input input-bordered w-full input-sm" value="{{ old('position', $job->position ?? '') }}"
+                required />
+              @if ($errors->has('position'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('position') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Salary</span>
+              </div>
+              <select class="select select-bordered select-sm w-full" name="expected_salary_id" id="expected_salary_id"
+                required>
+                <option disabled selected>~ Select Salary ~</option>
+                @foreach ($expected_salaries as $expected_salary)
+                  <option value="{{ $expected_salary->id }}"
+                    {{ $expected_salary->id == old('expected_salary_id', $job->expected_salary_id) ? 'selected' : '' }}>
+                    {{ $expected_salary->name }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('expected_salary_id'))
+                <div class="label">
+                  <span class="label-text-alt">{{ $errors->first('province') }}</span>
+                </div>
+              @endif
+            </label>
+
+            <div class="flex gap-3 items-center">
+              <button class="btn btn-sm btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog id="showJobDescriptionModal" class="modal">
+      <div class="modal-box">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Job Description</h3>
+        <form action="{{ route('jobs.update', $job) }}" method="post">
+          @csrf
+          @method('PUT')
+          <input type="hidden" value="job_description" name="type_update" />
+          <div class="space-y-3">
+
+
+            <label class="form-control w-full">
+              <textarea class="textarea textarea-bordered h-24 w-full textarea-sm" placeholder="Job Description" name="description"
+                id="description">{{ $job->description }}</textarea>
+              @if ($errors->has('description'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('description') }}</span>
+                </div>
+              @endif
+            </label>
+            <div class="flex gap-3 items-center">
+              <button class="btn btn-sm btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog id="showJobQualificationModal" class="modal">
+      <div class="modal-box">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Job Qualifications and Requirements</h3>
+        <form action="{{ route('jobs.update', $job) }}" method="post">
+          @csrf
+          @method('PUT')
+          <input type="hidden" value="job_qualification" name="type_update" />
+          <div class="space-y-3">
+
+
+            <label class="form-control w-full">
+              <textarea class="textarea textarea-bordered h-24 w-full textarea-sm" placeholder="Job Qualifications and Requirements"
+                name="qualification" id="qualification">{{ $job->qualification }}</textarea>
+              @if ($errors->has('qualification'))
+                <div class="label">
+                  <span class="label-text-alt text-error">{{ $errors->first('qualification') }}</span>
+                </div>
+              @endif
+            </label>
+            <div class="flex gap-3 items-center">
+              <button class="btn btn-sm btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  </div>
+@endsection
+
+@push('script')
+  <script>
+    document.getElementById('editJobInformationBtn').addEventListener('click', async function(event) {
+      const url = @json(route('city', ['id' => '_id']));
+      const province_id = @json($job->province_id);
+      const res = await fetch(url.replace("_id", province_id));
+      const {
+        data
+      } = await res.json();
+
+      const city = document.getElementById('city_id');
+      city.options.length = 0;
+      city.append(new Option('~ Select City ~', "", true, true))
+
+      const city_id = @json($job->city_id);
+      data.forEach(item => {
+        city.append(new Option(item.name, item.id, item.id == city_id, item.id == city_id))
+      });
+      document.getElementById('showJobInformationModal').showModal();
+    });
+
+    document.getElementById('province_id').addEventListener('change', async function(event) {
+      if (event.target.value) {
+        const url = @json(route('city', ['id' => '_id']));
+        const res = await fetch(url.replace("_id", event.target.value));
+        const {
+          data
+        } = await res.json();
+        const city = document.getElementById('city_id');
+        city.options.length = 0;
+        city.append(new Option('~ Select City ~', "", true, true))
+        data.forEach(item => {
+          city.append(new Option(item.name, item.id, false, false))
+        });
+      }
+    });
+
+    document.getElementById('editJobDescriptionBtn').addEventListener('click', function(event) {
+      document.getElementById('showJobDescriptionModal').showModal();
+    });
+
+    document.getElementById('editJobQualificationBtn').addEventListener('click', function(event) {
+      document.getElementById('showJobQualificationModal').showModal();
+    });
+  </script>
+@endpush

@@ -2,6 +2,7 @@
 
 namespace App\Services\Masterdata;
 
+use App\Models\ExpectedSalary;
 use App\Repositories\Masterdata\ExpectedSalaryRepository;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,11 @@ class ExpectedSalaryService
   public function __construct(ExpectedSalaryRepository $expectedSalaryRepository)
   {
     $this->expectedSalaryRepository = $expectedSalaryRepository;
+  }
+  
+  public function getAllExpectedSalaries()
+  {
+    return ExpectedSalary::all();
   }
 
   public function getExpectedSalary(Request $request = null, $all = true)
