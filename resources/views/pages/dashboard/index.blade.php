@@ -10,47 +10,49 @@
     <div class="col-span-12 grid grid-cols-5 items-center gap-4">
       <div class="col-span-1 card bg-primary text-primary-content">
         <div class="card-body flex flex-col items-center justify-center gap-1">
-          <div class="skeleton h-12 w-12"></div>
-          <p>Welcome to Your Admin Dashboard</p>
+          <div class="h-14 w-14 p-1 flex items-center justify-center bg-white rounded-full">
+            <img src="{{ asset('gasgawe-logo.png') }}" alt="">
+          </div>
+          <div class="text-center">Welcome to Your Admin Dashboard</div>
         </div>
       </div>
 
       <div class="col-span-1 card bg-base-100 h-full">
-        <div class="card-body flex flex-col items-center justify-between gap-1">
+        <div class="card-body flex flex-col items-center justify-center gap-1">
           <i class="fa-solid fa-user-plus text-3xl"></i>
           <div class="flex flex-col items-center justify-center">
-            <h2 class="card-title">1245</h2>
+            <h2 class="card-title">{{ $applicant }}</h2>
             <p class="">Applicants</p>
           </div>
         </div>
       </div>
 
       <div class="col-span-1 card bg-base-100 h-full">
-        <div class="card-body flex flex-col items-center justify-between gap-1">
+        <div class="card-body flex flex-col items-center justify-center gap-1">
           <i class="fa-solid fa-user-tie text-3xl"></i>
           <div class="flex flex-col items-center justify-center">
-            <h2 class="card-title">1245</h2>
+            <h2 class="card-title">{{ $recruiter }}</h2>
             <p class="">Recruiters</p>
           </div>
         </div>
       </div>
 
       <div class="col-span-1 card bg-base-100 h-full">
-        <div class="card-body flex flex-col items-center justify-between gap-1">
+        <div class="card-body flex flex-col items-center justify-center gap-1">
           <i class="fa-solid fa-suitcase text-3xl"></i>
           <div class="flex flex-col items-center justify-center">
-            <h2 class="card-title">1245</h2>
+            <h2 class="card-title">{{ $job }}</h2>
             <p class="">Job Posted</p>
           </div>
         </div>
       </div>
 
       <div class="col-span-1 card bg-base-100 h-full">
-        <div class="card-body flex flex-col items-center justify-between gap-1">
-          <i class="fa-solid fa-user-plus text-3xl"></i>
+        <div class="card-body flex flex-col items-center justify-center gap-1">
+          <i class="fa-solid fa-suitcase text-3xl"></i>
           <div class="flex flex-col items-center justify-center">
-            <h2 class="card-title">1245</h2>
-            <p class="">Applicant</p>
+            <h2 class="card-title">{{ $job_active }}</h2>
+            <p class="">Job Active</p>
           </div>
         </div>
       </div>

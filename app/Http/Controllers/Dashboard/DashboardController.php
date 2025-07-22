@@ -22,4 +22,12 @@ class DashboardController extends Controller
             'job_active' => $job_active,
         ]);
     }
+
+    public function top_chart(Request $request) {
+        $result = [];
+        
+        return response()->json([
+            'data' => $result,
+        ]);
+    }
 }

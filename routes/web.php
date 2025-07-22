@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\Masterdata\SkillController;
 use App\Http\Controllers\Recruiter\RecruiterController;
@@ -38,9 +39,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     });
 
     Route::prefix('accounts')->group(function () {
-        Route::get('/', function () {
-            return view('pages.accounts.index');
-        })->name('accounts');
+        Route::get('/', [AccountController::class, 'index'])->name('accounts');
+        Route::post('/update_data_user', [AccountController::class, 'update_data_user'])->name('update_data_user');
     });
 
     Route::prefix('masterdata')->name('masterdata.')->group(function () {
