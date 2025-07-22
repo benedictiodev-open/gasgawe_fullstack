@@ -88,24 +88,23 @@
       <div class="relative group">
         <button
           class="w-8 h-8 bg-primary text-white font-semibold rounded-full text-sm flex items-center justify-center">
-          S
+          {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
         </button>
 
         <!-- Dropdown -->
-        <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg hidden group-hover:block z-50">
+        <div class="absolute right-0 mt-0.5 w-56 bg-white rounded-lg shadow-xl hidden group-hover:block z-50">
           <div class="flex items-center gap-3 px-4 py-3 border-b">
             <div class="w-8 h-8 rounded-full overflow-hidden">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="avatar"
-                class="w-full h-full object-cover" />
+              {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
             </div>
             <div>
-              <p class="text-sm font-medium">Stevani Permana</p>
-              <p class="text-xs text-gray-500">stevanipermana@gmail.com</p>
+              <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
+              <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
             </div>
           </div>
           <ul class="py-2 text-sm">
             <li>
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+              <a href="{{ route('accounts') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
                 <i class="fa-solid fa-gear w-4"></i> Setting
               </a>
             </li>
