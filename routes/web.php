@@ -4,6 +4,7 @@ use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\Masterdata\SkillController;
 use App\Http\Controllers\Recruiter\RecruiterController;
 use App\Http\Controllers\Applicant\ApplicantController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Masterdata\EducationController;
 use App\Http\Controllers\Masterdata\EmploymentTypeController;
 use App\Http\Controllers\Masterdata\ExpectedSalaryController;
@@ -15,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect("/", "/login");
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('pages.dashboard.index');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('applicants')->group(function () {
         Route::get('/', [ApplicantController::class, "index"])->name('applicants');
