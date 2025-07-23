@@ -19,6 +19,7 @@ Route::redirect("/", "/login");
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/top_chart_dashboard', [DashboardController::class, 'top_chart'])->name('top_chart_dashboard');
 
     Route::prefix('applicants')->group(function () {
         Route::get('/', [ApplicantController::class, "index"])->name('applicants');
