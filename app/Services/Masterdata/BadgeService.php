@@ -26,6 +26,16 @@ class BadgeService
     return $this->badgeRepository->getPaginatedBadges($request?->all());
   }
 
+  public function getApplicantBadge()
+  {
+    return $this->badgeRepository->getApplicantBadges();
+  }
+
+  public function getRecruiterBadge()
+  {
+    return $this->badgeRepository->getRecruiterBadges();
+  }
+
   public function store(array $data)
   {
     try {

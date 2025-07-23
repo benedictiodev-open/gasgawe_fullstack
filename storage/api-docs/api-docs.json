@@ -2817,6 +2817,168 @@
                 ]
             }
         },
+        "/masterdata/badge/applicant": {
+            "get": {
+                "tags": [
+                    "Masterdata"
+                ],
+                "summary": "Get all applicant badges",
+                "description": "Retrieve a list of all applicant badges.",
+                "operationId": "67222a5edf5449c61cbf4093a281263c",
+                "responses": {
+                    "200": {
+                        "description": "Badges retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Badge retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "PHP"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "PHP description"
+                                                    },
+                                                    "image_path": {
+                                                        "type": "string",
+                                                        "example": "badges/Applicant_timestamp.jpg"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/masterdata/badge/recruiter": {
+            "get": {
+                "tags": [
+                    "Masterdata"
+                ],
+                "summary": "Get all recruiter badges",
+                "description": "Retrieve a list of all recruiter badges.",
+                "operationId": "e30e01bcd556830763bb1e2ccd8185ba",
+                "responses": {
+                    "200": {
+                        "description": "Badges retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Badge retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "PHP"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "PHP description"
+                                                    },
+                                                    "image_path": {
+                                                        "type": "string",
+                                                        "example": "badges/Recruiter_timestamp.jpg"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/masterdata/educations": {
             "get": {
                 "tags": [

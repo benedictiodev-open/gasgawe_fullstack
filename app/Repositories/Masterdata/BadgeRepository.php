@@ -49,6 +49,16 @@ class BadgeRepository
     return $this->getQueryBadge($request)->paginate($perPage);
   }
 
+  public function getApplicantBadges()
+  {
+    return $this->getQueryBadge()->where('type', 'Applicant')->get();
+  }
+
+  public function getRecruiterBadges()
+  {
+    return $this->getQueryBadge()->where('type', 'Recruiter')->get();
+  }
+
   public function find(int $id): Badge
   {
     return Badge::findOrFail($id);
