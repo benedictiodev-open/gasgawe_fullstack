@@ -13,6 +13,7 @@ use App\Http\Controllers\api\Assessment\AssessmentController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\api\Applicant\ActivityController;
 use App\Http\Controllers\api\Applicant\ExplorController as ApplicantExplorController;
+use App\Http\Controllers\api\Masterdata\BadgeController;
 use App\Http\Controllers\api\Masterdata\IndustryTypeController;
 use App\Http\Controllers\api\Notification\NotificationController;
 use App\Http\Controllers\api\Recruiter\ExplorController;
@@ -93,7 +94,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::prefix('assessment')->group(function () {
             Route::get('/', [AssessmentController::class, 'index']);
         });
-      
+
         Route::prefix('/notification')->group(function () {
             Route::get('/', [NotificationController::class, 'applicant']);
         });
@@ -112,6 +113,11 @@ Route::middleware(AuthApiChecker::class)->group(function () {
         Route::get('/educations', [EducationController::class, 'index']);
         Route::post('/educations', [EducationController::class, 'store']);
         Route::get('/industry-types', [IndustryTypeController::class, 'index']);
+
+        Route::prefix('/badge')->group(function () {
+            Route::get('/applicant', [BadgeController::class, 'applicant']);
+            Route::get('/recruiter', [BadgeController::class, 'recruiter']);
+        });
     });
 
 
