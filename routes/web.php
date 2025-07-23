@@ -7,6 +7,7 @@ use App\Http\Controllers\Recruiter\RecruiterController;
 use App\Http\Controllers\Applicant\ApplicantController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Job\JobController;
+use App\Http\Controllers\Masterdata\BadgeController;
 use App\Http\Controllers\Masterdata\EducationController;
 use App\Http\Controllers\Masterdata\EmploymentTypeController;
 use App\Http\Controllers\Masterdata\ExpectedSalaryController;
@@ -85,6 +86,13 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
             Route::post('/', [IndustryTypeController::class, 'store'])->name('store');
             Route::put('/{id}', [IndustryTypeController::class, 'update'])->name('update');
             Route::delete('/{id}', [IndustryTypeController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('/badge')->name('badge.')->group(function () {
+            Route::get('/', [BadgeController::class, 'index'])->name('index');
+            Route::post('/', [BadgeController::class, 'store'])->name('store');
+            Route::put('/{id}', [BadgeController::class, 'update'])->name('update');
+            Route::delete('/{id}', [BadgeController::class, 'destroy'])->name('delete');
         });
     });
 });

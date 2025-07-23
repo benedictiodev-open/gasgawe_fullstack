@@ -69,6 +69,9 @@
               <a href="{{ route('masterdata.industryType.index') }}" class="block px-4 py-2 hover:bg-gray-100">Industry
                 Type</a>
             </li>
+            <li>
+              <a href="{{ route('masterdata.badge.index') }}" class="block px-4 py-2 hover:bg-gray-100">Badge</a>
+            </li>
           </ul>
         </li>
 
