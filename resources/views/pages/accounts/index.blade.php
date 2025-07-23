@@ -40,7 +40,7 @@
                   </div>
                   <label class="input input-bordered flex items-center gap-2">
                     <i class="fa-solid fa-user"></i>
-                    <input name="fullname" type="text" class="grow" placeholder="Full Name" value="{{ Auth::user()->name }}" />
+                    <input name="fullname" type="text" class="grow" placeholder="Full Name" value="{{ Auth::user()->name }}" required />
                   </label>
                 </label>
               </div>
@@ -52,7 +52,7 @@
                   </div>
                   <label class="input input-bordered flex items-center gap-2">
                     <i class="fa-solid fa-envelope"></i>
-                    <input name="email" type="email" class="grow" placeholder="Email" value="{{ Auth::user()->email }}" />
+                    <input name="email" type="email" class="grow" placeholder="Email" value="{{ Auth::user()->email }}" required />
                   </label>
                 </label>
               </div>
@@ -73,46 +73,49 @@
           <div class="px-4">
             <h2 class="">Manage your password</h2>
           </div>
-          <div class="bg-gray-100 px-4 py-5 space-y-3">
-            <div>
-              <label class="form-control w-full">
-                <div class="label py-0 pb-0.5">
-                  <span class="label-text">Current Password</span>
-                </div>
-                <label class="input input-bordered flex items-center gap-2">
-                  <i class="fa-solid fa-key"></i>
-                  <input type="password" class="grow" placeholder="Current Password" />
+          <form action="{{ route('update_password') }}" method="POST">
+            @csrf
+            <div class="bg-gray-100 px-4 py-5 space-y-3">
+              <div>
+                <label class="form-control w-full">
+                  <div class="label py-0 pb-0.5">
+                    <span class="label-text">Current Password</span>
+                  </div>
+                  <label class="input input-bordered flex items-center gap-2">
+                    <i class="fa-solid fa-key"></i>
+                    <input name="current_password" type="password" class="grow" placeholder="Current Password" required />
+                  </label>
                 </label>
-              </label>
-            </div>
+              </div>
 
-            <div>
-              <label class="form-control w-full">
-                <div class="label py-0 pb-0.5">
-                  <span class="label-text">New Password</span>
-                </div>
-                <label class="input input-bordered flex items-center gap-2">
-                  <i class="fa-solid fa-key"></i>
-                  <input type="password" class="grow" placeholder="New Password" />
+              <div>
+                <label class="form-control w-full">
+                  <div class="label py-0 pb-0.5">
+                    <span class="label-text">New Password</span>
+                  </div>
+                  <label class="input input-bordered flex items-center gap-2">
+                    <i class="fa-solid fa-key"></i>
+                    <input name="new_password" type="password" class="grow" placeholder="New Password" required />
+                  </label>
                 </label>
-              </label>
-            </div>
+              </div>
 
-            <div>
-              <label class="form-control w-full">
-                <div class="label py-0 pb-0.5">
-                  <span class="label-text">Confirm New Password</span>
-                </div>
-                <label class="input input-bordered flex items-center gap-2">
-                  <i class="fa-solid fa-key"></i>
-                  <input type="password" class="grow" placeholder="Confirm New Password" />
+              <div>
+                <label class="form-control w-full">
+                  <div class="label py-0 pb-0.5">
+                    <span class="label-text">Confirm New Password</span>
+                  </div>
+                  <label class="input input-bordered flex items-center gap-2">
+                    <i class="fa-solid fa-key"></i>
+                    <input name="confirm_password" type="password" class="grow" placeholder="Confirm New Password" required />
+                  </label>
                 </label>
-              </label>
+              </div>
             </div>
-          </div>
-          <div class="card-actions justify-end px-4">
-            <button class="btn btn-info btn-sm text-white">Save</button>
-          </div>
+            <div class="card-actions justify-end px-4">
+              <button class="btn btn-info btn-sm text-white">Save</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

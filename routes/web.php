@@ -42,6 +42,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::prefix('accounts')->group(function () {
         Route::get('/', [AccountController::class, 'index'])->name('accounts');
         Route::post('/update_data_user', [AccountController::class, 'update_data_user'])->name('update_data_user');
+        Route::post('/update_password', [AccountController::class, 'update_password'])->name('update_password');
     });
 
     Route::prefix('masterdata')->name('masterdata.')->group(function () {
