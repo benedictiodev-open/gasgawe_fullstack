@@ -30,6 +30,12 @@
             Jobs
           </a>
         </li>
+        <li>
+          <a href="{{ route('quiz') }}"
+            class="border-b-2 pb-4 {{ str_contains(Request::route()->getName(), 'quiz') ? 'border-primary text-primary' : 'border-transparent text-gray-800 hover:text-primary' }}">
+            Quiz
+          </a>
+        </li>
 
         <!-- Dropdown for Masterdata -->
         <li class="relative" x-data="{ open: false }">

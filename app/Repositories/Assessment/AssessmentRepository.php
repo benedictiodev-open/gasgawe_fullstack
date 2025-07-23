@@ -17,4 +17,52 @@ class AssessmentRepository
             }]);
         }])->get();
     }
+
+    /** 
+     * @SuppressWarnings(PHPMD.StaticAccess) 
+     */
+    public function indexs($request)
+    {
+        $query = Assessment::query();
+
+        if (empty($request)) return $query;
+
+        // Check if there's a search query in the request
+        if (!empty($request['search'])) {
+            $search = $request['search'];
+
+            // Apply the search filter to the query
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('role', 'like', '%' . $search . '%');
+            });
+        }
+
+        return $query;
+    }
+
+
+    /** 
+     * @SuppressWarnings(PHPMD.StaticAccess) 
+     */
+    public function store($request)
+    {
+        return Assessment::create($request);
+    }
+
+    /** 
+     * @SuppressWarnings(PHPMD.StaticAccess) 
+     */
+    public function update($id, $request)
+    {
+        return Assessment::query()->findOrFail($id)->update($request);
+    }
+
+    /** 
+     * @SuppressWarnings(PHPMD.StaticAccess) 
+     */
+    public function delete($id)
+    {
+        return Assessment::query()->findOrFail($id)->delete();
+    }
 }

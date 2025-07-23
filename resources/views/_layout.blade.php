@@ -20,7 +20,7 @@
   </main>
   <x-layout.toast />
 </body>
-<script src="//unpkg.com/alpinejs" defer></script>
+{{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 @stack('script')
 
 </html>
