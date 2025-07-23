@@ -6,6 +6,10 @@ use App\Http\Controllers\Masterdata\SkillController;
 use App\Http\Controllers\Recruiter\RecruiterController;
 use App\Http\Controllers\Applicant\ApplicantController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Assessment\AssessmentCategoryController;
+use App\Http\Controllers\Assessment\AssessmentController;
+use App\Http\Controllers\Assessment\AssessmentOptionController;
+use App\Http\Controllers\Assessment\AssessmentQuestionController;
 use App\Http\Controllers\Job\JobController;
 use App\Http\Controllers\Masterdata\BadgeController;
 use App\Http\Controllers\Masterdata\EducationController;
@@ -38,6 +42,34 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/', [JobController::class, 'index'])->name('jobs');
         Route::get('/{id}/detail', [JobController::class, 'show'])->name('jobs.detail');
         Route::put('/{id}/update', [JobController::class, 'update'])->name('jobs.update');
+    });
+
+    Route::prefix('quiz')->group(function () {
+        Route::get('/', [AssessmentController::class, 'index'])->name('quiz');
+        Route::post('/create', [AssessmentController::class, 'store'])->name('quiz.store');
+        Route::put('/{id}/update', [AssessmentController::class, 'update'])->name('quiz.update');
+        Route::delete('/{id}/delete', [AssessmentController::class, 'delete'])->name('quiz.delete');
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/{id}', [AssessmentCategoryController::class, 'index'])->name('quiz.categories.index');
+            Route::post('/create', [AssessmentCategoryController::class, 'store'])->name('quiz.categories.store');
+            Route::put('/{id}/update', [AssessmentCategoryController::class, 'update'])->name('quiz.categories.update');
+            Route::delete('/{id}/delete', [AssessmentCategoryController::class, 'delete'])->name('quiz.categories.delete');
+
+            Route::prefix('questions')->group(function () {
+                Route::get('/{id}', [AssessmentQuestionController::class, 'index'])->name('quiz.questions.index');
+                Route::post('/create', [AssessmentQuestionController::class, 'store'])->name('quiz.questions.store');
+                Route::put('/{id}/update', [AssessmentQuestionController::class, 'update'])->name('quiz.questions.update');
+                Route::delete('/{id}/delete', [AssessmentQuestionController::class, 'delete'])->name('quiz.questions.delete');
+
+                Route::prefix('options')->group(function () {
+                    Route::get('/{id}', [AssessmentOptionController::class, 'index'])->name('quiz.options.index');
+                    Route::post('/create', [AssessmentOptionController::class, 'store'])->name('quiz.options.store');
+                    Route::put('/{id}/update', [AssessmentOptionController::class, 'update'])->name('quiz.options.update');
+                    Route::delete('/{id}/delete', [AssessmentOptionController::class, 'delete'])->name('quiz.options.delete');
+                });
+            });
+        });
     });
 
     Route::prefix('accounts')->group(function () {
