@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\api\Location\LocationController;
 use App\Http\Controllers\Masterdata\SkillController;
 use App\Http\Controllers\Recruiter\RecruiterController;
 use App\Http\Controllers\Applicant\ApplicantController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Assessment\AssessmentCategoryController;
 use App\Http\Controllers\Assessment\AssessmentController;
 use App\Http\Controllers\Assessment\AssessmentOptionController;
 use App\Http\Controllers\Assessment\AssessmentQuestionController;
 use App\Http\Controllers\Job\JobController;
+use App\Http\Controllers\Masterdata\BadgeController;
 use App\Http\Controllers\Masterdata\EducationController;
 use App\Http\Controllers\Masterdata\EmploymentTypeController;
 use App\Http\Controllers\Masterdata\ExpectedSalaryController;
@@ -20,9 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::redirect("/", "/login");
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('pages.dashboard.index');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/top_chart_dashboard', [DashboardController::class, 'top_chart'])->name('top_chart_dashboard');
 
     Route::prefix('applicants')->group(function () {
         Route::get('/', [ApplicantController::class, "index"])->name('applicants');
@@ -71,9 +73,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     });
 
     Route::prefix('accounts')->group(function () {
-        Route::get('/', function () {
-            return view('pages.accounts.index');
-        })->name('accounts');
+        Route::get('/', [AccountController::class, 'index'])->name('accounts');
+        Route::post('/update_data_user', [AccountController::class, 'update_data_user'])->name('update_data_user');
     });
 
     Route::prefix('masterdata')->name('masterdata.')->group(function () {
@@ -117,6 +118,13 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
             Route::post('/', [IndustryTypeController::class, 'store'])->name('store');
             Route::put('/{id}', [IndustryTypeController::class, 'update'])->name('update');
             Route::delete('/{id}', [IndustryTypeController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('/badge')->name('badge.')->group(function () {
+            Route::get('/', [BadgeController::class, 'index'])->name('index');
+            Route::post('/', [BadgeController::class, 'store'])->name('store');
+            Route::put('/{id}', [BadgeController::class, 'update'])->name('update');
+            Route::delete('/{id}', [BadgeController::class, 'destroy'])->name('delete');
         });
     });
 });

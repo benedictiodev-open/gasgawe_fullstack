@@ -20,6 +20,7 @@
   </main>
   <x-layout.toast />
 </body>
+<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 @stack('script')
 
