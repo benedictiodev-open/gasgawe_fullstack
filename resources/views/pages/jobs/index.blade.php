@@ -70,7 +70,6 @@
             <tr>
               <th>Job Title</th>
               <th>Company</th>
-              <th>Posted By</th>
               <th>Location</th>
               <th>Posted Date</th>
               <th>Status</th>
@@ -84,7 +83,6 @@
                   {{ $job->position }}
                 </th>
                 <td>{{ $job->getCompanyNameAttribute() }}</td>
-                <td>{{ '!!!' }}</td>
                 <td>{{ $job->getFullLocationAttribute() }}</td>
                 <td>{{ Carbon\Carbon::parse($job->created_at)->format('Y-m-d') }}</td>
                 <th>
@@ -96,10 +94,10 @@
                 <th class="last:rounded-r-xl">
                   <div class="flex flex-row items-center gap-2">
                     <a href="{{ route('jobs.detail', $job) }}" rel="noopener noreferrer">
-                      <i class="fa-solid fa-pen text-lg text-info"></i>
+                      <i class="fa-solid fa-circle-info text-lg text-gray-400"></i>
                     </a>
-                    <i class="fa-solid fa-ban text-lg text-error"></i>
-                    <i class="fa-solid fa-ellipsis text-lg text-gray-400"></i>
+                    {{-- <i class="fa-solid fa-ban text-lg text-error"></i>
+                    <i class="fa-solid fa-ellipsis text-lg text-gray-400"></i> --}}
                   </div>
                 </th>
               </tr>

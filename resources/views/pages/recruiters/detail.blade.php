@@ -48,12 +48,12 @@
           <div class="flex flex-row items-center justify-between">
             <h2 class="card-title">Personal Information</h2>
 
-            <button type="button" id="editInformationBtn"
+            {{-- <button type="button" id="editInformationBtn"
               class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
               <i class="fa-solid fa-pen"></i>
               <span>Edit Information</span>
               <i class="fa-solid fa-caret-down"></i>
-            </button>
+            </button> --}}
           </div>
 
           <div>
@@ -97,18 +97,18 @@
         <div class="card-body p-5">
           <div class="flex flex-row items-center justify-between">
             <h2 class="card-title">Contact Information</h2>
-            <button type="button" id="contactInformationBtn"
+            {{-- <button type="button" id="contactInformationBtn"
               class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
               <i class="fa-solid fa-pen"></i>
               <span>Edit Information</span>
               <i class="fa-solid fa-caret-down"></i>
-            </button>
+            </button> --}}
           </div>
           <div>
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Website</td>
-                <th class="text-left pl-5">!!!</th>
+                <th class="text-left pl-5">-</th>
               </tr>
               <tr>
                 <td>Email</td>
@@ -116,7 +116,7 @@
               </tr>
               <tr>
                 <td>Phone</td>
-                <th class="text-left pl-5">!!!</th>
+                <th class="text-left pl-5">-</th>
               </tr>
             </table>
           </div>
@@ -173,7 +173,7 @@
       {{-- END VERIFICATION STATUS --}}
 
       {{-- ACCOUNT ACTIONS --}}
-      <div class="card bg-base-100 w-full shadow-xl">
+      {{-- <div class="card bg-base-100 w-full shadow-xl">
         <div class="card-body p-5">
           <h2 class="card-title">Account Actions</h2>
           <div class="flex flex-col gap-3">
@@ -189,7 +189,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> --}}
       {{-- END ACCOUNT ACTIONS --}}
 
     </div>

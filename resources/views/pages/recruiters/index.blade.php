@@ -106,7 +106,7 @@
                   </div>
                 </td>
                 <td>{{ $item->email }}</td>
-                <td>!!!</td>
+                <td>-</td>
                 <td>{{ $item->profileCompany->industryType?->name ?? '-' }}</td>
                 <td>{{ $item->profileCompany->employee_count ?? 0 }}</td>
                 <td class="text-center"><i
@@ -129,10 +129,10 @@
                 <th class="last:rounded-r-xl">
                   <div class="flex flex-row items-center gap-2">
                     <a href="{{ route('recruiters.detail', ['id' => $item->id]) }}" rel="noopener noreferrer">
-                      <i class="fa-solid fa-pen text-lg text-info"></i>
+                      <i class="fa-solid fa-circle-info text-lg text-gray-400"></i>
                     </a>
-                    <i class="fa-solid fa-ban text-lg text-error"></i>
-                    <i class="fa-solid fa-trash-can text-lg text-error"></i>
+                    {{-- <i class="fa-solid fa-ban text-lg text-error"></i>
+                    <i class="fa-solid fa-trash-can text-lg text-error"></i> --}}
                   </div>
                 </th>
               </tr>

@@ -13,8 +13,14 @@
           <div class="flex flex-row items-center gap-5">
             <div class="avatar">
               <div class="rounded-md h-16 w-16">
-                <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
-                  alt="Profile Image" />
+                @if ($applicant->user->profileApplicant->file_profile_image)
+                    <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
+                      alt="Profile Image" />
+                  @else
+                    <div class=" h-16 w-16 bg-info flex justify-center items-center text-white text-3xl font-bold">
+                      {{ strtoupper(substr($applicant->user->profileApplicant->first_name, 0, 1)) }}
+                    </div>
+                  @endif
               </div>
             </div>
 
@@ -25,7 +31,7 @@
           </div>
 
           <div>
-            <div class="badge badge-success rounded-md p-3 text-white font-normal">Active</div>
+            <div class="badge {{ $applicant->user->profileApplicant->is_active ? 'badge-success' : 'badge-error' }} rounded-md p-3 text-white font-normal">{{ $applicant->user->profileApplicant->is_active ? 'Active' : 'Inactive' }}</div>
           </div>
         </div>
       </div>
@@ -38,12 +44,12 @@
         <div class="card-body p-5">
           <div class="flex flex-row items-center justify-between">
             <h2 class="card-title">Personal Information</h2>
-            <button type="button" id="personalInformationBtn"
+            {{-- <button type="button" id="personalInformationBtn"
               class="btn btn-sm text-gray-400 bg-base-100 space-x-0.5 shadow-lg">
               <i class="fa-solid fa-pen"></i>
               <span>Edit Information</span>
               <i class="fa-solid fa-caret-down"></i>
-            </button>
+            </button> --}}
           </div>
 
           <div>
@@ -58,13 +64,13 @@
               </tr>
               <tr>
                 <td>Account</td>
-                <th class="text-left pl-5">Active</th>
+                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->is_active ? 'Active' : 'Inactive' }}</th>
               </tr>
               <tr>
                 <td>Verification Status</td>
-                <th class="text-left pl-5 text-success">
-                  <i class="fa-solid fa-circle-check mr-0.5"></i>
-                  Verified
+                <th class="text-left pl-5 {{ $applicant->user->profileApplicant->is_verified ? 'text-success' : 'text-error' }}">
+                  <i class="fa-solid {{ $applicant->user->profileApplicant->is_verified ? 'fa-circle-check' : 'fa-circle-xmark' }} mr-0.5"></i>
+                  {{ $applicant->user->profileApplicant->is_verified ? 'Verified' : 'Not Verified' }}
                 </th>
               </tr>
               <tr>
@@ -90,7 +96,7 @@
               </tr>
               <tr>
                 <td>Phone</td>
-                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->phone ?? '!!!' }}</th>
+                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->phone_number ?? '-' }}</th>
               </tr>
             </table>
           </div>
@@ -132,23 +138,23 @@
       {{-- END BADGES AND ACHIEVMENT --}}
 
       {{-- ACCOUNT ACTIONS --}}
-      <div class="card bg-base-100 w-full shadow-xl">
+      {{-- <div class="card bg-base-100 w-full shadow-xl">
         <div class="card-body p-5">
           <h2 class="card-title">Account Actions</h2>
           <div class="flex flex-col gap-3">
-            <button type="button"
-              class="btn btn-ghost text-error text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
-              <i class="fa-solid fa-trash-can mr-1"></i>
-              Remove Verification
+            <button type="button" id="verified_account"
+              class="btn btn-ghost {{ $applicant->user->profileApplicant->is_verified ? 'text-error' : 'text-success' }} text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
+              <i class="fa-solid {{ $applicant->user->profileApplicant->is_verified ? 'fa-trash-can' : 'fa-circle-check' }} mr-1"></i>
+                {{ $applicant->user->profileApplicant->is_verified ? 'Remove Verification' : 'Verification' }}
             </button>
-            <button type="button"
-              class="btn btn-ghost text-error text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
-              <i class="fa-solid fa-ban mr-1"></i>
-              Deactive Account
+            <button type="button" id="acctive_account"
+              class="btn btn-ghost {{ $applicant->user->profileApplicant->is_active ? 'text-error' : 'text-success' }} text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
+              <i class="fa-solid {{ $applicant->user->profileApplicant->is_active ? 'fa-ban' : 'fa-circle-check' }} mr-1"></i>
+              {{ $applicant->user->profileApplicant->is_active ? 'Deactive Account' : 'Active Account' }}
             </button>
           </div>
         </div>
-      </div>
+      </div> --}}
       {{-- END ACCOUNT ACTIONS --}}
 
     </div>
@@ -199,8 +205,8 @@
 
 @push('script')
   <script>
-    document.getElementById('personalInformationBtn').addEventListener('click', function(event) {
-      document.getElementById('showPersonalInformationModal').showModal();
-    });
+    // document.getElementById('personalInformationBtn').addEventListener('click', function(event) {
+    //   document.getElementById('showPersonalInformationModal').showModal();
+    // });
   </script>
 @endpush

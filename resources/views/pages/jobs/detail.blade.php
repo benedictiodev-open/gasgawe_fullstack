@@ -49,18 +49,18 @@
                 <td>Location</td>
                 <th class="text-left pl-5">{{ $job->getFullLocationAttribute() }}</th>
               </tr>
-              <tr>
+              {{-- <tr>
                 <td>Posted By</td>
                 <th class="text-left pl-5">{{ '!!!' }}</th>
-              </tr>
+              </tr> --}}
               <tr>
                 <td>Post Date</td>
                 <th class="text-left pl-5">{{ Carbon\Carbon::parse($job->created_at)->format('d F Y') }}</th>
               </tr>
-              <tr>
+              {{-- <tr>
                 <td>Deadline</td>
                 <th class="text-left pl-5">{{ '!!!' }}</th>
-              </tr>
+              </tr> --}}
               <tr>
                 <td>Job Type</td>
                 <th class="text-left pl-5">{{ $job->employmentType->name }}</th>
@@ -118,7 +118,7 @@
       {{-- END QUALIFICATIONS AND REQUIREMENTS --}}
 
       {{-- JOB ACTIONS --}}
-      <div class="card bg-base-100 w-full shadow-xl">
+      {{-- <div class="card bg-base-100 w-full shadow-xl">
         <div class="card-body p-5">
           <h2 class="card-title">Job Actions</h2>
 
@@ -128,7 +128,7 @@
             Close Job
           </button>
         </div>
-      </div>
+      </div> --}}
       {{-- END JOB ACTIONS --}}
 
     </div>
@@ -214,7 +214,7 @@
               @endif
             </label>
 
-            <label class="form-control w-full">
+            {{-- <label class="form-control w-full">
               <div class="label">
                 <span class="label-text">Posted By</span>
               </div>
@@ -225,7 +225,7 @@
                   <span class="label-text-alt text-error">{{ $errors->first('posted_by') }}</span>
                 </div>
               @endif
-            </label>
+            </label> --}}
 
             <label class="form-control w-full">
               <div class="label">
@@ -241,7 +241,7 @@
               @endif
             </label>
 
-            <label class="form-control w-full">
+            {{-- <label class="form-control w-full">
               <div class="label">
                 <span class="label-text">Deadline</span>
               </div>
@@ -253,7 +253,7 @@
                   <span class="label-text-alt text-error">{{ $errors->first('deadlined_at') }}</span>
                 </div>
               @endif
-            </label>
+            </label> --}}
 
             <label class="form-control w-full">
               <div class="label">

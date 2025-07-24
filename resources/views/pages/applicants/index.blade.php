@@ -84,8 +84,14 @@
                   <div class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="rounded-full h-12 w-12">
-                        <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
-                          alt="Profile Image" />
+                        @if ($applicant->user->profileApplicant->file_profile_image)
+                          <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
+                            alt="Applicant Picture" class="object-cover w-full h-full" />
+                        @else
+                          <div class="h-12 w-12 bg-info flex justify-center items-center text-white text-2xl font-bold">
+                            {{ strtoupper(substr($applicant->user->profileApplicant->first_name, 0, 1)) }}
+                          </div>
+                        @endif
                       </div>
                     </div>
                     <div>
@@ -95,7 +101,7 @@
                   </div>
                 </td>
                 <td>{{ $applicant->user->email }}</td>
-                <td>{{ $applicant->user->profileApplicant->phone ?? '!!!' }}</td>
+                <td>{{ $applicant->user->profileApplicant->phone_number ?? '-' }}</td>
                 <td>{{ $applicant->user->profileApplicant->getFullLocationAttribute() }}</td>
                 <td>{{ $applicant->user->exp }} XP</td>
                 <th class="last:rounded-r-xl">

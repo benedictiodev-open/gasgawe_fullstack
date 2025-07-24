@@ -103,7 +103,7 @@
         <!-- Dropdown -->
         <div class="absolute right-0 mt-0.5 w-56 bg-white rounded-lg shadow-xl hidden group-hover:block z-50">
           <div class="flex items-center gap-3 px-4 py-3 border-b">
-            <div class="w-8 h-8 rounded-full overflow-hidden">
+            <div class="w-8 h-8 bg-info text-white font-bold flex justify-center items-center rounded-full overflow-hidden">
               {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
             </div>
             <div>
