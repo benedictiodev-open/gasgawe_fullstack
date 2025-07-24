@@ -11,14 +11,9 @@ class AssessmentService
         $this->assessmentRepository = $assessmentRepository;
     }
 
-    public function getAssessment()
-    {
-        return $this->assessmentRepository->index();
-    }
-
     public function index($query)
     {
-        return $this->assessmentRepository->indexs($query)->paginate(15);
+        return $this->assessmentRepository->index($query)->paginate(15);
     }
 
     public function store($data)

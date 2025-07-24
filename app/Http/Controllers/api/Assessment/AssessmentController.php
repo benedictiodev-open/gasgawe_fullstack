@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\api\Assessment;
 
 use App\Http\Controllers\Controller;
-use App\Services\Assessment\AssessmentService;
+use App\Services\Assessment\AssessmentOptionService;
+use App\Services\Assessment\AssessmentQuestionService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,9 +14,9 @@ class AssessmentController extends Controller
 {
     use ResponseTrait;
 
-    public function __construct(protected AssessmentService $assessmentService)
+    public function __construct(protected AssessmentQuestionService $assessmentQuestionService)
     {
-        $this->assessmentService = $assessmentService;
+        $this->assessmentQuestionService = $assessmentQuestionService;
     }
 
 
@@ -59,7 +60,7 @@ class AssessmentController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = $this->assessmentService->getAssessment();
+        $data = $this->assessmentQuestionService->getQuestionAssessment();
         if ($data) {
             return $this->successResponse($data, 'Assessments retrieved successfully.');
         } else {

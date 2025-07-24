@@ -3,25 +3,15 @@
 namespace App\Repositories\Assessment;
 
 use App\Models\Assessment;
+use App\Models\AssessmentQuestion;
 
 class AssessmentRepository
 {
-    /** 
-     * @SuppressWarnings(PHPMD.StaticAccess) 
-     */
-    public function index()
-    {
-        return Assessment::query()->with(['categories' => function ($query) {
-            $query->with(['questions' => function ($query) {
-                $query->with('options');
-            }]);
-        }])->get();
-    }
 
     /** 
      * @SuppressWarnings(PHPMD.StaticAccess) 
      */
-    public function indexs($request)
+    public function index($request)
     {
         $query = Assessment::query();
 
