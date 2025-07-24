@@ -4486,6 +4486,154 @@
                 ]
             }
         },
+        "/recruiter/jobs/job_applier": {
+            "get": {
+                "tags": [
+                    "Recruiter Jobs"
+                ],
+                "summary": "Get job applier",
+                "description": "Get job applier.",
+                "operationId": "f83e448577cc1f685cefda096f2d321d",
+                "responses": {
+                    "200": {
+                        "description": "Job applier retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Job applier retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/jobs/top_applicant": {
+            "get": {
+                "tags": [
+                    "Recruiter Jobs"
+                ],
+                "summary": "Get top applicant",
+                "description": "Get top applicant.",
+                "operationId": "c8f73ab2c0593def697fa2694d9fef44",
+                "responses": {
+                    "200": {
+                        "description": "Top applicant retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Top applicant retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/jobs/search": {
+            "post": {
+                "tags": [
+                    "Recruiter Jobs"
+                ],
+                "summary": "Search applicant",
+                "description": "Search applicant.",
+                "operationId": "65e53175e9c7ee2a98cb4848eb5a5861",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "search"
+                                ],
+                                "properties": {
+                                    "search": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Applicants retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Applicants retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/recruiter/jobs/get-by-id": {
             "get": {
                 "tags": [

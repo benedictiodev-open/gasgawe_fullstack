@@ -313,6 +313,25 @@ class JobController extends Controller
         }
     }
 
+    /**
+     * @OA\GET(
+     *     path="/recruiter/jobs/job_applier",
+     *     tags={"Recruiter Jobs"},
+     *     summary="Get job applier",
+     *     description="Get job applier.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Job applier retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Job applier retrieved successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     * )
+     */
     public function job_applier() {
         try {
             $user_id = Auth::guard('sanctum')->user()->id;
@@ -333,6 +352,25 @@ class JobController extends Controller
         }
     }
 
+    /**
+     * @OA\GET(
+     *     path="/recruiter/jobs/top_applicant",
+     *     tags={"Recruiter Jobs"},
+     *     summary="Get top applicant",
+     *     description="Get top applicant.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Top applicant retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Top applicant retrieved successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     * )
+     */
     public function top_applicant() {
         try {
             $jobs = User::with('profileApplicant', 'profileApplicant.careerHistory.skills', 'profileApplicant.province', 'profileApplicant.city', 'profileApplicant.experience', 'profileApplicant.education')
@@ -344,6 +382,35 @@ class JobController extends Controller
         }
     }
 
+    /**
+     * @OA\POST(
+     *     path="/recruiter/jobs/search",
+     *     tags={"Recruiter Jobs"},
+     *     summary="Search applicant",
+     *     description="Search applicant.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"search"},
+     *                 @OA\Property(property="search", type="string", example="John Doe"),
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Applicants retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Applicants retrieved successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean"),
+     *         )
+     *     ),
+     * )
+     */
     public function search_applicant(Request $request)
     {
         try {
