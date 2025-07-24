@@ -95,6 +95,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
         Route::prefix('assessment')->group(function () {
             Route::get('/', [AssessmentController::class, 'index']);
+            Route::post('/answer', [AssessmentController::class, 'index']);
         });
 
         Route::prefix('/notification')->group(function () {

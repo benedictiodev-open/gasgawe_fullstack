@@ -30,4 +30,9 @@ class AssessmentService
     {
         return $this->assessmentRepository->delete($id);
     }
+
+    public function answer($data)
+    {
+        return $this->assessmentRepository->answer($data);
+    }
 }

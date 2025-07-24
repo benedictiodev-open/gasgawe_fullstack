@@ -69,4 +69,22 @@ class AssessmentController extends Controller
             return redirect()->back()->with('failed', "Failed to deleted quiz");
         }
     }
+
+    public function answer(Request $request)
+    {
+        $validate = $request->validate([
+            "user_id" => "required|number",
+            "question_id" => "required|number",
+            "option_id" => "required|number",
+        ]);
+
+        $answer = $this->assessmentService->answer($validate);
+
+        if ($answer) {
+            return response()->json(['message' => 'Answer submitted successfully']);
+        } else {
+            return response()->json(['message' => 'Failed to submit answer'], 500);
+        }
+        return response()->json(['message' => 'Failed to submit answer'], 500);
+    }
 }

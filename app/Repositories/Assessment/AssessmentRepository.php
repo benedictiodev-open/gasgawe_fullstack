@@ -4,6 +4,7 @@ namespace App\Repositories\Assessment;
 
 use App\Models\Assessment;
 use App\Models\AssessmentQuestion;
+use App\Models\AssesmentAnswer;
 
 class AssessmentRepository
 {
@@ -54,5 +55,10 @@ class AssessmentRepository
     public function delete($id)
     {
         return Assessment::query()->findOrFail($id)->delete();
+    }
+
+    public function answer($data)
+    {
+        return AssesmentAnswer::create($data);
     }
 }
