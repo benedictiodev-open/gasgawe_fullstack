@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Assessment;
 use App\Http\Controllers\Controller;
 use App\Services\Assessment\AssessmentService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AssessmentController extends Controller
 {
@@ -22,7 +21,7 @@ class AssessmentController extends Controller
 
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(), [
+        $validate = $request->validate([
             "name" => "required|string",
             "role" => "required|in:applicant,recruiter",
             "total_questions" => "required|number",
@@ -31,7 +30,7 @@ class AssessmentController extends Controller
             "scoring_system" => "required|string",
         ]);
 
-        $assessments = $this->assessmentService->store($validate->getData());
+        $assessments = $this->assessmentService->store($validate);
 
         if ($assessments) {
             return redirect()->back()->with('success', "Successfully to created quiz");
@@ -42,7 +41,7 @@ class AssessmentController extends Controller
 
     public function update($id, Request $request)
     {
-        $validate = Validator::make($request->all(), [
+        $validate = $request->validate([
             "name" => "required|string",
             "role" => "required|in:applicant,recruiter",
             "total_questions" => "required|number",
@@ -51,7 +50,7 @@ class AssessmentController extends Controller
             "scoring_system" => "required|string",
         ]);
 
-        $assessments = $this->assessmentService->update($id, $validate->getData());
+        $assessments = $this->assessmentService->update($id, $validate);
 
         if ($assessments) {
             return redirect()->back()->with('success', "Successfully to updated quiz");
@@ -69,5 +68,23 @@ class AssessmentController extends Controller
         } else {
             return redirect()->back()->with('failed', "Failed to deleted quiz");
         }
+    }
+
+    public function answer(Request $request)
+    {
+        $validate = $request->validate([
+            "user_id" => "required|number",
+            "question_id" => "required|number",
+            "option_id" => "required|number",
+        ]);
+
+        $answer = $this->assessmentService->answer($validate);
+
+        if ($answer) {
+            return response()->json(['message' => 'Answer submitted successfully']);
+        } else {
+            return response()->json(['message' => 'Failed to submit answer'], 500);
+        }
+        return response()->json(['message' => 'Failed to submit answer'], 500);
     }
 }

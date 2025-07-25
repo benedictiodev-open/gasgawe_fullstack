@@ -3,25 +3,16 @@
 namespace App\Repositories\Assessment;
 
 use App\Models\Assessment;
+use App\Models\AssessmentQuestion;
+use App\Models\AssesmentAnswer;
 
 class AssessmentRepository
 {
-    /** 
-     * @SuppressWarnings(PHPMD.StaticAccess) 
-     */
-    public function index()
-    {
-        return Assessment::query()->with(['categories' => function ($query) {
-            $query->with(['questions' => function ($query) {
-                $query->with('options');
-            }]);
-        }])->get();
-    }
 
     /** 
      * @SuppressWarnings(PHPMD.StaticAccess) 
      */
-    public function indexs($request)
+    public function index($request)
     {
         $query = Assessment::query();
 
@@ -64,5 +55,15 @@ class AssessmentRepository
     public function delete($id)
     {
         return Assessment::query()->findOrFail($id)->delete();
+    }
+
+    public function answer($data)
+    {
+        return AssesmentAnswer::create($data);
+    }
+
+    public function calculateAnswer($user_id)
+    {
+        return AssesmentAnswer::query()->where('user_id', $user_id)->with(['option', 'question'])->get();
     }
 }

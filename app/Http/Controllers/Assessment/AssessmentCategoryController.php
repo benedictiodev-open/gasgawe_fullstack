@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Assessment;
 use App\Http\Controllers\Controller;
 use App\Services\Assessment\AssessmentCategoryService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AssessmentCategoryController extends Controller
 {

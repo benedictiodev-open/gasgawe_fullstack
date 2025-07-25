@@ -11,6 +11,11 @@ class AssessmentQuestionService
         $this->assessmentQuestionRepository = $assessmentQuestionRepository;
     }
 
+    public function getQuestionAssessment()
+    {
+        return $this->assessmentQuestionRepository->getQuestionAssessment();
+    }
+
     public function index($id, $query)
     {
         return $this->assessmentQuestionRepository->index($id, $query)->paginate(15);
