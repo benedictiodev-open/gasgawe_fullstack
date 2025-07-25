@@ -3,20 +3,22 @@
 namespace App\Http\Controllers\api\Assessment;
 
 use App\Http\Controllers\Controller;
-use App\Services\Assessment\AssessmentOptionService;
 use App\Services\Assessment\AssessmentQuestionService;
+use App\Services\Assessment\AssessmentService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class AssessmentController extends Controller
 {
     use ResponseTrait;
 
-    public function __construct(protected AssessmentQuestionService $assessmentQuestionService)
-    {
+    public function __construct(
+        protected AssessmentQuestionService $assessmentQuestionService,
+        protected AssessmentService $assessmentService
+    ) {
         $this->assessmentQuestionService = $assessmentQuestionService;
+        $this->assessmentService = $assessmentService;
     }
 
 
@@ -65,6 +67,54 @@ class AssessmentController extends Controller
             return $this->successResponse($data, 'Assessments retrieved successfully.');
         } else {
             return $this->errorResponse('Failed to retrieve assessments.', 500);
+        }
+    }
+
+    /**
+     * @OA\PUT(
+     *     path="/applicant/assessment/score",
+     *     tags={"Applicant Assessment"},
+     *     summary="Update a calculate Score of Applicant Assessments",
+     *     description="Update a calculate score of applicant assessments.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Score Assessments updated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Score Assessments updated successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean", example=false),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthorized",
+     *        @OA\JsonContent(
+     *            @OA\Property(property="status", type="int", example=401),
+     *            @OA\Property(property="message", type="string", example="Unauthorized User"),
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Failed to updated score assessments",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="status", type="string", example="error"),
+     *              @OA\Property(property="message", type="string", example="Failed to updated score assessments"),
+     *              @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         )
+     *     )
+     * )
+     */
+    public function update(): JsonResponse
+    {
+        $data = $this->assessmentService->calculateScore(Auth::guard('sanctum')->user()->id);
+        if ($data) {
+            return $this->successResponse($data, 'Score Assessments updated successfully.');
+        } else {
+            return $this->errorResponse('Failed to updated score assessments.', 500);
         }
     }
 }

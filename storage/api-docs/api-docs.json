@@ -2697,6 +2697,104 @@
                 ]
             }
         },
+        "/applicant/assessment/score": {
+            "put": {
+                "tags": [
+                    "Applicant Assessment"
+                ],
+                "summary": "Update a calculate Score of Applicant Assessments",
+                "description": "Update a calculate score of applicant assessments.",
+                "operationId": "ec46e649eefc3d1cb4f01ed7c7ebb103",
+                "responses": {
+                    "200": {
+                        "description": "Score Assessments updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Score Assessments updated successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to updated score assessments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to updated score assessments"
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": "null",
+                                            "nullable": "true"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/masterdata/province": {
             "get": {
                 "tags": [

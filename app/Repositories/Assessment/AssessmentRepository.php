@@ -61,4 +61,9 @@ class AssessmentRepository
     {
         return AssesmentAnswer::create($data);
     }
+
+    public function calculateAnswer($user_id)
+    {
+        return AssesmentAnswer::query()->where('user_id', $user_id)->with(['option', 'question'])->get();
+    }
 }

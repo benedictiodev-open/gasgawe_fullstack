@@ -2,6 +2,7 @@
 
 namespace App\Services\Assessment;
 
+use App\Models\User;
 use App\Repositories\Assessment\AssessmentRepository;
 
 class AssessmentService
@@ -34,5 +35,26 @@ class AssessmentService
     public function answer($data)
     {
         return $this->assessmentRepository->answer($data);
+    }
+
+    public function calculateScore($user_id)
+    {
+        $answers = $this->assessmentRepository->calculateAnswer($user_id);
+        $sum = 0;
+        foreach ($answers as $key => $value) {
+            $sum += $value->option->score_conversion;
+        }
+        $score = $sum / count($answers);
+
+        $user = User::query()->findOrFail($user_id);
+        $user->update([
+            "exp" => $score,
+        ]);
+
+        return (object)[
+            "score" => $score,
+            "total_answers" => count($answers),
+            "user" => $user,
+        ];
     }
 }
