@@ -117,4 +117,68 @@ class AssessmentController extends Controller
             return $this->errorResponse('Failed to updated score assessments.', 500);
         }
     }
+
+    /**
+     * @OA\POST(
+     *     path="/applicant/assessment/answer",
+     *     tags={"Applicant Assessment"},
+     *     summary="Submit an answer to an assessment question",
+     *     description="Submit an answer to an assessment question.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="user_id", type="integer", example=1),
+     *             @OA\Property(property="question_id", type="integer", example=1),
+     *             @OA\Property(property="option_id", type="integer", example=1),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Answer submitted successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Answer submitted successfully"),
+     *             @OA\Property(property="data", type="object"),
+     *             @OA\Property(property="error", type="boolean", example=false),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthorized",
+     *        @OA\JsonContent(
+     *            @OA\Property(property="status", type="int", example=401),
+     *            @OA\Property(property="message", type="string", example="Unauthorized User"),
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Failed to submit answer",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="status", type="string", example="error"),
+     *              @OA\Property(property="message", type="string", example="Failed to submit answer"),
+     *              @OA\Property(property="data", type="null", nullable="true", example="null"),
+     *             @OA\Property(property="error", type="boolean"),
+     *             @OA\Property(property="errors", type="array",  @OA\Items(type="string")),
+     *         )
+     *     )
+     * )
+     */
+    public function answer(Request $request)
+    {
+        $validate = $request->validate([
+            "user_id" => "required|number",
+            "question_id" => "required|number",
+            "option_id" => "required|number",
+        ]);
+
+        $answer = $this->assessmentService->answer($validate);
+
+        if ($answer) {
+            return response()->json(['message' => 'Answer submitted successfully']);
+        } else {
+            return response()->json(['message' => 'Failed to submit answer'], 500);
+        }
+        return response()->json(['message' => 'Failed to submit answer'], 500);
+    }
 }
