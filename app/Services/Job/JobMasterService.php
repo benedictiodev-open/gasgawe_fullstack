@@ -28,9 +28,9 @@ class JobMasterService
      * @param data $data
      * @return \app\Models\JobMaster
      */
-    public function index()
+    public function index($request)
     {
-        return $this->jobMasterRepository->index([]);
+        return $this->jobMasterRepository->index($request);
     }
 
     /**

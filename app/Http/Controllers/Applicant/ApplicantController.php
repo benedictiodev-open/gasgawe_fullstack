@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Applicant;
 use App\Http\Controllers\Controller;
 use App\Services\Job\JobUsersApplyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class ApplicantController extends Controller
 {
@@ -17,21 +15,20 @@ class ApplicantController extends Controller
         $this->jobUsersApplyService = $jobUsersApplyService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $applicants = $this->jobUsersApplyService->getJobUsersApply(Auth::user()->company_id ?? 1);
+        $applicants = $this->jobUsersApplyService->index($request->query());
         return view("pages.applicants.index", compact("applicants"));
     }
 
     public function show($id)
     {
-        $applicant = $this->jobUsersApplyService->getDetailJobUsersApply($id);
+        $applicant = $this->jobUsersApplyService->show($id);
         return view("pages.applicants.detail", compact('applicant'));
     }
 
     public function update($id, Request $request)
     {
-        $validate = [];
         $rules = [];
         $attrNames = [];
 
@@ -62,14 +59,11 @@ class ApplicantController extends Controller
                 break;
         }
 
-        $validate = Validator::make($request->all(), $rules)->setAttributeNames($attrNames);
+        $validate = $request->validate($rules, [], $attrNames);
 
-        // $data = User::with('profileCompany', 'profileCompany.province', 'profileCompany.city')
-        //     ->where('type', 'recruiter')->where('id', $id)->first();
+        $update = $this->jobUsersApplyService->update($id, $validate);
 
-        // $profile_company = UserProfileCompany::query()->firstWhere('id', $data->profileCompany->id)->update($validate->getData());
-
-        if ($validate) {
+        if ($update) {
             return redirect()->route('applicants.detail', ['id' => $id])->with('success', 'Successfully to updated information.');
         } else {
             return redirect()->route('applicants.detail', ['id' => $id])->with('errors', 'Failed to updated information.');
