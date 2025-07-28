@@ -40,7 +40,7 @@ class JobMasterRepository
         return $query->get()->toArray();
     }
 
-    /**
+    /**p
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function store($data)
@@ -49,20 +49,65 @@ class JobMasterRepository
     }
 
     /**
+     * Query of Jobs
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function queryJobs()
+    {
+        return JobMaster::query()->with(['user.profileCompany', 'city', 'province']);
+    }
+
+    /**
      * Get List of Jobs
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function index(array $data)
+    public function index($request)
     {
-        $query = JobMaster::query();
-        if (array_key_exists('status', $data)) {
-            $query->where('job_masters.status', $data['status']);
+        $query = $this->queryJobs();
+
+        if (!empty($request['search']) || !empty($request['filterBy']) || !empty($request['filter'])) {
+            $search = isset($request['search']) ? $request['search'] : '';
+            $filterBy = isset($request['filterBy']) ? $request['filterBy'] : [];
+            $filter = isset($request['filter']) ? $request['filter'] : '';
+
+            // Apply search
+            if ($search != '') {
+                $query->where('position', 'like', '%' . $search . '%')
+                    ->orWhereHas('user.profileCompany', function ($q) use ($search) {
+                        $q->where('company_name', 'LIKE', "%$search%");
+                    });
+            }
+
+            // Apply filter
+            if (count($filterBy) > 0 || $filter) {
+                // Filter Location
+                if (in_array('location', $filterBy)) {
+                    $query->whereHas('city', function ($q) use ($filter) {
+                        $q->where('name', 'LIKE', "%$filter%");
+                    })->orWhereHas('province', function ($q) use ($filter) {
+                        $q->where('name', 'LIKE', "%$filter%");
+                    });
+                }
+
+                // Filter Status
+                if (in_array('status', $filterBy)) {
+                    $query->whereHas('user.profileApplicant', function ($q) use ($filter) {
+                        if (str_contains($filter, 'not')) {
+                            $q->where('is_active', 'LIKE', 0);
+                        }
+                        if (str_contains($filter, 'active')) {
+                            $q->where('is_active', 'LIKE', 1);
+                        }
+                    });
+                }
+            }
         }
 
-        return $query->get();
-    }
 
+        return $query->paginate(15);
+    }
 
     /**
      * Get Detail Job

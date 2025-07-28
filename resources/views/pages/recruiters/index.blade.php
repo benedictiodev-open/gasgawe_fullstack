@@ -7,12 +7,26 @@
 @section('main')
   <div class="grid grid-cols-12 items-center gap-5">
     {{-- SEARCH & FILTER --}}
-    <div class="col-span-12 flex flex-row items-center gap-2">
+    <div class="col-span-12 flex flex-row items-center gap-2" x-data="searchForm()">
       <div class="flex-1">
-        <label class="input input-bordered flex items-center gap-2">
-          <input type="text" class="grow" placeholder="Search" />
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
+        <div>
+          <form @submit.prevent="submitForm">
+            <label class="input input-bordered flex items-center gap-2">
+              <input type="text" class="grow" placeholder="Search" x-model="query" @keydown.enter="submitForm"
+                :value="query" aria-label="Search" />
+              <div class="flex space-x-4">
+                <template x-if="query">
+                  <div class="cursor-pointer ml-2" @click="clearSearch">
+                    <i class="fa-solid fa-times-circle"></i>
+                  </div>
+                </template>
+                <div class="cursor-pointer" @click="submitForm">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+              </div>
+            </label>
+          </form>
+        </div>
       </div>
       <div class="flex-none">
         <div class="dropdown dropdown-end">
@@ -22,39 +36,32 @@
             <div class="bg-base-200 p-3 rounded-t-lg">
               <p class="text-center">Choose Filter</p>
             </div>
-            <div>
-              <div class="form-control">
-                <label class="label cursor-pointer justify-normal gap-2">
-                  <input type="checkbox" name="location" class="checkbox checkbox-sm" />
-                  <span class="label-text text-sm">Location</span>
-                </label>
+            <form @submit.prevent="submitFilter">
+              <div>
+                <div class="form-control">
+                  <label class="label cursor-pointer justify-normal gap-2">
+                    <input type="checkbox" value="location" class="checkbox checkbox-sm" x-model="queryFilterSelections"
+                      name="filterBy[]" />
+                    <span class="label-text text-sm">Location</span>
+                  </label>
+                </div>
+                {{-- <div class="form-control">
+                  <label class="label cursor-pointer justify-normal gap-2">
+                    <input type="checkbox" value="status" class="checkbox checkbox-sm" x-model="queryFilterSelections"
+                      name="filterBy[]" />
+                    <span class="label-text text-sm">Status</span>
+                  </label>
+                </div> --}}
               </div>
-              <div class="form-control">
-                <label class="label cursor-pointer justify-normal gap-2">
-                  <input type="checkbox" name="level" class="checkbox checkbox-sm" />
-                  <span class="label-text text-sm">Level</span>
-                </label>
+              <div class="bg-base-200 p-3 rounded-t-lg">
+                <input type="text" class="input input-bordered input-sm w-full" placeholder="Search"
+                  x-model="queryFilterText" />
               </div>
-              <div class="form-control">
-                <label class="label cursor-pointer justify-normal gap-2">
-                  <input type="checkbox" name="badges" class="checkbox checkbox-sm" />
-                  <span class="label-text text-sm">Badges</span>
-                </label>
+              <div class="flex flex-row justify-between items-center p-2">
+                <button class="btn btn-sm btn-outline" type="reset">Reset</button>
+                <button class="btn btn-sm btn-primary" type="submit">Apply</button>
               </div>
-              <div class="form-control">
-                <label class="label cursor-pointer justify-normal gap-2">
-                  <input type="checkbox" name="status" class="checkbox checkbox-sm" />
-                  <span class="label-text text-sm">Status</span>
-                </label>
-              </div>
-            </div>
-            <div class="bg-base-200 p-3 rounded-t-lg">
-              <input type="text" class="input input-bordered input-sm w-full" placeholder="Search" />
-            </div>
-            <div class="flex flex-row justify-between items-center p-2">
-              <button class="btn btn-sm btn-outline">Reset</button>
-              <button class="btn btn-sm btn-primary">Apply</button>
-            </div>
+            </form>
           </ul>
         </div>
       </div>
@@ -84,7 +91,7 @@
           <tbody>
             @foreach ($recruiters as $key => $item)
               <tr class="rounded-xl bg-base-100 mb-2">
-                <td class="first:rounded-l-xl">
+                <td class="first:rounded-l-xl text-nowrap">
                   <div class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="rounded-full h-12 w-12">
@@ -105,25 +112,25 @@
                     </div>
                   </div>
                 </td>
-                <td>{{ $item->email }}</td>
-                <td>-</td>
-                <td>{{ $item->profileCompany->industryType?->name ?? '-' }}</td>
-                <td>{{ $item->profileCompany->employee_count ?? 0 }}</td>
-                <td class="text-center"><i
+                <td class="text-nowrap">{{ $item->email }}</td>
+                <td class="text-nowrap">-</td>
+                <td class="text-nowrap">{{ $item->profileCompany->industryType?->name ?? '-' }}</td>
+                <td class="text-nowrap">{{ $item->profileCompany->employee_count ?? 0 }}</td>
+                <td class="text-center text-nowrap"><i
                     class="fa-solid fa-circle-check text-lg {{ $key % 2 == 0 ? 'text-success' : 'text-gray-400' }}"></i>
                 </td>
-                <td class="text-center"><i
+                <td class="text-center text-nowrap"><i
                     class="fa-solid fa-envelope-circle-check text-lg {{ $key % 2 == 0 ? 'text-success' : 'text-gray-400' }}"></i>
                 </td>
-                <td class="text-center"><i
+                <td class="text-center text-nowrap"><i
                     class="fa-solid fa-building text-lg {{ $key % 2 == 0 ? 'text-success' : 'text-gray-400' }}"></i>
                 </td>
-                <td class="text-center"><i
+                <td class="text-center text-nowrap"><i
                     class="fa-solid fa-folder-closed text-lg {{ $key % 2 == 0 ? 'text-success' : 'text-gray-400' }}"></i>
                 </td>
                 <th>
                   <div
-                    class="badge {{ $key % 2 == 0 ? 'badge-success' : 'bg-gray-400' }} rounded-md p-3 text-white font-normal">
+                    class="badge {{ $key % 2 == 0 ? 'badge-success' : 'bg-gray-400' }} rounded-md p-3 text-white font-normal text-nowrap">
                     Active</div>
                 </th>
                 <th class="last:rounded-r-xl">
@@ -139,7 +146,75 @@
             @endforeach
         </table>
       </div>
+      {{ $recruiters->links() }}
     </div>
     {{-- END FILTER --}}
   </div>
 @endsection
+
+
+@push('script')
+  <script>
+    function searchForm() {
+      return {
+        query: '',
+        queryFilterSelections: [],
+        queryFilterText: '',
+
+        init() {
+          const urlParams = new URLSearchParams(window.location.search);
+          this.query = urlParams.get('search') || '';
+          this.queryFilterSelections = urlParams.getAll('filterBy[]') || [];
+          this.queryFilterText = urlParams.get('filter') || '';
+        },
+
+        submitForm() {
+          const url = new URL(window.location.pathname, window.location.origin);
+          if (this.query || this.queryFilterSelections.length > 0 || this.queryFilterText) {
+            if (this.query) {
+              url.searchParams.set('search', this.query)
+            }
+            if (this.queryFilterSelections.length > 0) {
+              this.queryFilterSelections.forEach(item => {
+                url.searchParams.append('filterBy[]', item)
+              });
+            }
+            if (this.queryFilterText != '') {
+              url.searchParams.set('filter', this.queryFilterText)
+            }
+
+            window.location.href = url.href;
+          } else {
+            window.location.href = url;
+          }
+        },
+
+        submitFilter() {
+          const url = new URL(window.location.pathname, window.location.origin);
+          if (this.query || this.queryFilterSelections.length > 0 || this.queryFilterText) {
+            if (this.query) {
+              url.searchParams.set('search', this.query)
+            }
+            if (this.queryFilterSelections.length > 0) {
+              this.queryFilterSelections.forEach(item => {
+                url.searchParams.append('filterBy[]', item);
+              });
+            }
+            if (this.queryFilterText != '') {
+              url.searchParams.set('filter', this.queryFilterText)
+            }
+
+            window.location.href = url.href;
+          } else {
+            window.location.href = url;
+          }
+        },
+
+        clearSearch() {
+          window.history.pushState({}, '', window.location.pathname);
+          this.query = '';
+        }
+      };
+    }
+  </script>
+@endpush

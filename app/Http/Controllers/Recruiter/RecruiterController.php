@@ -3,37 +3,33 @@
 namespace App\Http\Controllers\Recruiter;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\UserProfileCompany;
+use App\Services\Job\JobCompanyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Laravolt\Indonesia\IndonesiaService;
-
-use function PHPSTORM_META\type;
 
 class RecruiterController extends Controller
 {
-    public function __construct(private IndonesiaService $indonesiaService)
-    {
+    public function __construct(
+        protected JobCompanyService $jobCompanyService,
+        protected IndonesiaService $indonesiaService
+    ) {
         $this->indonesiaService = $indonesiaService;
+        $this->jobCompanyService = $jobCompanyService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $list = User::with('profileCompany', 'profileCompany.industryType')
-            ->where('type', 'recruiter')->get();
-
-        return view('pages.recruiters.index', ['recruiters' => $list]);
+        $recruiters =  $this->jobCompanyService->index($request);
+        return view('pages.recruiters.index', compact('recruiters'));
     }
 
     public function detail($id)
     {
-        $data = User::with('profileCompany', 'profileCompany.province', 'profileCompany.city')
-            ->where('type', 'recruiter')->where('id', $id)->first();
+        $detail = $this->jobCompanyService->show($id);
 
         $provinces = $this->indonesiaService->allProvinces();
 
-        return view('pages.recruiters.detail', ['detail' => $data, 'provinces' => $provinces]);
+        return view('pages.recruiters.detail', compact('detail', 'provinces'));
     }
 
     public function update($id, Request $request)
@@ -69,12 +65,9 @@ class RecruiterController extends Controller
                 break;
         }
 
-        $validate = Validator::make($request->all(), $rules)->setAttributeNames($attrNames);
+        $validate =  $request->validate($rules, [], $attrNames);
 
-        $data = User::with('profileCompany', 'profileCompany.province', 'profileCompany.city')
-            ->where('type', 'recruiter')->where('id', $id)->first();
-
-        $profile_company = UserProfileCompany::query()->firstWhere('id', $data->profileCompany->id)->update($validate->getData());
+        $profile_company = $this->jobCompanyService->update($id, $validate);
 
         if ($profile_company) {
             return redirect()->route('recruiters.detail', ['id' => $id])->with('success', 'Successfully to updated information.');

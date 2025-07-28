@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Job;
 
 use App\Http\Controllers\Controller;
-use App\Models\EmploymentType;
 use App\Services\Job\JobMasterService;
 use App\Services\Masterdata\EmployeeTypeService;
 use App\Services\Masterdata\ExpectedSalaryService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Laravolt\Indonesia\IndonesiaService;
 
 class JobController extends Controller
@@ -25,9 +23,9 @@ class JobController extends Controller
         $this->expectedSalaryService = $expectedSalaryService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = $this->jobMasterService->index();
+        $jobs = $this->jobMasterService->index($request->query());
 
         return view('pages.jobs.index', compact('jobs'));
     }
@@ -95,9 +93,9 @@ class JobController extends Controller
                 break;
         }
 
-        $validate = Validator::make($request->all(), $rules)->setAttributeNames($attrNames);
+        $validate = $request->validate($rules, [], $attrNames);
 
-        $job = $this->jobMasterService->update($id, $validate->getData());
+        $job = $this->jobMasterService->update($id, $validate);
 
         if ($job) {
             return redirect()->route('jobs.detail', ['id' => $id])->with('success', 'Successfully to updated information.');
