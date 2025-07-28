@@ -26,8 +26,10 @@ class ExplorController extends Controller
      *                  @OA\Items(type="object", 
      *                      @OA\Property(property="id", type="integer", example=1), 
      *                      @OA\Property(property="user_id", type="integer", example=1), 
-     *                      @OA\Property(property="title", type="string", example="title"), 
-     *                      @OA\Property(property="description", type="string", example="description"), 
+     *                      @OA\Property(property="duration", type="integer", example=1), 
+     *                      @OA\Property(property="size", type="integer", example=1), 
+     *                      @OA\Property(property="path", type="string", example=""),
+     *                      @OA\Property(property="thumbnail_path", type="string", example=""), 
      *                      @OA\Property(property="created_at", type="string", example="2021-01-01 00:00:00"), 
      *                      @OA\Property(property="updated_at", type="string", example="2021-01-01 00:00:00"),
      *                      @OA\Property(property="user", type="object", 
@@ -76,10 +78,17 @@ class ExplorController extends Controller
     public function explode()
     {
         try {
-            $vidio = Video::with('user', 'user.profileCompany', 'user.profileCompany.province', 'user.profileCompany.city',)
-                ->whereHas('user', function($query) {
-                    $query->where('type', 'recruiter');
-                })->get();
+            $vidio = $vidio = Video::query()
+            ->with([
+                'user',
+                'user.profileCompany',
+                'user.profileCompany.province',
+                'user.profileCompany.city'
+            ])
+            ->whereHas('user', function($query) {
+                $query->where('type', 'recruiter');
+            })
+            ->get();
             return response()->json([
                 'status' => 'success',
                 'message' => 'Get data explor successfully',

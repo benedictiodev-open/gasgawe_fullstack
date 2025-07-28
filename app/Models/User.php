@@ -83,4 +83,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class, 'user_id');
     }
+
+    public function vidio()
+    {
+        return $this->hasOne(Video::class, 'user_id');
+    }
 }

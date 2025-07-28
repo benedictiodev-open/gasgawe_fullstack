@@ -24,9 +24,8 @@ class AssessmentController extends Controller
         $validate = $request->validate([
             "name" => "required|string",
             "role" => "required|in:applicant,recruiter",
-            "total_questions" => "required|number",
-            "estimated_duration" => "required|number",
-            "estimated_duration" => "required|number",
+            "estimated_duration" => "required|integer",
+            "estimated_duration" => "required|integer",
             "scoring_system" => "required|string",
         ]);
 
@@ -44,9 +43,8 @@ class AssessmentController extends Controller
         $validate = $request->validate([
             "name" => "required|string",
             "role" => "required|in:applicant,recruiter",
-            "total_questions" => "required|number",
-            "estimated_duration" => "required|number",
-            "estimated_duration" => "required|number",
+            "estimated_duration" => "required|integer",
+            "estimated_duration" => "required|integer",
             "scoring_system" => "required|string",
         ]);
 

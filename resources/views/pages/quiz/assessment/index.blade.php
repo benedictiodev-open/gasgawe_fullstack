@@ -57,7 +57,7 @@
                 <tr class="rounded-xl bg-base-100 mb-2">
                   <th class="first:rounded-l-xl">{{ $item->name }}</th>
                   <td class="capitalize">{{ $item->role }}</td>
-                  <td>{{ $item->total_questions }}</td>
+                  <td>{{ $item->questionsCount() }}</td>
                   <td>{{ $item->estimated_duration }} Minute</td>
                   <td>{{ $item->scoring_system }}</td>
                   <th class="last:rounded-r-xl">
@@ -158,7 +158,6 @@
             // Set values
             form.querySelector('[name="name"]').value = quiz.name;
             form.querySelector('[name="role"]').value = quiz.role;
-            form.querySelector('[name="total_questions"]').value = quiz.total_questions;
             form.querySelector('[name="estimated_duration"]').value = quiz.estimated_duration;
             form.querySelector('[name="scoring_system"]').value = quiz.scoring_system;
 

@@ -42,20 +42,6 @@
           @endif
         </label>
 
-        <!-- Total Question Field -->
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">Total Question</span>
-          </div>
-          <input type="number" min="1" name="total_questions" placeholder="Enter total question"
-            class="input input-bordered w-full input-sm" required />
-          @if ($errors->has('total_questions'))
-            <div class="label">
-              <span class="label-text-alt text-error">{{ $errors->first('total_questions') }}</span>
-            </div>
-          @endif
-        </label>
-
         <!-- Estimated Duration Field -->
         <label class="form-control w-full">
           <div class="label">

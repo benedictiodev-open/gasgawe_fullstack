@@ -391,7 +391,7 @@ class ActivityController extends Controller
             $userId = auth('sanctum')->id();
             $bookmark = UserBookmark::where('user_id', $userId)->get();
             $companies = User::query()
-                ->with('profileCompany')
+                ->with(['profileCompany', 'vidio'])
                 ->whereIn('id', $bookmark->pluck('bookmarked_user_id'))
                 ->get();
             return response()->json([

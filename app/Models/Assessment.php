@@ -13,4 +13,21 @@ class Assessment extends Model
     {
         return $this->hasMany(AssessmentCategory::class, 'assessment_id');
     }
+
+    public function questions()
+    {
+        return $this->hasManyThrough(
+            AssessmentQuestion::class,
+            AssessmentCategory::class,
+            'assessment_id',
+            'assessment_category_id',
+            'id',
+            'id'
+        );
+    }
+
+    public function questionsCount()
+    {
+        return $this->questions()->count();
+    }
 }

@@ -766,13 +766,21 @@
                                                         "type": "integer",
                                                         "example": 1
                                                     },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "title"
+                                                    "duration": {
+                                                        "type": "integer",
+                                                        "example": 1
                                                     },
-                                                    "description": {
+                                                    "size": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "path": {
                                                         "type": "string",
-                                                        "example": "description"
+                                                        "example": ""
+                                                    },
+                                                    "thumbnail_path": {
+                                                        "type": "string",
+                                                        "example": ""
                                                     },
                                                     "created_at": {
                                                         "type": "string",
