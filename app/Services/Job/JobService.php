@@ -31,6 +31,13 @@ class JobService
         return $this->jobMasterRepository->getActivityByUser($request, $user);
     }
 
+    public function getApplicantAppliedActivity(array $request)
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        return $this->jobMasterRepository->getApplicantAppliedActivity($request, $user);
+    }
+
     public function store_job_master($data, $user_id)
     {
         try {

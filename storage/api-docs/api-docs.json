@@ -731,6 +731,174 @@
                 ]
             }
         },
+        "/applicant/activity/applied": {
+            "get": {
+                "tags": [
+                    "Applicant Activity"
+                ],
+                "summary": "Get applied job activity list",
+                "description": "Get applied job activity list",
+                "operationId": "7564f36ad8e74a3c5e4bc54699010c6d",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter applied activity by status. Allowed: notice, review, 'accept",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "accept",
+                                "notice",
+                                "review"
+                            ],
+                            "example": "accept",
+                            "nullable": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jobs applied activity retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Jobs applied activity retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "position": {
+                                                        "type": "string",
+                                                        "example": "Software Engineer"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Develop and maintain backend systems."
+                                                    },
+                                                    "qualification": {
+                                                        "type": "string",
+                                                        "example": "Bachelor's Degree in Computer Science."
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-07-12 11:52:21"
+                                                    },
+                                                    "province_name": {
+                                                        "type": "string",
+                                                        "example": "DKI JAKARTA"
+                                                    },
+                                                    "city_name": {
+                                                        "type": "string",
+                                                        "example": "KABUPATEN BIREUEN"
+                                                    },
+                                                    "employment_type_name": {
+                                                        "type": "string",
+                                                        "example": "Parttime"
+                                                    },
+                                                    "expected_salary_name": {
+                                                        "type": "string",
+                                                        "example": "Rp. 7.000.000 - Rp. 10.000.000"
+                                                    },
+                                                    "education_name": {
+                                                        "type": "string",
+                                                        "example": "Diploma (D1-D3)"
+                                                    },
+                                                    "experience_name": {
+                                                        "type": "string",
+                                                        "example": "1-3 Year"
+                                                    },
+                                                    "company_name": {
+                                                        "type": "string",
+                                                        "example": "IT Consultant "
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "Accepted"
+                                                    },
+                                                    "applier_count": {
+                                                        "type": "integer",
+                                                        "example": "100"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "status": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The selected status is invalid."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Service Unavailable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/applicant/explor": {
             "get": {
                 "tags": [
@@ -4216,7 +4384,7 @@
         "/recruiter/jobs/activity": {
             "get": {
                 "tags": [
-                    "Recruiter Jobs"
+                    "Recruiter Activity"
                 ],
                 "summary": "Get job activity list",
                 "description": "Get job activity list",
@@ -6589,6 +6757,10 @@
         {
             "name": "Reqruiter Explor",
             "description": "Reqruiter Explor"
+        },
+        {
+            "name": "Recruiter Activity",
+            "description": "Recruiter Activity"
         },
         {
             "name": "Recruiter Jobs",

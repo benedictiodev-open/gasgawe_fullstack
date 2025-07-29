@@ -29,7 +29,7 @@ class JobController extends Controller
      *     path="/recruiter/jobs/activity",
      *     summary="Get job activity list",
      *     description="Get job activity list",
-     *     tags={"Recruiter Jobs"},
+     *     tags={"Recruiter Activity"},
      *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="status",
@@ -332,12 +332,13 @@ class JobController extends Controller
      *     ),
      * )
      */
-    public function job_applier() {
+    public function job_applier()
+    {
         try {
             $user_id = Auth::guard('sanctum')->user()->id;
 
             $list_job_user = JobUsersApply::query()
-                ->whereHas('jobs', function($query) use($user_id) {
+                ->whereHas('jobs', function ($query) use ($user_id) {
                     $query->where('created_by', $user_id);
                 })
                 ->pluck('user_id')->toArray();
@@ -371,7 +372,8 @@ class JobController extends Controller
      *     ),
      * )
      */
-    public function top_applicant() {
+    public function top_applicant()
+    {
         try {
             $jobs = User::with('profileApplicant', 'profileApplicant.careerHistory.skills', 'profileApplicant.province', 'profileApplicant.city', 'profileApplicant.experience', 'profileApplicant.education')
                 ->get();

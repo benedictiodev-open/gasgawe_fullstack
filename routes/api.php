@@ -81,6 +81,7 @@ Route::middleware(AuthApiChecker::class)->group(function () {
                 Route::get('/job', [ActivityController::class, 'get_bookmark_job']);
                 Route::get('/company', [ActivityController::class, 'get_bookmark_company']);
             });
+            Route::get('/applied', [ActivityController::class, 'applied']);
         });
 
         Route::prefix('/explor')->group(function () {
