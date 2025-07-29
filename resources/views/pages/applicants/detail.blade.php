@@ -13,25 +13,26 @@
           <div class="flex flex-row items-center gap-5">
             <div class="avatar">
               <div class="rounded-md h-16 w-16">
-                @if ($applicant->user->profileApplicant->file_profile_image)
-                    <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
+                {{-- @dd($applicant) --}}
+                @if ($applicant->profileApplicant?->file_profile_image)
+                    <img src="{{ asset('storage/' . $applicant->profileApplicant->file_profile_image) }}"
                       alt="Profile Image" />
                   @else
                     <div class=" h-16 w-16 bg-info flex justify-center items-center text-white text-3xl font-bold">
-                      {{ strtoupper(substr($applicant->user->profileApplicant->first_name, 0, 1)) }}
+                      {{ strtoupper(substr($applicant->profileApplicant?->first_name ?? $applicant->email, 0, 1)) }}
                     </div>
                   @endif
               </div>
             </div>
 
             <div>
-              <h2 class="card-title">{{ $applicant->user->profileApplicant->getFullNameAttribute() }}</h2>
-              <p class="text-gray-400 text-sm">Joined {{ $applicant->user->created_at->format('d F Y') }}</p>
+              <h2 class="card-title">{{ $applicant->profileApplicant?->getFullNameAttribute() ?? $applicant->email }}</h2>
+              <p class="text-gray-400 text-sm">Joined {{ $applicant->created_at->format('d F Y') }}</p>
             </div>
           </div>
 
           <div>
-            <div class="badge {{ $applicant->user->profileApplicant->is_active ? 'badge-success' : 'badge-error' }} rounded-md p-3 text-white font-normal">{{ $applicant->user->profileApplicant->is_active ? 'Active' : 'Inactive' }}</div>
+            <div class="badge {{ $applicant->profileApplicant?->is_active ? 'badge-success' : 'badge-error' }} rounded-md p-3 text-white font-normal">{{ $applicant->profileApplicant?->is_active ? 'Active' : 'Inactive' }}</div>
           </div>
         </div>
       </div>
@@ -56,21 +57,21 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Full Name</td>
-                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->getFullNameAttribute() }}</th>
+                <th class="text-left pl-5">{{ $applicant->profileApplicant?->getFullNameAttribute() ?? $applicant->email }}</th>
               </tr>
               <tr>
                 <td>Location</td>
-                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->getFullLocationAttribute() }}</th>
+                <th class="text-left pl-5">{{ $applicant->profileApplicant?->getFullLocationAttribute() ?? '-' }}</th>
               </tr>
               <tr>
                 <td>Account</td>
-                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->is_active ? 'Active' : 'Inactive' }}</th>
+                <th class="text-left pl-5">{{ $applicant->profileApplicant?->is_active ? 'Active' : 'Inactive' }}</th>
               </tr>
               <tr>
                 <td>Verification Status</td>
-                <th class="text-left pl-5 {{ $applicant->user->profileApplicant->is_verified ? 'text-success' : 'text-error' }}">
-                  <i class="fa-solid {{ $applicant->user->profileApplicant->is_verified ? 'fa-circle-check' : 'fa-circle-xmark' }} mr-0.5"></i>
-                  {{ $applicant->user->profileApplicant->is_verified ? 'Verified' : 'Not Verified' }}
+                <th class="text-left pl-5 {{ $applicant->profileApplicant?->is_verified ? 'text-success' : 'text-error' }}">
+                  <i class="fa-solid {{ $applicant->profileApplicant?->is_verified ? 'fa-circle-check' : 'fa-circle-xmark' }} mr-0.5"></i>
+                  {{ $applicant->profileApplicant?->is_verified ? 'Verified' : 'Not Verified' }}
                 </th>
               </tr>
               <tr>
@@ -92,11 +93,11 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Email</td>
-                <th class="text-left pl-5">{{ $applicant->user->email }}</th>
+                <th class="text-left pl-5">{{ $applicant->email }}</th>
               </tr>
               <tr>
                 <td>Phone</td>
-                <th class="text-left pl-5">{{ $applicant->user->profileApplicant->phone_number ?? '-' }}</th>
+                <th class="text-left pl-5">{{ $applicant->profileApplicant?->phone_number ?? '-' }}</th>
               </tr>
             </table>
           </div>
@@ -116,7 +117,7 @@
               </div>
             </div>
             <div>
-              <p class="font-medium">{{ $applicant->user->exp }} Experiences Points</p>
+              <p class="font-medium">{{ $applicant->exp }} Experiences Points</p>
               <p class="text-sm font-medium">Based on skill assessment and job performance</p>
             </div>
           </div>
@@ -143,14 +144,14 @@
           <h2 class="card-title">Account Actions</h2>
           <div class="flex flex-col gap-3">
             <button type="button" id="verified_account"
-              class="btn btn-ghost {{ $applicant->user->profileApplicant->is_verified ? 'text-error' : 'text-success' }} text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
-              <i class="fa-solid {{ $applicant->user->profileApplicant->is_verified ? 'fa-trash-can' : 'fa-circle-check' }} mr-1"></i>
-                {{ $applicant->user->profileApplicant->is_verified ? 'Remove Verification' : 'Verification' }}
+              class="btn btn-ghost {{ $applicant->profileApplicant->is_verified ? 'text-error' : 'text-success' }} text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
+              <i class="fa-solid {{ $applicant->profileApplicant->is_verified ? 'fa-trash-can' : 'fa-circle-check' }} mr-1"></i>
+                {{ $applicant->profileApplicant->is_verified ? 'Remove Verification' : 'Verification' }}
             </button>
             <button type="button" id="acctive_account"
-              class="btn btn-ghost {{ $applicant->user->profileApplicant->is_active ? 'text-error' : 'text-success' }} text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
-              <i class="fa-solid {{ $applicant->user->profileApplicant->is_active ? 'fa-ban' : 'fa-circle-check' }} mr-1"></i>
-              {{ $applicant->user->profileApplicant->is_active ? 'Deactive Account' : 'Active Account' }}
+              class="btn btn-ghost {{ $applicant->profileApplicant->is_active ? 'text-error' : 'text-success' }} text-base px-0 min-h-fit h-fit hover:bg-transparent w-fit">
+              <i class="fa-solid {{ $applicant->profileApplicant->is_active ? 'fa-ban' : 'fa-circle-check' }} mr-1"></i>
+              {{ $applicant->profileApplicant->is_active ? 'Deactive Account' : 'Active Account' }}
             </button>
           </div>
         </div>

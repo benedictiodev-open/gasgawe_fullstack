@@ -18,7 +18,7 @@ class ApplicantController extends Controller
     public function index(Request $request)
     {
         $applicants = $this->jobUsersApplyService->index($request->query());
-        return view("pages.applicants.index", compact("applicants"));
+        return view("pages.applicants.index", ['applicants' => $applicants]);
     }
 
     public function show($id)

@@ -72,6 +72,6 @@ class JobMaster extends Model
      */
     public function getCompanyNameAttribute()
     {
-        return trim($this->user->profileCompany->company_name);
+        return trim($this->user->profileCompany?->company_name ?? '-');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories\Jobs;
 
 use App\Models\JobUsersApply;
+use App\Models\User;
 
 class JobUserApplyRepository
 {
@@ -13,7 +14,7 @@ class JobUserApplyRepository
      */
     public function query()
     {
-        return JobUsersApply::query()->with(["jobs", "user.profileApplicant", "user.profileApplicant.city", "user.profileApplicant.province"]);
+        return User::query()->with(["profileApplicant", "profileApplicant.city", "profileApplicant.province"])->where('type', 'applicant');
     }
 
     /**

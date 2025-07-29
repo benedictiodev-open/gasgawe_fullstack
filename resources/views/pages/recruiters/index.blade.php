@@ -95,18 +95,18 @@
                   <div class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="rounded-full h-12 w-12">
-                        @if ($item->profileCompany->file_profile_image)
+                        @if ($item->profileCompany?->file_profile_image)
                           <img src="{{ asset('storage/' . $item->profileCompany->file_profile_image) }}"
                             alt="Company Picture" class="object-cover w-full h-full" />
                         @else
                           <div class="h-12 w-12 bg-info flex justify-center items-center text-white text-2xl font-bold">
-                            {{ strtoupper(substr($item->profileCompany->company_name, 0, 1)) }}
+                            {{ strtoupper(substr($item->profileCompany?->company_name ?? $item->email, 0, 1)) }}
                           </div>
                         @endif
                       </div>
                     </div>
                     <div>
-                      <p class="font-bold">{{ $item->profileCompany->company_name }}</p>
+                      <p class="font-bold">{{ $item->profileCompany?->company_name ?? '-' }}</p>
                       <p class="text-sm opacity-50">Registered
                         {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</p>
                     </div>
@@ -114,8 +114,8 @@
                 </td>
                 <td class="text-nowrap">{{ $item->email }}</td>
                 <td class="text-nowrap">-</td>
-                <td class="text-nowrap">{{ $item->profileCompany->industryType?->name ?? '-' }}</td>
-                <td class="text-nowrap">{{ $item->profileCompany->employee_count ?? 0 }}</td>
+                <td class="text-nowrap">{{ $item->profileCompany?->industryType?->name ?? '-' }}</td>
+                <td class="text-nowrap">{{ $item->profileCompany?->employee_count ?? 0 }}</td>
                 <td class="text-center text-nowrap"><i
                     class="fa-solid fa-circle-check text-lg {{ $key % 2 == 0 ? 'text-success' : 'text-gray-400' }}"></i>
                 </td>

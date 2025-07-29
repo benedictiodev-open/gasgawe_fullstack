@@ -105,26 +105,26 @@
                   <div class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="rounded-full h-12 w-12">
-                        @if ($applicant->user->profileApplicant->file_profile_image)
-                          <img src="{{ asset('storage/' . $applicant->user->profileApplicant->file_profile_image) }}"
+                        @if ($applicant->profileApplicant?->file_profile_image)
+                          <img src="{{ asset('storage/' . $applicant->profileApplicant['file_profile_image']) }}"
                             alt="Applicant Picture" class="object-cover w-full h-full" />
                         @else
                           <div class="h-12 w-12 bg-info flex justify-center items-center text-white text-2xl font-bold">
-                            {{ strtoupper(substr($applicant->user->profileApplicant->first_name, 0, 1)) }}
+                            {{ strtoupper(substr($applicant->profileApplicant?->first_name ?? $applicant->email, 0, 1)) }}
                           </div>
                         @endif
                       </div>
                     </div>
                     <div>
-                      <p class="font-bold">{{ $applicant->user->profileApplicant->getFullNameAttribute() }}</p>
-                      <p class="text-sm opacity-50">Registered {{ $applicant->created_at->format('d M Y') }}</p>
+                      <p class="font-bold">{{ $applicant->profileApplicant?->getFullNameAttribute() ?? $applicant->email }}</p>
+                      <p class="text-sm opacity-50">Registered {{ $applicant->created_at->format('d M Y') ?? '-' }}</p>
                     </div>
                   </div>
                 </td>
-                <td>{{ $applicant->user->email }}</td>
-                <td>{{ $applicant->user->profileApplicant->phone_number ?? '-' }}</td>
-                <td>{{ $applicant->user->profileApplicant->getFullLocationAttribute() }}</td>
-                <td>{{ $applicant->user->exp }} XP</td>
+                <td>{{ $applicant->email }}</td>
+                <td>{{ $applicant->profileApplicant?->phone_number ?? '-' }}</td>
+                <td>{{ $applicant->profileApplicant?->getFullLocationAttribute() ?? '-' }}</td>
+                <td>{{ $applicant->exp }} XP</td>
                 <th class="last:rounded-r-xl">
                   <div class="flex flex-row items-center gap-2">
                     <div class="badge badge-info rounded-md p-3 text-white font-normal">Verified</div>
