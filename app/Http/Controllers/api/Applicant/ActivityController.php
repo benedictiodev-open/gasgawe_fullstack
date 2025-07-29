@@ -3,15 +3,26 @@
 namespace App\Http\Controllers\api\Applicant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Applicant\GetAppliedActivityRequest;
 use App\Models\JobMaster;
 use App\Models\User;
 use App\Models\UserBookmark;
 use App\Models\JobBookmarks;
+use App\Services\Job\JobService;
+use App\Traits\ResponseTrait;
 use Exception;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
 {
+    use ResponseTrait;
+    private $jobService;
+
+    public function __construct(JobService $jobService)
+    {
+        $this->jobService = $jobService;
+    }
+
     /**
      * @OA\Post(
      *     path="/applicant/activity/bookmark_job",
@@ -197,14 +208,14 @@ class ActivityController extends Controller
                 ], 200);
             }
 
-            $bookmark = UserBookmark::create([ 
+            $bookmark = UserBookmark::create([
                 'user_id' => $userId,
                 'bookmarked_user_id' => $companyBookmarkedId,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
 
-            return response()->json([   
+            return response()->json([
                 'status' => 'success',
                 'message' => 'Company bookmarked successfully',
                 'data' => $bookmark
@@ -405,6 +416,93 @@ class ActivityController extends Controller
                 'message' => 'Failed to get bookmark company: ' . $error->getMessage(),
                 'data' => null
             ], 500);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/applicant/activity/applied",
+     *     summary="Get applied job activity list",
+     *     description="Get applied job activity list",
+     *     tags={"Applicant Activity"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="status",
+     *         in="query",
+     *         required=false,
+     *         description="Filter applied activity by status. Allowed: notice, review, 'accept",
+     *         @OA\Schema(
+     *             type="string",
+     *             nullable=true,
+     *             enum={"accept", "notice", "review"},
+     *             example="accept"
+     *         )
+     *     ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Jobs applied activity retrieved successfully",
+     *     @OA\JsonContent(
+     *         @OA\Property(property="success", type="boolean", example=true),
+     *         @OA\Property(property="message", type="string", example="Jobs applied activity retrieved successfully"),
+     *         @OA\Property(
+     *             property="data",
+     *             type="array",
+     *             @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=3),
+     *                 @OA\Property(property="position", type="string", example="Software Engineer"),
+     *                 @OA\Property(property="description", type="string", example="Develop and maintain backend systems."),
+     *                 @OA\Property(property="qualification", type="string", example="Bachelor's Degree in Computer Science."),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-07-12 11:52:21"),
+     *                 @OA\Property(property="province_name", type="string", example="DKI JAKARTA"),
+     *                 @OA\Property(property="city_name", type="string", example="KABUPATEN BIREUEN"),
+     *                 @OA\Property(property="employment_type_name", type="string", example="Parttime"),
+     *                 @OA\Property(property="expected_salary_name", type="string", example="Rp. 7.000.000 - Rp. 10.000.000"),
+     *                 @OA\Property(property="education_name", type="string", example="Diploma (D1-D3)"),
+     *                 @OA\Property(property="experience_name", type="string", example="1-3 Year"),
+     *                 @OA\Property(property="company_name", type="string", example="IT Consultant "),
+     * *                 @OA\Property(property="status", type="string", example="Accepted"),
+     * *                 @OA\Property(property="applier_count", type="integer", example="100"),
+     *             )
+     *         )
+     *     )
+     * ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation failed",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *             @OA\Property(
+     *                 property="errors",
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="status",
+     *                     type="array",
+     *                     @OA\Items(type="string", example="The selected status is invalid.")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=503,
+     *         description="Service Unavailable",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Service Unavailable")
+     *         )
+     *     )
+     * )
+     */
+
+    public function applied(GetAppliedActivityRequest $request)
+    {
+        try {
+            $jobs = $this->jobService->getApplicantAppliedActivity($request->validated());
+
+            return $this->successResponse($jobs, 'Jobs applied activity retrieved successfully');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return $this->errorResponse('Service Unavailable');
         }
     }
 }
