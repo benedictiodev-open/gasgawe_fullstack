@@ -14,7 +14,7 @@ class JobUserApplyRepository
      */
     public function query()
     {
-        return User::query()->with(["profileApplicant", "profileApplicant.city", "profileApplicant.province"])->where('type', 'applicant');
+        return User::query()->with(["profileApplicant", "profileApplicant.city", "profileApplicant.province", "vidio"])->where('type', 'applicant');
     }
 
     /**
