@@ -7,6 +7,7 @@ use App\Models\JobMaster;
 use App\Models\JobSkills;
 use App\Models\JobQualificationRequrements;
 use App\Models\JobUsersApply;
+use App\Models\User;
 use App\Repositories\Jobs\JobMasterRepository;
 use Exception;
 use Illuminate\Support\Facades\Auth;
