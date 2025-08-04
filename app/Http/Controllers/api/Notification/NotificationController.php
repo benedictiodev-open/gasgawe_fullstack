@@ -91,7 +91,6 @@ class NotificationController extends Controller
 
             return $this->successResponse($notification, 'Notification retrieved successfully');
         } catch (\Throwable $th) {
-            throw $th;
             return $this->errorResponse('Service Unavailable');
         }
     }
