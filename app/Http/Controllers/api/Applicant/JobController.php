@@ -494,7 +494,9 @@ class JobController extends Controller
                     $query->where('company_name', 'like', '%' . $request->search . '%');
                 })
                 ->orWhereHas('skills', function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%');
+                    $query->whereHas('skill', function($query_skill) use ($request) {
+                        $query_skill->where('name', 'like', '%' . $request->search . '%');
+                    });
                 })
                 ->get();
             
