@@ -42,6 +42,7 @@ class VideoController extends Controller
      *     path="/video",
      *     summary="Upload a video file",
      *     tags={"Video"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(

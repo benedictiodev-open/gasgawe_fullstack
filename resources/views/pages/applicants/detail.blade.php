@@ -13,15 +13,14 @@
           <div class="flex flex-row items-center gap-5">
             <div class="avatar">
               <div class="rounded-md h-16 w-16">
-                {{-- @dd($applicant) --}}
                 @if ($applicant->profileApplicant?->file_profile_image)
-                    <img src="{{ asset('storage/' . $applicant->profileApplicant->file_profile_image) }}"
-                      alt="Profile Image" />
-                  @else
-                    <div class=" h-16 w-16 bg-info flex justify-center items-center text-white text-3xl font-bold">
-                      {{ strtoupper(substr($applicant->profileApplicant?->first_name ?? $applicant->email, 0, 1)) }}
-                    </div>
-                  @endif
+                  <img src="{{ asset('storage/' . $applicant->profileApplicant->file_profile_image) }}"
+                    alt="Profile Image" />
+                @else
+                  <div class=" h-16 w-16 bg-info flex justify-center items-center text-white text-3xl font-bold">
+                    {{ strtoupper(substr($applicant->profileApplicant?->first_name ?? $applicant->email, 0, 1)) }}
+                  </div>
+                @endif
               </div>
             </div>
 
@@ -32,7 +31,9 @@
           </div>
 
           <div>
-            <div class="badge {{ $applicant->profileApplicant?->is_active ? 'badge-success' : 'badge-error' }} rounded-md p-3 text-white font-normal">{{ $applicant->profileApplicant?->is_active ? 'Active' : 'Inactive' }}</div>
+            <div
+              class="badge {{ $applicant->profileApplicant?->is_active ? 'badge-success' : 'badge-error' }} rounded-md p-3 text-white font-normal">
+              {{ $applicant->profileApplicant?->is_active ? 'Active' : 'Inactive' }}</div>
           </div>
         </div>
       </div>
@@ -57,7 +58,8 @@
             <table class="border-spacing-y-3 border-separate">
               <tr>
                 <td>Full Name</td>
-                <th class="text-left pl-5">{{ $applicant->profileApplicant?->getFullNameAttribute() ?? $applicant->email }}</th>
+                <th class="text-left pl-5">
+                  {{ $applicant->profileApplicant?->getFullNameAttribute() ?? $applicant->email }}</th>
               </tr>
               <tr>
                 <td>Location</td>
@@ -69,8 +71,10 @@
               </tr>
               <tr>
                 <td>Verification Status</td>
-                <th class="text-left pl-5 {{ $applicant->profileApplicant?->is_verified ? 'text-success' : 'text-error' }}">
-                  <i class="fa-solid {{ $applicant->profileApplicant?->is_verified ? 'fa-circle-check' : 'fa-circle-xmark' }} mr-0.5"></i>
+                <th
+                  class="text-left pl-5 {{ $applicant->profileApplicant?->is_verified ? 'text-success' : 'text-error' }}">
+                  <i
+                    class="fa-solid {{ $applicant->profileApplicant?->is_verified ? 'fa-circle-check' : 'fa-circle-xmark' }} mr-0.5"></i>
                   {{ $applicant->profileApplicant?->is_verified ? 'Verified' : 'Not Verified' }}
                 </th>
               </tr>
@@ -162,9 +166,11 @@
 
     <div class="col-span-3">
       {{-- VIDEO --}}
-      <div class="card bg-black text-neutral-content w-full h-2/3">
-        <div class="card-body items-center justify-center">
-          <i class="fa-solid fa-play text-lg text-base-100"></i>
+      <div class="card text-neutral-content w-full h-2/3">
+        <div class="card-body items-center w-full p-0">
+          <video controls poster="{{ asset('storage/' . $applicant->vidio->thumbnail_path) }}" class="w-full">
+            <source src="{{ asset('storage/' . $applicant->vidio->path) }}" type="video/mp4" />
+          </video>
         </div>
       </div>
       {{-- END VIDEO --}}
