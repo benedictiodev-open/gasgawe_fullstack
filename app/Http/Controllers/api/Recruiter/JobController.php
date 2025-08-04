@@ -576,15 +576,12 @@ class JobController extends Controller
      *     summary="Get applicant detail by id",
      *     description="Get applicant detail by id.",
      *     security={{"bearerAuth":{}}},
-     *     @OA\RequestBody(
+     *     @OA\Parameter(
+     *         name="applicant_id",
+     *         in="query",
      *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 required={"applicant_id"},
-     *                 @OA\Property(property="applicant_id", type="integer", example=1),
-     *             ),
-     *         ),
+     *         description="Applicant ID",
+     *         @OA\Schema(type="integer", example=5)
      *     ),
      *     @OA\Response(
      *         response=200,

@@ -5347,25 +5347,18 @@
                 "summary": "Get applicant detail by id",
                 "description": "Get applicant detail by id.",
                 "operationId": "6d7a64fb5f40d926d2a309d273719b0d",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "applicant_id"
-                                ],
-                                "properties": {
-                                    "applicant_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "parameters": [
+                    {
+                        "name": "applicant_id",
+                        "in": "query",
+                        "description": "Applicant ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Applicant detail retrieved successfully",
