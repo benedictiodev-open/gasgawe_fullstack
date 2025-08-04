@@ -28,12 +28,12 @@ class NotificationController extends Controller
      *         name="status",
      *         in="query",
      *         required=false,
-     *         description="Filter jobs by status. Allowed: Accepted,Rejected,On Riview,Notice,Applied",
+     *         description="Filter jobs by status. Allowed: Reject,Accept,Notice,Review",
      *         @OA\Schema(
      *             type="string",
      *             nullable=true,
-     *             enum={"Accepted", "Rejected", "On Riview", "Notice", "Applied"},
-     *             example="Accepted"
+     *             enum={"Reject", "Accept", "Review", "Notice"},
+     *             example="Review"
      *         )
      *     ),
      * @OA\Response(

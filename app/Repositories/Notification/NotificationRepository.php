@@ -23,7 +23,7 @@ class NotificationRepository
       ->where('notifications.user_id', $user->id);
 
     if (array_key_exists('status', $data)) {
-      $query->where('job_users_apply.status', $data['status']);
+      $query->where('status', $data['status']);
     }
 
     return $query->get()->toArray();
