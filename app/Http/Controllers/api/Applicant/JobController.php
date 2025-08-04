@@ -463,7 +463,6 @@ class JobController extends Controller
      *     @OA\Parameter(
      *         name="search",
      *         in="query",
-     *         required=true,
      *         description="Search for jobs by position, company name, or skill"
      *     ),
      *     @OA\Response(
@@ -492,7 +491,7 @@ class JobController extends Controller
             $jobs = JobMaster::with('user', 'user.profileCompany', 'skills', 'province', 'city', 'employmentType', 'experience', 'education', 'expectedSalary')
                 ->where('position', 'like', '%' . $request->search . '%')
                 ->orWhereHas('user.profileCompany', function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%');
+                    $query->where('company_name', 'like', '%' . $request->search . '%');
                 })
                 ->orWhereHas('skills', function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%');

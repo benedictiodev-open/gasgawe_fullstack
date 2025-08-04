@@ -1758,8 +1758,7 @@
                     {
                         "name": "search",
                         "in": "query",
-                        "description": "Search for jobs by position, company name, or skill",
-                        "required": true
+                        "description": "Search for jobs by position, company name, or skill"
                     }
                 ],
                 "responses": {
