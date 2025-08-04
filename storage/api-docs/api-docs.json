@@ -3958,18 +3958,17 @@
                     {
                         "name": "status",
                         "in": "query",
-                        "description": "Filter jobs by status. Allowed: Accepted,Rejected,On Riview,Notice,Applied",
+                        "description": "Filter jobs by status. Allowed: Reject,Accept,Notice,Review",
                         "required": false,
                         "schema": {
                             "type": "string",
                             "enum": [
-                                "Accepted",
-                                "Rejected",
-                                "On Riview",
-                                "Notice",
-                                "Applied"
+                                "Reject",
+                                "Accept",
+                                "Review",
+                                "Notice"
                             ],
-                            "example": "Accepted",
+                            "example": "Review",
                             "nullable": true
                         }
                     }
@@ -5191,25 +5190,18 @@
                 "summary": "Get applicant by job id",
                 "description": "Get applicant by job id.",
                 "operationId": "e03b1187c55d648a591e78cae6d4bb7e",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "job_id"
-                                ],
-                                "properties": {
-                                    "job_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "query",
+                        "description": "Job ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Applicants retrieved successfully",
