@@ -4183,6 +4183,717 @@
                 ]
             }
         },
+        "/recruiter/activity/bookmark-video": {
+            "post": {
+                "tags": [
+                    "Recruiter Activity"
+                ],
+                "summary": "Bookmark or unbookmark a video",
+                "description": "Authenticated applicant bookmarks or unbookmarks a video by video_id. If already bookmarked, it will unbookmark.",
+                "operationId": "ae0e968b341ebd43e526e1e4215693e9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "video_id"
+                                ],
+                                "properties": {
+                                    "video_id": {
+                                        "description": "The ID of the video to bookmark or unbookmark.",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video bookmarked or unbookmarked successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Video bookmarked successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "video_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Video not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Video not found"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to bookmark video",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to bookmark video: ..."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/activity/bookmark-applicant": {
+            "post": {
+                "tags": [
+                    "Recruiter Activity"
+                ],
+                "summary": "Bookmark or unbookmark a applicant",
+                "description": "Authenticated recruiter bookmarks or unbookmarks a applicant by applicant_id. If already bookmarked, it will unbookmark.",
+                "operationId": "528cafdba473892241663c95a3dacb2e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "applicant_id"
+                                ],
+                                "properties": {
+                                    "applicant_id": {
+                                        "description": "The ID of the applicant to bookmark or unbookmark.",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Applicant bookmarked or unbookmarked successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Applicant bookmarked successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "bookmarked_user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Applicant not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Applicant not found"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to bookmark applicant",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to bookmark applicant: ..."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/activity/saved/video": {
+            "get": {
+                "tags": [
+                    "Recruiter Activity"
+                ],
+                "summary": "Get all bookmarked videos",
+                "description": "Get all videos that have been bookmarked by the authenticated applicant.",
+                "operationId": "153407c60574193b9cd637c31d1e61bf",
+                "responses": {
+                    "200": {
+                        "description": "Bookmarked videos retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bookmark video fetched successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "position": {
+                                                        "type": "string",
+                                                        "example": "Software Engineer"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "We are looking for a skilled software engineer..."
+                                                    },
+                                                    "qualification": {
+                                                        "type": "string",
+                                                        "example": "Bachelor's degree in Computer Science..."
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "videos/123_image.jpg"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "active"
+                                                    },
+                                                    "apply_count": {
+                                                        "type": "integer",
+                                                        "example": 15
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "employment_type": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Full-time"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "experience": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 2
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "2-5 years"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "education": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Bachelor's Degree"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "expected_salary": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 3
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "5-10 million"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "province": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 31
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "DKI Jakarta"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "city": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 3171
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Jakarta Selatan"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "user": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Tech Company Inc"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "hr@techcompany.com"
+                                                            },
+                                                            "profile_company": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1
+                                                                    },
+                                                                    "company_name": {
+                                                                        "type": "string",
+                                                                        "example": "Tech Company Inc"
+                                                                    },
+                                                                    "company_description": {
+                                                                        "type": "string",
+                                                                        "example": "Leading technology company..."
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to get bookmarked videos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to get bookmark video: ..."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/recruiter/activity/saved/applicant": {
+            "get": {
+                "tags": [
+                    "Recruiter Activity"
+                ],
+                "summary": "Get all bookmarked applicants",
+                "description": "Get all applicants that have been bookmarked by the authenticated applicant.",
+                "operationId": "98495e90d5e3d77e1e0a4963b75673b1",
+                "responses": {
+                    "200": {
+                        "description": "Bookmarked applicants retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bookmark applicant fetched successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Tech Applicant Inc"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "hr@techapplicant.com"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "recruiter"
+                                                    },
+                                                    "exp": {
+                                                        "type": "integer",
+                                                        "example": 1500
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "profile_applicant": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "user_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "applicant_name": {
+                                                                "type": "string",
+                                                                "example": "Tech Applicant Inc"
+                                                            },
+                                                            "applicant_description": {
+                                                                "type": "string",
+                                                                "example": "Leading technology applicant specializing in software development..."
+                                                            },
+                                                            "applicant_website": {
+                                                                "type": "string",
+                                                                "example": "https://techapplicant.com"
+                                                            },
+                                                            "applicant_size": {
+                                                                "type": "string",
+                                                                "example": "50-100 employees"
+                                                            },
+                                                            "industry": {
+                                                                "type": "string",
+                                                                "example": "Technology"
+                                                            },
+                                                            "province_id": {
+                                                                "type": "string",
+                                                                "example": "31"
+                                                            },
+                                                            "city_id": {
+                                                                "type": "string",
+                                                                "example": "3171"
+                                                            },
+                                                            "applicant_logo": {
+                                                                "type": "string",
+                                                                "example": "applicant_logos/logo_1.jpg"
+                                                            },
+                                                            "is_active": {
+                                                                "type": "boolean",
+                                                                "example": true
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to get bookmarked applicants",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to get bookmark applicant: ..."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/recruiter/explor": {
             "get": {
                 "tags": [
@@ -6239,6 +6950,123 @@
                 ]
             }
         },
+        "/video/save-with-custom-thumbnail": {
+            "post": {
+                "tags": [
+                    "Video"
+                ],
+                "summary": "Upload a video file with custom thumbnail",
+                "operationId": "109fd5a62f01184439982642619c0f24",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file",
+                                    "thumbnail_file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "Video file (mp4, mov, avi), max 100MB",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "thumbnail_file": {
+                                        "description": "Thumbnail image file (JPG, PNG), max 2MB",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video uploaded successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Upload successful"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/storage/files/video/abc123.mp4"
+                                                },
+                                                "thumbnail_path": {
+                                                    "type": "string",
+                                                    "example": "/storage/files/thumbnails/abc123.jpg"
+                                                },
+                                                "duration": {
+                                                    "description": "Duration of the video in seconds",
+                                                    "type": "integer",
+                                                    "example": 1255
+                                                },
+                                                "size": {
+                                                    "description": "File size in bytes",
+                                                    "type": "integer",
+                                                    "example": 10485760
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "file": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The file field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -6744,12 +7572,12 @@
             "description": "Notification"
         },
         {
-            "name": "Reqruiter Explor",
-            "description": "Reqruiter Explor"
-        },
-        {
             "name": "Recruiter Activity",
             "description": "Recruiter Activity"
+        },
+        {
+            "name": "Reqruiter Explor",
+            "description": "Reqruiter Explor"
         },
         {
             "name": "Recruiter Jobs",

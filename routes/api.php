@@ -16,6 +16,7 @@ use App\Http\Controllers\api\Applicant\ExplorController as ApplicantExplorContro
 use App\Http\Controllers\api\Masterdata\BadgeController;
 use App\Http\Controllers\api\Masterdata\IndustryTypeController;
 use App\Http\Controllers\api\Notification\NotificationController;
+use App\Http\Controllers\api\Recruiter\ActivityController as RecruiterActivityController;
 use App\Http\Controllers\api\Recruiter\ExplorController;
 use App\Http\Controllers\api\Recruiter\ProfileController as RecruiterProfileController;
 use App\Http\Controllers\api\Video\VideoController;
@@ -47,6 +48,15 @@ Route::middleware(AuthApiChecker::class)->group(function () {
             Route::get('/search', [RecruiterJobController::class, 'search_applicant']);
             Route::get('/top_applicant', [RecruiterJobController::class, 'top_applicant']);
             Route::get('/job_applier', [RecruiterJobController::class, 'job_applier']);
+        });
+
+        Route::prefix('/activity')->group(function () {
+            Route::post('/bookmark-video', [RecruiterActivityController::class, 'bookmarkVideo']);
+            Route::post('/bookmark-applicant', [RecruiterActivityController::class, 'bookmarkApplicant']);
+            Route::prefix('/saved')->group(function () {
+                Route::get('/video', [RecruiterActivityController::class, 'getBookmarkVideo']);
+                Route::get('/applicant', [RecruiterActivityController::class, 'getBookmarkApplicant']);
+            });
         });
 
         Route::prefix('/explor')->group(function () {
@@ -128,5 +138,6 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('/video')->group(function () {
         Route::post('/', [VideoController::class, 'store']);
+        Route::post('/save-with-custom-thumbnail', [VideoController::class, 'storeWithCustomThumbnail']);
     });
 });

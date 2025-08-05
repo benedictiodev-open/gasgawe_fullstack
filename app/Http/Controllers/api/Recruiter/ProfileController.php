@@ -133,6 +133,10 @@ class ProfileController extends Controller
 
             $profile = $this->profileService->updateProfile($user, $validated);
 
+            if (!$profile) {
+                return $this->errorResponse('Service Unavailable', 503);
+            }
+
             return $this->successResponse($profile, 'Profile updated successfully');
         } catch (\Throwable $th) {
             return $this->errorResponse('Service Unavailable', 503);

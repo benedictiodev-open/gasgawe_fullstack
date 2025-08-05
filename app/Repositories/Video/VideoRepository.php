@@ -17,6 +17,9 @@ class VideoRepository
   }
 
   /**
+   * @SuppressWarnings(PHPMD.StaticAccess)
+   * @SuppressWarnings(PHPMD.ElseExpression)
+   * 
    * @param User $user
    * @param Video|null $video
    * @param array $data
