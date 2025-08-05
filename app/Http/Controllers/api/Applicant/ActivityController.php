@@ -501,7 +501,6 @@ class ActivityController extends Controller
 
             return $this->successResponse($jobs, 'Jobs applied activity retrieved successfully');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return $this->errorResponse('Service Unavailable');
         }
     }
