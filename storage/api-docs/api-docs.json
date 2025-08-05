@@ -6239,6 +6239,123 @@
                 ]
             }
         },
+        "/video/save-with-custom-thumbnail": {
+            "post": {
+                "tags": [
+                    "Video"
+                ],
+                "summary": "Upload a video file with custom thumbnail",
+                "operationId": "109fd5a62f01184439982642619c0f24",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file",
+                                    "thumbnail_file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "Video file (mp4, mov, avi), max 100MB",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "thumbnail_file": {
+                                        "description": "Thumbnail image file (JPG, PNG), max 2MB",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video uploaded successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Upload successful"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/storage/files/video/abc123.mp4"
+                                                },
+                                                "thumbnail_path": {
+                                                    "type": "string",
+                                                    "example": "/storage/files/thumbnails/abc123.jpg"
+                                                },
+                                                "duration": {
+                                                    "description": "Duration of the video in seconds",
+                                                    "type": "integer",
+                                                    "example": 1255
+                                                },
+                                                "size": {
+                                                    "description": "File size in bytes",
+                                                    "type": "integer",
+                                                    "example": 10485760
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "file": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The file field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [

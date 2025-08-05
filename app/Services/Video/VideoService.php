@@ -20,6 +20,8 @@ class VideoService
     }
 
     /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     * 
      * Save video
      *
      * @param User $user
@@ -61,6 +63,56 @@ class VideoService
     }
 
     /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * 
+     * Save video with custom thumbnail
+     *
+     * @param User $user
+     * @param array $data
+     * @return Video|null
+     */
+    public function storeWithCustomThumbnail(User $user, array $data)
+    {
+        try {
+            DB::beginTransaction();
+
+            $video = $this->videoRepository->findByUserId($user);
+
+            // Handle file upload for video
+            if (isset($data['file']) && $data['file'] instanceof \Illuminate\Http\UploadedFile) {
+                // Delete old video file if exists
+                if ($video && $video->file) {
+                    $this->deleteFile($video->file);
+                }
+                $data['path'] = $this->handleFileUpload($data['file'], 'video', $user->id, $user->type);
+            }
+
+            // Handle file upload for thumbnail
+            if (isset($data['thumbnail_file']) && $data['thumbnail_file'] instanceof \Illuminate\Http\UploadedFile) {
+                // Delete old thumbnail file if exists
+                if ($video && $video->thumbnail_file) {
+                    $this->deleteFile($video->thumbnail_file);
+                }
+                $data['thumbnail_path'] = $this->handleFileUpload($data['thumbnail_file'], 'thumbnail', $user->id, $user->type);
+            }
+
+            $data['size'] = Storage::disk('public')->size($data['path']);
+            $data['duration'] = 0;
+
+            $video = $this->videoRepository->store($user, $video, [...$data]);
+
+            DB::commit();
+
+            return $video;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error($th->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Handle file upload
      *
      * @param \Illuminate\Http\UploadedFile $file
@@ -77,6 +129,8 @@ class VideoService
     }
 
     /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     * 
      * Delete file from storage
      *
      * @param string $filePath

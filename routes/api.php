@@ -128,5 +128,6 @@ Route::middleware(AuthApiChecker::class)->group(function () {
 
     Route::prefix('/video')->group(function () {
         Route::post('/', [VideoController::class, 'store']);
+        Route::post('/save-with-custom-thumbnail', [VideoController::class, 'storeWithCustomThumbnail']);
     });
 });
