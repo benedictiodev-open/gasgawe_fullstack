@@ -648,11 +648,11 @@ class JobController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
-     *             mediaType="application/json",
+     *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *                 required={"applicant_id", "status"},
      *                 @OA\Property(property="applicant_id", type="integer", example=1),
-     *                 @OA\Property(property="status", type="string", example="Accepted"),
+     *                 @OA\Property(property="status", type="string", enum={"Accepted", "Rejected", "On Riview", "Notice", "Applied"}, example="Accepted"),
      *             ),
      *         ),
      *     ),
@@ -730,11 +730,11 @@ class JobController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
-     *             mediaType="application/json",
+     *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *                 required={"job_id", "status"},
      *                 @OA\Property(property="job_id", type="integer", example=1),
-     *                 @OA\Property(property="status", type="string", example="inactive"),
+     *                 @OA\Property(property="status", type="string", enum={"inactive", "active"}, example="inactive"),
      *             ),
      *         ),
      *     ),

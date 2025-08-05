@@ -6284,7 +6284,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "applicant_id",
@@ -6297,6 +6297,13 @@
                                     },
                                     "status": {
                                         "type": "string",
+                                        "enum": [
+                                            "Accepted",
+                                            "Rejected",
+                                            "On Riview",
+                                            "Notice",
+                                            "Applied"
+                                        ],
                                         "example": "Accepted"
                                     }
                                 },
@@ -6444,7 +6451,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "job_id",
@@ -6457,6 +6464,10 @@
                                     },
                                     "status": {
                                         "type": "string",
+                                        "enum": [
+                                            "inactive",
+                                            "active"
+                                        ],
                                         "example": "inactive"
                                     }
                                 },
