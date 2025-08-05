@@ -55,7 +55,6 @@ class VideoService
             return $video;
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
             Log::error($th->getMessage());
             return null;
         }
