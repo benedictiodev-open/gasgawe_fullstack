@@ -668,6 +668,39 @@
                                                             }
                                                         },
                                                         "type": "object"
+                                                    },
+                                                    "vidio": {
+                                                        "properties": {
+                                                            "user_id": {
+                                                                "type": "string",
+                                                                "example": "8"
+                                                            },
+                                                            "path": {
+                                                                "type": "string",
+                                                                "example": "recruiter_files/video/video_8_1754435332.mp4"
+                                                            },
+                                                            "thumbnail_path": {
+                                                                "type": "string",
+                                                                "example": "recruiter_files/thumbnail/thumbnail_8_1754435332.jpeg"
+                                                            },
+                                                            "duration": {
+                                                                "type": "string",
+                                                                "example": "0"
+                                                            },
+                                                            "size": {
+                                                                "type": "string",
+                                                                "example": "1910498"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            }
+                                                        },
+                                                        "type": "object"
                                                     }
                                                 },
                                                 "type": "object"
@@ -1204,6 +1237,39 @@
                                                     "updated_at": {
                                                         "type": "string",
                                                         "format": "date-time"
+                                                    },
+                                                    "vidio": {
+                                                        "properties": {
+                                                            "user_id": {
+                                                                "type": "string",
+                                                                "example": "8"
+                                                            },
+                                                            "path": {
+                                                                "type": "string",
+                                                                "example": "recruiter_files/video/video_8_1754435332.mp4"
+                                                            },
+                                                            "thumbnail_path": {
+                                                                "type": "string",
+                                                                "example": "recruiter_files/thumbnail/thumbnail_8_1754435332.jpeg"
+                                                            },
+                                                            "duration": {
+                                                                "type": "string",
+                                                                "example": "0"
+                                                            },
+                                                            "size": {
+                                                                "type": "string",
+                                                                "example": "1910498"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            }
+                                                        },
+                                                        "type": "object"
                                                     }
                                                 },
                                                 "type": "object"

@@ -371,6 +371,15 @@ class ActivityController extends Controller
      *                         @OA\Property(property="is_active", type="boolean", example=true),
      *                         @OA\Property(property="created_at", type="string", format="date-time"),
      *                         @OA\Property(property="updated_at", type="string", format="date-time")
+     *                     ),
+     *                   @OA\Property(property="vidio", type="object",
+     *                         @OA\Property(property="user_id", type="string", example="8"),
+     *                         @OA\Property(property="path", type="string", example="recruiter_files/video/video_8_1754435332.mp4"),
+     *                         @OA\Property(property="thumbnail_path", type="string", example="recruiter_files/thumbnail/thumbnail_8_1754435332.jpeg"),
+     *                         @OA\Property(property="duration", type="string", example="0"),
+     *                         @OA\Property(property="size", type="string", example="1910498"),
+     *                         @OA\Property(property="created_at", type="string", format="date-time"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time")
      *                     )
      *                 )
      *             )

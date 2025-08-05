@@ -100,7 +100,16 @@ class JobController extends Controller
      *                         @OA\Items(type="string", example="Fulltime")
      *                     ),
      *                     @OA\Property(property="created_at", type="string", format="date-time"),
-     *                     @OA\Property(property="updated_at", type="string", format="date-time")
+     *                     @OA\Property(property="updated_at", type="string", format="date-time"),
+     *                   @OA\Property(property="vidio", type="object",
+     *                         @OA\Property(property="user_id", type="string", example="8"),
+     *                         @OA\Property(property="path", type="string", example="recruiter_files/video/video_8_1754435332.mp4"),
+     *                         @OA\Property(property="thumbnail_path", type="string", example="recruiter_files/thumbnail/thumbnail_8_1754435332.jpeg"),
+     *                         @OA\Property(property="duration", type="string", example="0"),
+     *                         @OA\Property(property="size", type="string", example="1910498"),
+     *                         @OA\Property(property="created_at", type="string", format="date-time"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time")
+     *                     )
      *                 )
      *             )
      *         )
@@ -127,7 +136,8 @@ class JobController extends Controller
     {
         try {
             // Get recruiters ordered by exp desc
-            $recruiters = DB::table('users')
+            $recruiters = User::query()
+                ->with('vidio')
                 ->select([
                     'users.id',
                     'user_profile_companies.company_name',
@@ -149,6 +159,28 @@ class JobController extends Controller
                 ->orderByDesc('users.exp')
                 ->limit(10)
                 ->get();
+            // $recruiters = DB::table('users')
+            //     ->select([
+            //         'users.id',
+            //         'user_profile_companies.company_name',
+            //         'indonesia_provinces.name as province_name',
+            //         'indonesia_cities.name as city_name',
+            //         'users.exp',
+            //         DB::raw('COUNT(DISTINCT job_masters.id) as total_jobs'),
+            //         DB::raw('GROUP_CONCAT(DISTINCT employment_types.name) as job_types')
+            //     ])
+            //     ->leftJoin('user_profile_companies', 'users.id', '=', 'user_profile_companies.user_id')
+            //     ->leftJoin('job_masters', 'users.id', '=', 'job_masters.created_by')
+            //     ->leftJoin('employment_types', 'job_masters.employment_type_id', '=', 'employment_types.id')
+            //     ->leftJoin('indonesia_provinces', 'user_profile_companies.province_id', '=', 'indonesia_provinces.id')
+            //     ->leftJoin('indonesia_cities', 'user_profile_companies.city_id', '=', 'indonesia_cities.id')
+            //     ->where('users.type', 'recruiter')
+            //     ->where('job_masters.status', 'active')
+            //     ->having('total_jobs', '>', 0)
+            //     ->groupBy('users.id', 'user_profile_companies.company_name', 'indonesia_provinces.name', 'indonesia_cities.name', 'users.exp')
+            //     ->orderByDesc('users.exp')
+            //     ->limit(10)
+            //     ->get();
 
             // Process the results to convert job_types string to array
             $recruiters = $recruiters->map(function ($recruiter) {
