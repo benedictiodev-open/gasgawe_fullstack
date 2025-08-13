@@ -650,8 +650,8 @@ class JobController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *                 required={"applicant_id", "status"},
-     *                 @OA\Property(property="applicant_id", type="integer", example=1),
+     *                 required={"applied_id", "status"},
+     *                 @OA\Property(property="applied_id", type="integer", example=1),
      *                 @OA\Property(property="status", type="string", enum={"Accepted", "Rejected", "On Riview", "Notice", "Applied"}, example="Accepted"),
      *             ),
      *         ),
@@ -704,7 +704,7 @@ class JobController extends Controller
     {
         try {
             $validated = Validator::make($request->all(), [
-                'applicant_id' => 'required|exists:job_users_apply,id',
+                'applied_id' => 'required|exists:job_users_apply,id',
                 'status' => 'required|in:Accepted,Rejected,On Review,Notice',
             ]);
 
@@ -712,7 +712,7 @@ class JobController extends Controller
                 return $this->errorResponse("Validation Failed", 422, $validated->errors());
             } else {
                 $user_id = Auth::guard('sanctum')->user()->id;
-                $applicant = $this->jobService->update_applicant_apply_status($request->applicant_id, $request->status, $user_id);
+                $applicant = $this->jobService->update_applicant_apply_status($request->applied_id, $request->status, $user_id);
                 return $this->successResponse($applicant);
             }
         } catch (Exception $error) {

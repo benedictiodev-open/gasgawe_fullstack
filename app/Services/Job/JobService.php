@@ -7,6 +7,7 @@ use App\Models\JobMaster;
 use App\Models\JobSkills;
 use App\Models\JobQualificationRequrements;
 use App\Models\JobUsersApply;
+use App\Models\Notification;
 use App\Models\User;
 use App\Repositories\Jobs\JobMasterRepository;
 use Exception;
@@ -132,9 +133,42 @@ class JobService
         return User::with('profileApplicant', 'profileApplicant.province', 'profileApplicant.city')->find($applicant_id);
     }
 
-    public function update_applicant_apply_status($applicant_id, $status, $user_id)
+    public function update_applicant_apply_status($applied_id, $status, $user_id)
     {
-        return JobUsersApply::where('id', $applicant_id)->where('user_id', $user_id)->update(['status' => $status]);
+        try {
+            DB::transaction(function() use($applied_id, $status, $user_id) {
+                $apply = JobUsersApply::where('id', $applied_id)->first();
+                $updated = $apply->update(['status' => $status]);
+
+                $message = '';
+                if ($status == 'Accepted') {
+                    $status = 'Accept';
+                    $message = 'Menerima lamaran anda';
+                } else if ($status == 'Rejected') {
+                    $status = 'Reject';
+                    $message = 'Menolak lamaran anda';
+                } else if ($status == 'On Riview') {
+                    $status = 'Riview';
+                    $message = 'Meninjau lamaran anda';
+                } else if ($status == 'Notice') {
+                    $status = 'Notice';
+                    $message = 'Membuka lamaran anda';
+                }
+
+                Notification::create([
+                    'user_id' => $apply->user_id,
+                    'title' => auth('sanctum')->user()->profileCompany->company_name,
+                    'description' => $message,
+                    'is_read' => false,
+                    'job_users_apply_id' => $applied_id,
+                    'status' => $status,
+                ]);
+
+                return $apply;
+            });
+        } catch (Exception $error) {
+            throw $error;
+        }
     }
 
     /**

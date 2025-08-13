@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Skill;
 use App\Models\Province;
 use App\Models\City;
+use App\Models\Notification;
 use App\Services\Job\JobService;
 
 class JobController extends Controller
@@ -613,13 +614,24 @@ class JobController extends Controller
                 ], 400);
             }
 
-            $job->apply()->create([
-                'job_id' => $jobId,
-                'user_id' => $userId,
-                'status' => 'Applied',
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
+            DB::transaction(function() use($job, $jobId, $userId) {
+                $apply_create = $job->apply()->create([
+                    'job_id' => $jobId,
+                    'user_id' => $userId,
+                    'status' => 'Applied',
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+
+                Notification::create([
+                    'user_id' => $job->created_by,
+                    'title' => auth('sanctum')->user()->profileApplicant->getFullNameAttribute(),
+                    'description' => 'Melamar pada lowongan pekerjaan anda',
+                    'is_read' => false,
+                    'job_users_apply_id' => $apply_create->id,
+                    'status' => null,
+                ]);
+            });
 
             return response()->json([
                 'status' => 'success',

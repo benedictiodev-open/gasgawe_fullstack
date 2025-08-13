@@ -6287,11 +6287,11 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "applicant_id",
+                                    "applied_id",
                                     "status"
                                 ],
                                 "properties": {
-                                    "applicant_id": {
+                                    "applied_id": {
                                         "type": "integer",
                                         "example": 1
                                     },
