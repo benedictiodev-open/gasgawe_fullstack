@@ -80,12 +80,12 @@ Visit [http://localhost:8000/api/documentation](http://localhost:8000/api/docume
 
 ### Configure Firebase Authentication
 
-### 1. Download your Firebase service account credentials from the [Firebase Console](https://console.firebase.google.com/) and save it as `credentials.json` in the project root.
+### 1. Download your Firebase service account credentials from the [Firebase Console](https://console.firebase.google.com/) and save it as `firebase_credentials.json` in the project root.
 
-### 2. Move file `credentials.json` to folder storage
+### 2. Move file `firebase_credentials.json` to folder storage
 
 ```sh
-PROJECT/storage/credentials.json
+PROJECT/storage/firebase_credentials.json
 ```
 
 ### 3. The project will use this file for Firebase authentication features.
